@@ -30,7 +30,7 @@ table {
 
 #main-table {
 
-    width: 850px
+    width: 1000px
 
 }
 
@@ -57,6 +57,32 @@ table {
     padding: 20px;
 
     width: 100%;
+
+}
+
+.td-with-padding2 {
+
+    padding: 20px;
+
+    width: 20%;
+
+}
+
+.publication_left{
+    
+  
+    padding: 20px;
+
+    width: 30%;
+  
+}
+
+.publication_right{
+    
+  
+    padding: 20px;
+
+    width: 60%;
 
 }
 
@@ -137,6 +163,7 @@ a:hover {
     text-decoration: none;
 
 } 
+
 
 
 
