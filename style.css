@@ -60,6 +60,18 @@ table {
 
 }
 
+
+.td-with-padding-image {
+
+    padding: 20px;
+
+    width: 50%;
+
+    float: left;
+
+}
+
+
 .td-with-padding2 {
 
     padding: 20px;
