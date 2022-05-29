@@ -240,7 +240,11 @@ a:hover {
 
 .c-images {
     width: 100%;
+<<<<<<< HEAD
     height: 85%;
+=======
+    height: 75%;
+>>>>>>> 7911f6d99a097f709ea49fa2b0c12ec36e8bcb14
 }
 
 .c-title {
