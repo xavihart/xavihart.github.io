@@ -238,6 +238,11 @@ a:hover {
     margin: 30px;
 }
 
+.topics{
+    color:cadetblue;
+    font-weight: 600;
+}
+
 .c-images {
     width: 100%;
     height: 75%;
