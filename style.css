@@ -249,15 +249,16 @@ a:hover {
 }
 
 .c-title {
-    color: rgb(229, 236, 236);
+    color: rgb(1, 12, 12);
     width: 100%;
     text-indent: 16px;
-    font-size: 5px;
+    font-size: 7px;
+    font-weight: 800;
     height: 30px;
     line-height: 30px;
     position: absolute;
     bottom: 0;
-    background-color: rgba(0, 0, 155, 0.5);/*透明效果*/
+    background-color: rgba(204, 172, 28, 0.5);/*透明效果*/
 }
 
 /* ---------Style for heading-------------------- */
