@@ -42,6 +42,7 @@ body {
 /* Inherit from table and set its width */
 
 #main-table {
+    
 
     width: 1040px;
     filter: alpha(opacity=0.97);
@@ -72,6 +73,9 @@ body {
 
 }
 
+.news {
+    color:crimson   
+}
 
 
 /* ---------Style for td-------------------- */
@@ -219,7 +223,8 @@ a:hover {
 
 #Weiqi-image {
 
-    width: 200px;
+    /* border-style: dashed; */
+    /* width: 200px; */
 
 
 }
