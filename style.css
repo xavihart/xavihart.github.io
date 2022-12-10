@@ -29,15 +29,18 @@ body {
     margin:0px;
     background: rgb(45,60,73); /* Old browsers */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2d3c49', endColorstr='#356aa0',GradientType=0 ); /* IE6-9 */
-    background-color: #767676;
-    background-repeat: no-repeat;
+    background-color: white;
+    background-repeat: repeat;
     font-family: 'MyriadProLight', arial,sans-serif;
     font-size: 15pt;
+    opacity: 0.95;
     font-weight: normal;
     color: #333;
     overflow-x: auto;
     overflow-y: scroll;	
-    -webkit-text-size-adjust: 100%;    
+    -webkit-text-size-adjust: 100%;  
+    background-image: url(image/Tech\ Tower.jpeg);
+    background-size: cover;
 }
 
 /* Inherit from table and set its width */
@@ -75,7 +78,8 @@ body {
 }
 
 .news {
-    color:green
+    color:brown;
+    font-family:Arial;
 }
 
 
