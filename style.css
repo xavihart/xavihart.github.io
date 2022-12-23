@@ -39,7 +39,7 @@ body {
     overflow-x: auto;
     overflow-y: scroll;	
     -webkit-text-size-adjust: 100%;  
-    background-image: url(image/Tech\ Tower.jpeg);
+    background-image: url(image/tower.jpeg);
     background-size: cover;
 }
 
@@ -262,7 +262,7 @@ a:hover {
     color: rgb(1, 12, 12);
     width: 100%;
     text-indent: 16px;
-    font-size: 7px;
+    font-size: 10px;
     font-weight: 800;
     height: 30px;
     line-height: 30px;
