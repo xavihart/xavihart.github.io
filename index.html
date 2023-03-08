@@ -1,426 +1,609 @@
 <!DOCTYPE html>
-<!--
-    by xht following Weiqi Feng 's module
--->
-<html>
-
+<html lang="en">
 <head>
+    <title>Haotian Xue</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Haotian Xue (薛昊天)</title>
-    
-    <link rel="stylesheet" href="style.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Haotian Xue is a PhD student at Georgia Tech.">
+    <meta name="keywords" content="Haotian Xue,Machine Learning,Computer Vision,Natural Language Processing,Robotics">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="static/img/GTVertical_RGB.png">
+
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style type="text/css">
+body{margin:0;padding:0;}
+a{color:#4e613e}
+a:hover{color:#566c7f}
+#background{position:fixed;top:0;overflow:hidden;height:0}
+#wave-canvas{display:block;position:relative;top:0;left:5%;width:55%;min-width:850px;height:150px;border:0}
+/*#main{z-index:2;margin:0 auto;position:absolute;padding-top:5%;width:100%;min-width:240px;text-align:center;background-color:rgb(254,250,246)}*/
+#main{margin:0 auto;padding:45px 30px 15px;width:100%;min-width:240px;text-align:center;background-color:#d8ebf7}
+
+.main-content{padding:0;text-align:center;cursor:default;text-align:center;}
+/*#main-content{background:rgba(238,238,238,0.95);padding:0;text-align:center;cursor:default;text-align:center;}*/
+/*.main-content{margin-left:6.5104167%;width:86.9791667%;}*/
+@media (min-width: 768px) {
+    .main-content{width:66%;min-width:668px;margin:auto;}
+}
+@media (min-width: 1200px) {
+    .main-content{width:66%;max-width:900px;margin:auto;}
+}
+/*.main-content {
+    width:86.9791667%;
+    margin: 0 auto;
+}
+@media (min-width: 768px) {
+    .main-content{width:66%;min-width:668px;}
+}
+@media (min-width: 1200px) {
+    .main-content{width:66%;max-width:900px;}
+}*/
+/* Avatar, Name, etc. */
+#main-content-container{margin:0 auto;padding:15px 0 0;max-width:1080px;}
+@media (min-width: 768px) {
+    #main-content-container{padding:15px 0;}
+}
+#main-content-container .col-avatar{text-align:center}
+@media (min-width: 768px) {
+    #main-content-container .col-avatar{text-align:center}
+}
+#main-content-container .col-avatar .avatar{z-index:100;width:150px;height:150px;margin-top:0px;border-radius:100%;box-shadow:0 0 0 0.3em #eee;opacity:1;}
+
+#main-content-container .col-info{height:100%;align-items:center;}
+#main-info-container{padding-top:15px}
+#main-info-container .col-name{text-align:center;margin-top:30px}
+@media (min-width: 768px) {
+    #main-info-container .col-name{text-align:left;margin-top:0;}
+}
+#main-info-container .col-name .text{text-align:left}
+#main-info-container .col-name .name{margin:0;color:#566c7f;font-size:1.85em;font-family:"Source Sans Pro",Helvetica,sans-serif}
+#main-info-container .col-name .email{color:#666; font-size:14px}
+#main-info-container .col-link{text-align:center;margin:-5px 0 -25px;}
+#main-info-container .col-link ul {margin:0px auto auto;padding:0;list-style:none;text-align:center}
+#main-info-container .col-link li {display:inline-block;margin:auto;padding:0 10px;color:#ccc;line-height:10px}
+#main-info-container .col-link li a{width:45px;height:45px;color:#ccc;padding:0;font-size:45px;line-height:45px}
+#main-info-container .col-link li a:focus,
+#main-info-container .col-link li a:hover{text-decoration:none;cursor:hand}
+#main-info-container .col-link li a.border{border:1px solid #ccc;border-radius:100%;}
+#main-info-container .col-link li a.padding{padding:0px 0px;font-size:22px}
+
+/* Other */
+.main-more-container{width:100%;padding:0 30px}
+
+.main-bio-container{margin:auto;padding: 0 0em;max-width:1080px;text-align:left;padding-top:30px;max-width:1080px;font-size:1rem;line-height:1.4}
+.main-bio-container .subtitle{margin-top:0px;color:#566c7f}
+
+#main-pub-container{margin:auto;padding: 0 0em;max-width:1080px;text-align:left;padding-top:30px;max-width:1080px}
+#main-pub-container .subtitle{color:#566c7f;}
+#main-pub-container .subtitle a {font-size:18px; color: #96a5b3; font-weight:400}
+#main-pub-container .subtitle a.activated {color:#333333; font-weight:600}
+#main-pub-container .subtitle a.activated:focus,
+#main-pub-container .subtitle a.activated:hover {text-decoration:none;cursor:initial}
+
+#main-pub-container .subtitle-aux {font-size:1rem}
+#main-pub-container .subtitle-aux a.activated {color:#333333}
+#main-pub-container .subtitle-aux a.activated:focus,
+#main-pub-container .subtitle-aux a.activated:hover {text-decoration:none;cursor:initial}
+#main-pub-container .subtitle-aux .note{margin-left:1em;color:#999999;text-decoration:none;font-size:14px}
+
+#main-pub-card-container{}
+#main-pub-card-container>h5{margin-bottom: 20px}
+#main-pub-card-container .pub-card{width: 100%;padding-bottom:15px;font-size:1rem}
+#main-pub-card-container .pub-card .col-l{text-align:center;padding-top:10px}
+#main-pub-card-container .pub-card .col-r{padding-top:10px}
+#main-pub-card-container .pub-card img{width:100%;margin:0 auto}
+#main-pub-card-container .pub-card-body{width:100%;background:transparent;padding-left:0px}
+#main-pub-card-container .pub-card .title{font-weight:600;font-size:1rem;margin-bottom:4px;line-height:1.4}
+#main-pub-card-container .pub-card .authors{font-weight:400;color:#666666;margin-bottom:4px;line-height:1.4}
+#main-pub-card-container .pub-card .authors a{color:#666666}
+#main-pub-card-container .pub-card .authors u{color:#333333;font-weight:600;text-decoration:none}
+#main-pub-card-container .pub-card .conference{color:#333333;font-weight:600}
+#main-pub-card-container .pub-card .note{display:block;color:#999999;text-decoration:none;font-size:14px}
+#main-pub-card-container .pub-card .info{margin-bottom:0;}
+#main-pub-card-container .row{margin:0}
+#main-pub-card-container .col-l,
+#main-pub-card-container .col-r{vertical-align:top;display:inline-block;margin:0;padding-left:0px}
+
+#footer{padding:0 0 1.5em;margin-top:2rem;min-width:240px;background:#fff;font-size:14px;line-height:12px;text-align:left;background:#fef8f3}
+#footer .container{max-width:540px;padding:0 45px;position:relative}
+#footer .row{align-items:center}
+#footer .comic{padding-right:15px;}
+#footer .stat{width:60px;overflow:hidden;margin:0 auto -25px;padding-right:15px;}
+#footer .copyright{flex-grow:1;margin:25px auto 5px;text-align:left;display:block;font-size:1rem;line-height:1.4;color:#666666}
+#footer a{color:#666666}
+#footer a:hover{color:#333333}
+
+.bold{font-weight:600}
+.highlight{color:#BB2222;font-weight:600}
+.highlight:hover{color:#BB2222;font-weight:600}
+.hide{display:none}
+    </style>
 </head>
 
 <body>
-    <table id="main-table">
-        <tr>
-            <td>
-                <table class="sub-table" >
-                    <tr>
-                        <td class="td-with-padding">
-                            <p class="p-center" id="name" style="color:#111;
-                            font-size:20pt;
-                            font-weight:bolder;
-                            font-family:'Times New Roman', Times, serif">
-                                <name>Haotian Xue                  (薛昊天)</name>
-                            </p>
-                           
-                            <p>
-                               I am currently a first year Ph.D. student at <a href="https://ml.gatech.edu/">Machine Learning@ Georgia Tech</a>, Atlanta. Previously, I got my B.E. Computer Science from Shanghai Jiao Tong University. 
-                            </p>
 
-                        
-                            <p>
-                                My research interest lies in broad aspects of <span class="emphasis">Machine Learning</span> ,<span class="emphasis">Computer Vision</span> and <span class="emphasis">Natural Language Processing</span>. I was
-                                a research intern in <a href="https://www.csail.mit.edu/">MIT CSAIL</a> advised by Prof.<a href="https://cocosci.mit.edu/josh">Josh Tenenbaum</a>, working closely with <a href="https://yunzhuli.github.io/">Yunzhu Li</a> and <a href="https://sfish0101.bitbucket.io/">Hsiao-Yu Tung </a>. 
-                             </p>
+<!--img src="static/img/hal-gatewood.jpg" id="background" class="" /-->
 
-                            <p>   
-                                At  <a href="http://jhc.sjtu.edu.cn/">SJTU John Hopcroft Center</a> I worked closely with  Prof. <a href="http://qszhang.com/"> Quanshi Zhang </a> on  <span class="emphasis">Explainable AI</span> , especially on deep network inference on vision tasks, with  Prof. <a href="http://hantek.github.io/"> Zhouhan Lin </a> on <span class="emphasis">Natural Language Processing</span>.
+<div id="main">
+    <!--canvas id="wave-canvas"></canvas-->
 
-                            </p>
-
-                            <!-- <p>
-                               More personal information and research interest can be referred to in My CV .
-                            </p> -->
-
-                           
-
-
-
-                            <p class="p-center">
-                                <a href="mailto:xavihart@sjtu.edu.cn">🐱 Email</a>
-                                &nbsp;|&nbsp;
-                                <a href="https://github.com/xavihart/">GitHub</a> 
-                                &nbsp;|&nbsp;
-                                <a href="https://scholar.google.com/citations?hl=zh-CN&user=wnweG9UAAAAJ">Google Scholar</a>
-                                &nbsp;|&nbsp;
-                                <a href="image/resume">My CV </a>
-                                &nbsp;|&nbsp;
-                                <a href="https://twitter.com/Haotianxue_GT">Twitter </a>
-                                &nbsp;|&nbsp;
-                                <a href="https://t1annotebook.github.io">Notebook 🐱</a>
- 
-                            </p>
-
-                            <p class='news'>
-                                🔈  [2022.8] I will start as a PhD student at Machine Learning Center at Georgia Tech (<a href="https://ml.gatech.edu/">ML@GT</a>) starting from 2022Fall, advised by <a href='http://yongxin.ae.gatech.edu/'>Prof. Yongxin Chen</a>. Looking forward to the life in <b>Atlanta</b> 🏔🏕🛤🌞 !
-                               </p>
-   
-                               <p class='news'>
-                                🔈  [2022.10] One co-first-author paper is accepted to EMNLP2022 Findings, it's about bringing structural syntax into self-attention. This work is advised by Prof. Zhouhan Lin from SJTU.
-                               </p>
-   
-                               <p class='news'>
-                                 🔈  [2022.12] I am selected as the Top Reviewer of <a href="https://neurips.cc/Conferences/2022/ProgramCommittee">NeurIPS 2022</a>.
-                               </p>
-                            
-
-
-                            <!-- <p>
-                                🔈  new GeorgiaTech e-mail : htxue.ai@gatech.edu or hxue45@gatech.edu
-                            </p> -->
-
-        
-                        </td>
-                        <td class="td-with-padding">
-                            <img src="./image/xht.jpeg" id="Weiqi-image" width="170" height="170">
-                            
-                        </td>
-                    </tr>
-                </table>
-
-               <table class="sub-table">
-
-                    <div class="in-content">
-                        <img class="c-images" src="./image/sjtu.webp">
-                        <p class="c-title">B.S in CSE (2018-2022)</p>
+    <div class="main-content">
+        <div id="main-content-container" class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-3 col-avatar">
+                    <img src="static/img/xht5.jpg" class="avatar" />
+                </div>
+                <div class="col-sm-12 col-md-9">
+                    <div id="main-info-container">
+                            <div class="col-name">
+                                    <h1 class="name"><span>Haotian Xue 薛昊天</span></h1>
+                                    <p class="email">Email: htxue.ai [at] gatech [dot] edu</p>
+                                    <p class="text">I am a first-year PhD student at <a href="https://ml.gatech.edu/">ML@Gatech</a>, advised by
+Prof. <a href="https://yongxin.ae.gatech.edu/", target="_blank"> Yongxin Chen</a>.
+Previously, I obtained my bachelor's degree of Computer Science, Shanghai Jiao Tong University.</p>
+                            </div>
                     </div>
-                    <div class="in-content">
-                        <img class="c-images" src="./image/CSAIL.jpg">
-                        <p class="c-title">Research Intern(2021)</p>
-                    </div>
-                    <div class="in-content">
-                        <img class="c-images" src="./image/msra.jpg">
-                        <p class="c-title">Research Intern(Sem7)</p>
-                    </div>
-                    <div class="in-content">
-                        <img class="c-images" src="./image/gt.png">
-                        <p class="c-title">Ph.D.@ML(2022 Fall)</p>
-                    </div>
-                    
-               </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-               
+<div class="main-content">
+    <div class="main-more-container">
+        <div class="main-bio-container">
+            <h5 class="subtitle">News</h5>
+            <ul>
+                <li>
+                    <span style="color:blue">[2022.12] </span> I am selected as the Top Reviewer of NeurIPS 2022.
+                </li>
+                <li>
+                    <span style="color:blue">[2022.10] </span> One co-first-author paper is accepted to EMNLP2022 Findings.
+                </li>
+                <li>
+                    <span style="color:blue">[2022.8] </span> I will start as a PhD student at (ML@GT) starting from 2022Fall.
+                </li>
                 
-                <table class="sub-table">
-                    <tr>
-                        <td class="td-with-padding">
-                            <heading>Education📚</heading>
-                            
-                            <ul>
-                                <li>
-                                   <span class="emphasis">Shanghai Jiao Tong University</span>, Shanghai, CHN
-                                       <span class="align-right">Sep 2018 - Jun 2022 </span>
-                                    <p> B.E. in Computer Science and Engineering</p>
-                                    <p style="color: grey;"> GPA : 3.8/4.3, Major courses (C++, OS, Arch, Net, AI, ML, System, CG, DIP, Algorithm, Crypt...)</p>
-                                </li>
-                                <li>
-                                    <span class="emphasis">Zhiyuan Honor College</span>, Shanghai Jiao Tong University, Shanghai,
-                                    CHN<span class="align-right">Sep 2018 - Jun 2022</span>
-                                    <p>B.E. in Zhiyuan Honors Program of Engineering</p> 
-                                </li>
-                                <li>
-                                    <span class="emphasis">Machine Learning Center</span>, Georgia Institute of Technology,
-                                    Atlanta, US<span class="align-right">Fall 2022 - 2027(expected) </span>
-                                    <p>Ph.D. in Machine Learning </p> 
-                                    <p style="color: grey;"> GPA : 4.0/4.0 [till now], Major courses GT-(CS6601, CS7750, ISYE6740)</p>
+                
+            </ul>
 
-                                </li>
-                                <!-- <li>
-                                    <span class="emphasis">CUHK CSE Dept.</span>,  HK,
-                                    China<span class="align-right">Aug 2022 - Aug 2026 </span>
-                                    <p>PhD Candidate supervised by Prof. Qiang Xu in CURE Lab</p> 
-                                </li> -->
-                            </ol>
+            <h5 class="subtitle" style="margin-top:30px">Research Interest</h5>
+            <p>
+                My research interest lies in broad aspects of Machine Learning, Computer Vision and Natural Language Processing. Currenty, I target myself to the following directions: 
+            </p>
+            <ul>
+                <li><b>Generative models + X</b>: utilize/learn strong prior knowledge using generative modeling, to faciliate AI problem, including robust AI, robot learning  and inverse problem</li>
+                <li><b>Compositional and Explainable AI</b>: learning Compositional and Explainable representation for deep learning models, Computer Vision and Natural Language Processing</li>
+            </ul>
 
+            <h5 class="subtitle" style="margin-top:30px">Research Experience</h5>
+         
+            <ul>
+                <li>[2023-current]: Start collaborating with Prof. Animesh Garg, GaTech, on DM+RL </li>
+                <li>[2023-current]: Start collaborating with Prof. Bin Hu, UIUC, on DM+Robustness </li>
+                <li>[2022-current]: Work as a GRA Ph.D. student at FLAIR lab with Prof. Yongxin Chen</li>
+                <li>[2022-2023]: Work as a remote intern at MIT CSAIL, advised by Josh Tenenbaum, Yunzhu Li and Fish Tung</li>
+                <li>[2021-2021]: Work as a research intern at NLC group, Microsoft Research</li>
+                <li>[2021-2022]: Work as a research intern at John Hopcroft Center, advised by Prof. Zhouhan Lin on NLP</li>
+                <li>[2020-2021]: Work as a research intern at John Hopcroft Center, advised by Prof. Quanshi Zhang on XAI</li>
+            </ul>
 
-                        </td>
-                   
-
-
-                        <tr>
-                            <td class='td-with-padding'>
-                                <heading>Academic Services</heading>
-                            <ul>
-                            <li>
-
-                                Reviewer for ICML'22, NeurIPS'22
-
-                            </li> 
-                            </ol>   
-                            </td>
-                            
-                        </tr>
-
-              
-
-              
-
-
-
-                    <tr>
-                        <td class="td-with-padding">
-                            <heading>Research Outputs📕</heading>
-
-                            <p>(*name_list) refers to equal contribution</p>
-                        
-                            <ol>
-                                <table class="sub-table" >
-                            
-
-                                    <td class="td-with-padding">
-                                     <!-- <i>"3D-IntPhys: Learning 3D Visual Intuitive Physics for
-                                        Fluids, Rigid Bodies, and Granular Materials"
-                                         <br> -->
-                                         [ICLR2023 submission]</i> 
-                                         
-                                    </br> Contribution : <b>Haotian Xue</b>, Yunzhu Li, Hsiao-Yu Tung, Antonio Torralba, Daniel LK Yamins, Joshua B.
-                                    Tenenbaum
-
-
-                                    <p class="topics">Topic : Vision, Robotics, Intuitive Physics </p>
-                               
-                             
-                                </td>
-
-                                   
-
-                                 <td class="td-with-padding2">
-                                    <img src="./image/3d-intphys.png" width="310" height="130" >
-                                 </td>
-
-                                 
-                                </table>  
-
-
-                                
-                                <table class="sub-table" >
-                            
-
-                                    <td class="td-with-padding">
-                                     <!-- <i>"Syntactic-Enhanced Transformer"
-                                         <br> -->
-                                    <i> "Syntax-guided Localized Self-attention by Constituency Syntactic Distance" </i>
-                                    </br> Contribution : (<b>Haotian Xue<sup>*</sup></b>,  Shengyuan Hou<sup>*</sup>,  Jushi Kai<sup>*</sup>), Bingyu Zhu, Bo Yuan, Longtao Huang, Xinbing Wang, Zhouhan Lin 
-                                    <i style="color:red">EMNLP2022 Findings </i>
-                                    <p class="topics">Topic : NLP, Syntax-Tree, Transformer  </p>
             
-                                   </td>
+        </div>
+    </div>
 
-                                 <td class="td-with-padding2">
-                                    <img src="./image/emnlp22.png" width="320" height="100" >
-                                 </td>
+    <div class="main-more-container">
+        <div id="main-pub-container">
+            <h5 class="subtitle">Publications
+            (
+                <a id="publication-by-selected" href="javascript:;", onClick="publicationBySelected();">show selected</a> /
+                <a id="publication-by-date" href="javascript:;", onClick="publicationByDate();">show all by date</a> /
+                <a id="publication-by-topic" href="javascript:;", onClick="publicationByTopic();">show all by topic</a>
+            )
+            </h5>
+            <p class="subtitle-aux"><span class="bold">Topics:</span>
+                <a href="#topic-xai" onClick="return publicationByTopicSpecific(this)" data-topic="xai">Explainable A</a> /
+                <a href="#topic-vision" onClick="return publicationByTopicSpecific(this)" data-topic="vision">Vision</a> /
+                <a href="#topic-nlp" onClick="return publicationByTopicSpecific(this)" data-topic="nlp">NLP</a>
+                <span class="note">(*/†: indicates equal contribution.)</span>
+            </p>
+                    <div id="main-pub-card-container" class="activated hide">
+                        <div class="pub-card" data-topic="vision" data-year="2023" data-selected="true">
+                            <div class="row">
+                                <div class="col-l col-xs-12 col-lg-3">
+                                    <center><img src="static/image/3d-intphys.png" width="90%" style="width:90%" /></center>
+                                </div>
+                                <div class="col-r col-xs-12 col-lg-9">
+                                    <div class="pub-card-body">
+                                        <h5 class="title">3D-IntPhys: Learning 3D Visual Intuitive Physics for Fluids, Rigid Bodies, and Granular Materials  </h5>
+                                        <h6 class="authors">
+                                           <u>Haotian Xue</u>,
+                                           <a>Antonio Torralba</a>,
+                                           <a>Joshua B. Tenenbaum</a>,
+                                           <a> Daniel LK Yamins</a>,
+                                           <a> Yunzhu Li</a>,
+                                           <a> Hsiao-Yu Tung</a>
 
+                                        </h6>
+                                        <p class="info">
+                                            <a href="" class="conference">[In Submission]</a>
+                                            
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+           
 
-                                 
-                                </table>  
-
-
-
-
-                                <table class="sub-table" >
-                            
-
-                                    <td class="td-with-padding">
-                                     <!-- <i>"Gating Self-attention with Syntactic Structure
-                                        for Low Resource Machine Translation"
-                                         <br> -->
-                                        "Gating Self-attention with Syntactic Structure
-                                        for Low Resource Machine Translation"  </i> 
-                                         
-                                    </br> Contribution : Shengyuan Hou,  (<b>Haotian Xue<sup>*</sup></b>, Jushi Kai<sup>*</sup>), Bingyu Zhu, Bo Yuan, Rui Wang, Xinbing Wang, Zhouhan Lin 
-                                    <i>[In submission]</i>
-                                    <p class="topics">Topic : NLP, Machine Translation, Transformer </p>
-                                   </td>
-
-                                 <td class="td-with-padding2">
-                                    <img src="./image/nips-gate.png" width="280" height="190" >
-                                 </td>
-
-                                 
-                                </table>  
-
-                                <table class="sub-table" >
-                                    <td class="td-with-padding">
-                                     
-                                     <i>"Distance-Transformer"[In Prepration, eary-stage contribution]</i> 
-                                         
-                                    </br> Contribution : Shengyuan Hou,  Jushi Kai, Haotian Xue, Zhouhan Lin
-                            
-                                    <p class="topics">Topic : NLP, Machine Translation, Transformer </p>
-                                   </td>
-
-                                 <td class="td-with-padding2">
-                                    <img src="./image/distance-transformer.png" width="310" height="120" >
-                                 </td>
-
-                                 
-                                </table>  
-                                
-
-
-                                <table class="sub-table" >
-                            
-
-                                    <td class="td-with-padding">
-                                     <i>"Towards a Unified Evaluation of Explanation Methods without Ground Truth"
-                                        <br>
-                                        [In submission]</i> 
-                                         
-                                    </br> Contribution : Hao Zhang, <b>Haotian Xue</b>, Jiayi Chen and Quanshi Zhang
-                            
-
-                                    <p class="topics">Topic : Vision, Machine Learning, Explainable AI</p>
-
-                                   </td>
-
-                                 <td class="td-with-padding2">
-                                    <img src="./image/eval/iccv.png" width="300" height="125" >
-                                 </td>
-
-                                 
-                                </table>      
-                                
-                                <table class="sub-table" >
-                            
-
-                                    <td class="td-with-padding">
-                                     <i>"A Hypothesis for the Aesthetic Appreciation in Neural Networks"
-                                         <br>
-                                         [In submission]</i> 
-                                         
-                                    </br> Contribution : Xu Chen , Xin Wang , <b>Haotian Xue</b>, ZhengYang Liang and Quanshi Zhang
-                                    <p class="topics">Topic : Vision, Machine Learning, Explainable AI</p>
-                                   </td>
-
-                                 <td class="td-with-padding2">
-                                    <img src="./image/aesthetics/demo2.png" width="300" height="120" >
-                                 </td>
-                                </table>      
-
-                                <table class="sub-table" >
-                            
-
-                                    <td class="td-with-padding">
-                                     <i>"Active Adversarial Training"
-                                         <br>
-                                         [B.E. Thesis] </i> 
-                                         
-                                    </br> Contribution :  <b>Haotian Xue</b>, advised by Nanyang Ye
-                                    <p>Machine Learning, Adversarial Learning, Active Learning </p>
-                            
-                                   </td>
-
-                                 <td class="td-with-padding2">
-                                    <img src="./image/active_ad.png" width="320" height="200" >
-                                 </td>
-                                </table>      
+                    <div id="main-pub-card-container" class="activated hide">
+                        <div class="pub-card" data-topic="nlp" data-year="2022" data-selected="true">
+                            <div class="row">
+                                <div class="col-l col-xs-12 col-lg-3">
+                                    <center><img src="static/image/emnlp22.png" width="90%" style="width:90%" /></center>
+                                </div>
+                                <div class="col-r col-xs-12 col-lg-9">
+                                    <div class="pub-card-body">
+                                        <h5 class="title">Syntax-guided Localized Self-attention by Constituency Syntactic Distance </h5>
+                                        <h6 class="authors">
+                                            <a>Shengyuan Hou</a>*,
+                                            <u>Haotian Xue</u>*,
+                                            <a>Jushi Kai</a>*,
+                                            <a>Bingyu Zhu</a>,
+                                            <a>Bo  Yuan</a>,
+                                            <a>Longtao Huang</a>,
+                                            <a>Xinbin Wang</a>,
+                                            <a>Zhouhan Lin</a>
+                                        </h6>
+                                        <p class="info">
+                                            <a href="https://aclanthology.org/2022.findings-emnlp.173/" class="conference">[EMNLP2022, Findings]</a>
+                                            
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
-                                 
-                      </ol>
-     
-                        </td>
-                    </tr>
-                    <tr>
-                    <!-- <tr>
-                        <td class="td-with-padding">
-                            <heading>Awards & Scholarships 🏆</heading>
-                            <ul>
-                                <li class="li-margin">
-                                    Zhiyuan College Honors Scholarship (CN ¥15000, Top5%) <span class="align-right">2018 & 2019 & 2020</span> 
-                                </li>
-                                <li class="li-margin">
-                                    Singapore Technologies Engineering Scholarship (CN ¥5000, Top 20%) <span class="align-right">2019</span> 
-                                </li>
-                                <li class="li-margin">
-                                    Zhiyuan College Excellent Scholarship (Class C, CN ¥1000, Top 20%) <span class="align-right">2019, 2020</span> 
-                                </li>
-                                <li>
-                                   <a href="http://comap-math.com/mcm/2020Certs/2002146.pdf"> Meritorious Winner</a> in 2020 ICM-D<span class="align-right">2020</span> 
-                                </li>
-                                <li>
-                                    SJTU Merit Student  (13 of the 155 students in CS department) <span class="align-right">2020</span> 
-                                </li>
-                                
-                            </ol>
-                        </td>
-                    </tr> -->
-<!-- 
-                    <tr>
-                        <td class="td-with-padding">
-                            <heading>Academic Performance 🎫</heading>
-                            
-                           <p> I enjoy almost all the courses in SJTU and taking in challenges, I got a <span class="emphasis">core GPA of 88.8/100</span> in the first five semesters, <span class="emphasis">GPA of 91.4/100</span> for math-related courses.</p>
-                            <ul>
-                                
-                             <li>
-                                Got [97/100] in CS499 : Mathematical foundations of computer science (rank 1/80)
-                                
-                            <li> 
-                                Got [95/100] in MA260 : Mathematical Analysis(1)(Honor)(rank 1/200)
-                            </li>
-                            <li>
-                                Got [94/100] in MA261 : Mathematical Analysis(2)(Honor)(rank 3/150)
-                            </li>
-                            </ul>
-                            <p>
-                                And I also get <b>A</b> or <b>A+</b> in most CS courses like : Problem Solving and Practising, Copmuter Graphics, Computer Organization, Computer System
-                                Architecture, Introduction to Cryptology and Information Security e.g.
-                                </p>
-                        </td>
-                    </tr> -->
+                        <div id="main-pub-card-container" class="activated hide">
+                            <div class="pub-card" data-topic="nlp" data-year="2022" data-selected="true">
+                                <div class="row">
+                                    <div class="col-l col-xs-12 col-lg-3">
+                                        <center><img src="static/image/gating_syntax.png" width="90%" style="width:90%" /></center>
+                                    </div>
+                                    <div class="col-r col-xs-12 col-lg-9">
+                                        <div class="pub-card-body">
+                                            <h5 class="title">Learning to Adaptively Incorporate External Syntax through Gated Self-Attention</h5>
+                                            <h6 class="authors">
+                                                [TBA]
+                                            </h6>
+                                            <p class="info">
+                                                <a href="" class="conference">[In Submission to ACL2023]</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                   
-                    <!-- <tr>
-                        <td class="td-with-padding">
-                            <heading>Teaching Experience</heading>
-                            <ol>
-                               
-                            </ol>
-                        </td>
-                    </tr> -->
-                    <tr>
-                        <td class="td-with-padding">
-                            <heading>Miscellaneous</heading>
-                            <p>
-                                (10 yrs +) ⚽Football, I am a member of SEIEE football team and won the freshman cup with my teammates in 2018. 
+                        </div>
 
-                            </p>
-                            <p>
-                                (5 yrs +)   🎹 Piano, amatuar player, once level 10 certification of Shanghai Conservatory of Music <p>                                
-                            </p> 
-                                
-                            </p>
-                            <p>
-                                (1.5 yrs +) 🌀 MOBA, I am a one year player of League of Legend. I enjoy playing HARD-CORE JUG and SUP.
-                                
-                            </p>
-                        </td>
-                    </tr>
-                </table>
-            </td>
+                        <div id="main-pub-card-container" class="activated hide">
+                            <div class="pub-card" data-topic="xai" data-year="2021" data-selected="true">
+                                <div class="row">
+                                    <div class="col-l col-xs-12 col-lg-3">
+                                        <img src="static/image/aesthetics/demo2.png" width="90%" style="width:90%" />
+                                    </div>
+                                    <div class="col-r col-xs-12 col-lg-9">
+                                        <div class="pub-card-body">
+                                            <h5 class="title">A Hypothesis For The Cognitive Difficulty of Images</h5>
+                                            <h6 class="authors">
+                                                <a>Xu Chen</a>*,
+                                                <a>Xin Wang</a>*,
+                                                <u>Haotian Xue</u>,
+                                                <a>Zhengyang Liang</a>,
+                                                <a>Xin Jin</a>,
+                                                <a>Quanshi Zhang</a>,
+                                            </h6>
+                                            <p class="info">
+                                                <a href="https://arxiv.org/abs/2108.02646" class="conference">[Arxiv]</a>
+                                                
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <div id="main-pub-card-container" class="activated hide">
+                                <div class="pub-card" data-topic="xai" data-year="2020" data-selected="true">
+                                    <div class="row">
+                                        <div class="col-l col-xs-12 col-lg-3">
+                                            <img src="static/image/eval/iccv.png" width="90%" style="width:90%" />
+                                        </div>
+                                        <div class="col-r col-xs-12 col-lg-9">
+                                            <div class="pub-card-body">
+                                                <h5 class="title">Evaluation of Attribution Explanations without Ground Truth </h5>
+                                                <h6 class="authors">
+                                                    <a>Hao Zhang</a>,
+                                                    <u>Haotian Xue</u>,
+                                                    <a>Jiayi Chen</a>,
+                                                    <a>Yiting Chen</a>,
+                                                    <a>Wen Shen</a>,
+                                                    <a>Quanshi Zhang</a>,
+                                                </h6>
+                                                <p class="info">
+                                                    <a href="https://openreview.net/forum?id=WevBjPK4V3j&referrer=%5Bthe%20profile%20of%20Haotian%20Xue%5D(%2Fprofile%3Fid%3D~Haotian_Xue1)" class="conference">[OpenReview]</a>
+                                                    
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer">
+    <div class="container">
+        <div class="row">
+            <!-- <div class="comic"><img src="static/img/rabbit-working.jpg" height="90px" /></div> -->
+            <div class="copyright">
+                &copy; Haotian Xue, template from <a href="https://jiayuanm.com/">[link]<a><br />
+                <!--p style="font-size:12px">Background photo: Rainbow Bridge (レインボーブリッジ) @ Tokyo, Japan, 2016</p-->
+                <!--Background photo: 798 Art Zone, Beijing, China. 2019, by <a href="https://www.instagram.com/42x00/">42x00</a>.<br />-->
+                <!--Background photo: Solvang, CA, USA. 2017,
+                <span style="color: #f4f4f4">with you.</span><br />
+                <span style="color: #f4f4f4">I miss you so much.</span-->
+                <!--Avatar photo: Hynes Convention Center, Boston, MA. 2019, by <a href="https://www.instagram.com/42x00/">42x00</a>.-->
+                <!--Avatar photo: MIT, Cambridge, MA, USA. 2018, by <a href="http://linji.me/">Ji Lin</a>.-->
+            </div>
+            <div class="stat">
+                <script type="text/javascript" id="clstr_globe" src="//cdn.clustrmaps.com/globe.js?d=-23A1GPVvvuNiuBYLygGVwg1KDr82CpUn5H3v7m6J9s"></script>
+                <!--script type="text/javascript" id="clustrmaps" src="//cdn.clustrmaps.com/map_v2.js?d=-23A1GPVvvuNiuBYLygGVwg1KDr82CpUn5H3v7m6J9s&cl=ffffff&w=a"></script-->
+            </div>
+        </div>
+    </div>
+</div>
 
-        </tr>
 
-<!--         <table class="sub-table" style="width: 200px;height: 100px;">
-            <script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=c5c6c1&w=600&t=tt&d=Dw9E-Xj_miGJXvjgMVAtiUbUTDR2LTcMwIfdO1RWYoo&co=121516&cmo=3326ea&cmn=cc3a3c'></script>
-        </table> -->
+<!-- jQuery first, then Tether, then Bootstrap JS. -->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<script type="text/javascript" src="static/js/jquery.color.min.js"></script>
+<!--script type="text/javascript" src="static/js/wave.js"></script-->
+<script type="text/javascript">
 
+$.fn.isInViewport = function() {
+    var elementTop = $(this).offset().top;
+    var elementBottom = elementTop + $(this).outerHeight();
+    var viewportTop = $(window).scrollTop();
+    var viewportBottom = viewportTop + $(window).height();
+    return elementBottom > viewportTop && elementTop < viewportBottom;
+};
 
-          </table>
+var allPublications = null;
+
+function publicationBySelected() {
+    var a = $("#publication-by-selected")
+    if (a.hasClass("activated")) {
+        return ;
+    }
+
+    $("#main-pub-container .subtitle a").removeClass("activated");
+    $("#main-pub-container .subtitle-aux a").removeClass("activated");
+    a.addClass("activated");
+
+    $("#main-pub-card-container").html("");
+    for (var pubId = 0; pubId < allPublications.length; pubId++) {
+        var pub = $(allPublications[pubId]);
+        if (pub.data("selected") == true) {
+            $("#main-pub-card-container").append(pub);
+        }
+    }
+}
+
+function publicationByDate() {
+    var a = $("#publication-by-date")
+    if (a.hasClass("activated")) {
+        return ;
+    }
+
+    $("#main-pub-container .subtitle a").removeClass("activated");
+    $("#main-pub-container .subtitle-aux a").removeClass("activated");
+    a.addClass("activated");
+
+    $("#main-pub-card-container").html("");
+    for (var pubId = 0; pubId < allPublications.length; pubId++) {
+        if (pubId == 0 || $(allPublications[pubId-1]).data("year") != $(allPublications[pubId]).data("year")) {
+            var year = $(allPublications[pubId]).data("year");
+            $("#main-pub-card-container").append($("<h5 id='year-" + year.toString() + "'>" + year.toString() + "</h5>"));
+        }
+        $("#main-pub-card-container").append(allPublications[pubId]);
+    }
+}
+
+function publicationByTopicInner() {
+    var a = $("#publication-by-topic")
+    if (a.hasClass("activated")) {
+        return ;
+    }
+    $("#main-pub-container .subtitle a").removeClass("activated");
+    a.addClass("activated");
+
+    $("#main-pub-card-container").html("");
+    for (var topicId in allTopics) {
+        var topic = allTopics[topicId].name;
+        var topicTitle = allTopics[topicId].title;
+        // var topicTitle = topic.split("-").map(function (a) { return a[0].toUpperCase() + a.substr(1).toLowerCase(); }).join(" ");
+        $("#main-pub-card-container").append($("<h5 id='topic-" + topic + "'>" + topicTitle + "</h5>"));
+        for (var pubId = 0; pubId < allPublications.length; pubId++) {
+            var pub = $(allPublications[pubId]);
+            if (pub.data("topic").indexOf(topic) != -1) {
+                $("#main-pub-card-container").append(pub);
+            }
+        }
+    }
+}
+
+function publicationByTopicSpecificInner(a) {
+    if ($(a).hasClass("activated")) {
+        return false;
+    }
+
+    $("#main-pub-container .subtitle-aux a").removeClass("activated");
+    $(a).addClass("activated");
+}
+
+function publicationByTopic() {
+    publicationByTopicInner();
+    publicationByTopicSpecificInner($("#main-pub-container .subtitle-aux a:first"));
+    return true;
+}
+
+function publicationByTopicSpecific(a) {
+    publicationByTopicInner();
+    publicationByTopicSpecificInner(a);
+
+    var hash = a.hash;
+    $(hash).prop('id', hash.substr(1) + '-noscroll');
+    window.location.hash = hash;
+    $(hash + '-noscroll').prop('id', hash.substr(1));
+
+    if (!$(hash).isInViewport()) {
+        $('html, body').animate({
+            scrollTop: $(hash).offset().top
+        }, 1000, function(){
+        });
+    }
+
+    return false;
+}
+
+$(function() {
+    getRealSize = function(bgImg) {
+        var img = new Image();
+        img.src = bgImg.attr("src");
+        var width = img.width,
+            height = img.height;
+        return {
+            width: width,
+            height: height
+        }
+    };
+
+    getRealWindowSize = function() {
+        var winWidth = null,
+            winHeight = null;
+        if (window.innerWidth) winWidth = window.innerWidth;
+        else if ((document.body) && (document.body.clientWidth)) winWidth = document.body.clientWidth;
+        if (window.innerHeight) winHeight = window.innerHeight;
+        else if ((document.body) && (document.body.clientHeight)) winHeight = document.body.clientHeight;
+        if (document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth) {
+            winHeight = document.documentElement.clientHeight;
+            winWidth = document.documentElement.clientWidth
+        }
+        return {
+            width: winWidth,
+            height: winHeight
+        }
+    };
+
+    fullBg = function() {
+        var bgImg = $("#background");
+        var mainContainer = $("#main");
+        var firstFire = null;
+
+        if (bgImg.length == 0) {
+            return ;
+        }
+
+        function resizeImg() {
+            var realSize = getRealSize(bgImg);
+            var imgWidth = realSize.width;
+            var imgHeight = realSize.height;
+
+            if (imgWidth == 0 || imgHeight == 0) {
+                setTimeout(function() {
+                    resizeImg();
+                }, 200);
+            }
+
+            console.log(realSize);
+            var realWinSize = getRealWindowSize();
+            var winWidth = realWinSize.width;
+            var winHeight = realWinSize.height;
+            var widthRatio = winWidth / imgWidth;
+            var heightRatio = winHeight / imgHeight;
+            console.log(realWinSize);
+            if (widthRatio > heightRatio) {
+                bgImg.width(imgWidth * widthRatio + 'px').height(imgHeight * widthRatio + 'px').css({'top':
+                    -(imgHeight * widthRatio - winHeight) / 10 * 5 + 'px', 'left': '0'})
+            } else {
+                bgImg.width(imgWidth * heightRatio + 'px').height(imgHeight * heightRatio + 'px').css({'left':
+                    -(imgWidth * heightRatio - winWidth) / 10 * 3 + 'px', 'top': '0'})
+            }
+            // mainContainer.css({
+            //     width: winWidth,
+            //     height: winHeight
+            // });
+        }
+
+        resizeImg();
+        window.onresize = function() {
+            if (firstFire === null) {
+                firstFire = setTimeout(function() {
+                    resizeImg();
+                    firstFire = null
+                }, 100)
+            }
+        }
+    };
+
+    targetColor = $("#main-content-container .name").css("color");
+    animatedLink = function(speed) {
+        $("#main-content-container .col-link li").hover(function() {
+            $(this).find('.icon').animate({
+                color: targetColor,
+                borderColor: targetColor
+            }, speed);
+            $(this).find('.caption').animate({
+                color: targetColor
+            })
+        }, function() {
+            $(this).find('.icon').animate({
+                borderColor: '#cccccc',
+                color: '#cccccc'
+            }, speed);
+            $(this).find('.caption').animate({
+                color: '#cccccc'
+            })
+        })
+    };
+
+    // fullBg();
+    animatedLink(400);
+
+    allPublications = $("#main-pub-card-container .pub-card");
+    allTopicsLink = $("#main-pub-container .subtitle-aux a");
+    allTopics = [];
+    for (var topicId = 0; topicId < allTopicsLink.length; topicId++) {
+        allTopics.push({name: $(allTopicsLink[topicId]).data("topic"), title: $(allTopicsLink[topicId]).html()});
+    }
+
+    $("#publication-by-selected").click();
+    // $("#publication-by-date").click();
+    $("#main-pub-card-container").removeClass("hide");
+});
+</script>
 </body>
-
-</html> 
+</html>
