@@ -11,7 +11,7 @@
 
 .icon-g-white{}
 
-
+.circular--square { border-radius: 50%; }
 .icon-g-glass { background-position: 0 0 }
 .icon-g-leaf { background-position: -34px 0 }
 .icon-g-dog { background-position: -68px 0 }

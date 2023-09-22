@@ -53,7 +53,7 @@ a:hover{color:#566c7f}
 @media (min-width: 768px) {
     #main-content-container .col-avatar{text-align:center}
 }
-#main-content-container .col-avatar .avatar{z-index:100;width:150px;height:150px;margin-top:0px;border-radius:100%;box-shadow:0 0 0 0.3em #eee;opacity:1;}
+#main-content-container .col-avatar .avatar{z-index:100;width:150px;height:140px;margin-top:0px;border-radius:100%;box-shadow:0 0 0 0.2em #50f87d;opacity:1;}
 
 #main-content-container .col-info{height:100%;align-items:center;}
 #main-info-container{padding-top:15px}
@@ -136,15 +136,16 @@ a:hover{color:#566c7f}
     <div class="main-content">
         <div id="main-content-container" class="container">
             <div class="row">
-                <div class="col-sm-12 col-md-3 col-avatar">
-                    <img src="static/img/xht5.jpg" class="avatar" />
+                <div class="col-avatar">
+                    <img src="static/image/2331695399211_.pic.jpg" class="avatar"  width="150" height="140"/>
+                    <figcaption style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">style-enhanced</figcaption>
                 </div>
                 <div class="col-sm-12 col-md-9">
                     <div id="main-info-container">
                             <div class="col-name">
                                     <h1 class="name"><span>Haotian Xue 薛昊天</span></h1>
                                     <p class="email">Email: htxue.ai [at] gatech [dot] edu</p>
-                                    <p class="text">I am a first-year Ph.D. student at <a href="https://ml.gatech.edu/">ML@GaTech</a>, advised by
+                                    <p class="text">I am a 2nd-year Ph.D. student working on <a>Machine Learning</a> at <a href="https://ml.gatech.edu/">ML@GaTech</a>, advised by
 Prof. <a href="https://yongxin.ae.gatech.edu/", target="_blank"> Yongxin Chen</a>.
 Previously, I obtained my B.E. of Computer Science from Shanghai Jiao Tong University with honor in 2022. I  worked as  research intern at MIT CSAIL supervised by Josh Tenenbaum, working closely with Yunzhu Li and Fish Tung.</p>
                             </div>
@@ -152,27 +153,21 @@ Previously, I obtained my B.E. of Computer Science from Shanghai Jiao Tong Unive
                             <div class="col-name">
                             <i style="font-size:23px" class="fa">&#xf1a0;</i>
                             <a href="https://scholar.google.com/citations?hl=en&user=wnweG9UAAAAJ&view_op=list_works&sortby=pubdate">[Google Scholar]</a>
-                            
                             <a href="https://www.semanticscholar.org/author/Haotian-Xue/30944025">[Semantic Scholar] </a>
-                            
-                            <div style="color:grey">
-                             ----------------------------------------
-                            </div>
-                            
-                            
-                            </div>
 
-                            <div class="col-name">
-                                <i style="font-size:24px" class="fa">&#xf09b;</i>
-                            <a href="https://github.com/xavihart">[Github]////</a>
+                            <i style="font-size:24px" class="fa">&#xf09b;</i>
+                            <a href="https://github.com/xavihart">[Github]</a>
 
                             <i style="font-size:24px" class="fa">&#xf081;</i>
-                            <a href="https://twitter.com/Haotianxue_GT">[Twitter]////</a>
-
-                            <i style='font-size:15px' class='fas'>&#xf781;</i>
+                            <a href="https://twitter.com/Haotianxue_GT">[Twitter]</a>
                             <a href="notes/index.html"> [Notes]</a>
- 
-                            </div>
+
+                            
+                            <!-- <div style="color:grey">
+                             ----------------------------------------
+                            </div> -->
+                            
+                          
       
                             
 
@@ -192,6 +187,9 @@ Previously, I obtained my B.E. of Computer Science from Shanghai Jiao Tong Unive
         <div class="main-bio-container">
             <h5 class="subtitle">News</h5>
             <ul>
+                <li>
+                    <span style="color:blue">[2023.09]  </span> <a href="https://github.com/xavihart/Diff-PGD" style="color:#BB2222;font-weight: normal;"><u>Diff-PGD</u></a> and <a href="https://github.com/xavihart/3D-IntPhys" style="color:#BB2222;font-weight: normal;"><u>3D-IntPhys</u></a> are accepted by NeurIPS'2023!
+                </li>
                 <li>
                     <span style="color:blue">[2023.08]  </span> I was invited as a reviewer for ICLR'2024.
                 <li>
@@ -240,7 +238,7 @@ Previously, I obtained my B.E. of Computer Science from Shanghai Jiao Tong Unive
             <h5 class="subtitle" style="margin-top:30px">Reviewer Experience</h5>
             <p style="color:#566c7f">#Conference(#Paper Number)</p>
             <p>
-                ICML'22(2), NeurIPS'22(4), ICML'23(2), NeurIPS'23(6), ICLR'24
+                ICML'22(2), NeurIPS'22(4), ICML'23(2), NeurIPS'23(6), ICLR'24(?)
             </p>
             
 
@@ -266,6 +264,54 @@ Previously, I obtained my B.E. of Computer Science from Shanghai Jiao Tong Unive
                 <span class="note">(*/†: indicates equal contribution.)</span>
             </p>
 
+            <!-- <div id="main-pub-card-container" class="activated hide">
+                <div class="pub-card" data-topic="gm" data-year="2023" data-selected="true">
+                    <div class="row">
+                        <div class="col-l col-xs-12 col-lg-3">
+                            <img src="static/image/diffpgd.pic.jpg" width="100%" height="70%" />
+                        </div>
+                        <div class="col-r col-xs-12 col-lg-9">
+                            <div class="pub-card-body">
+                                <h5 class="title">Rethinking The Adversarial Samples for Generative Diffusion Models </h5>
+                                <h6 class="authors">
+                                   <u>Haotian Xue</u>,
+                                   <a> Yongxin Chen</a>
+                                </h6>
+                                <p class="info">
+
+                                    <a href="" class="conference"> [Arxiv] </a>
+                                    <a href="" class="conference"> [GitHub] </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            
+                <div id="main-pub-card-container" class="activated hide">
+                    <div class="pub-card" data-topic="gm" data-year="2023" data-selected="true">
+                        <div class="row">
+                            <div class="col-l col-xs-12 col-lg-3">
+                                <img src="static/image/mist.jpg" width="100%" height="70%" />
+                            </div>
+                            <div class="col-r col-xs-12 col-lg-9">
+                                <div class="pub-card-body">
+                                    <h5 class="title">Towards More Effective Protection Against Diffusion-Based Mimicry with Score Distilation </h5>
+                                    <h6 class="authors">
+                                       <u>Haotian Xue</u>,
+                                       <a>Chumeng Liang</a>*,
+                                       <a>Xiaoyu Wu</a>*,
+                                       <a> Yongxin Chen</a>
+                                    </h6>
+                                    <p class="info">
+    
+                                        <a href="" class="conference"> [In Preparation] </a>
+                                        <a href="https://github.com/xavihart/Diff-Protect" class="conference"> [GitHub] </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
             <div id="main-pub-card-container" class="activated hide">
                 <div class="pub-card" data-topic="gm" data-year="2023" data-selected="true">
                     <div class="row">
@@ -283,7 +329,7 @@ Previously, I obtained my B.E. of Computer Science from Shanghai Jiao Tong Unive
                                 </h6>
                                 <p class="info">
 
-                                    <a href="https://arxiv.org/abs/2305.16494" class="conference"> [Arxiv] </a>
+                                    <a href="https://arxiv.org/abs/2305.16494" class="conference" style="color: green;"> [NeurIPS 2023] </a>
                                     <a href="https://github.com/xavihart/Diff-PGD" class="conference"> [GitHub] </a>
                                 </p>
                             </div>
@@ -311,7 +357,7 @@ Previously, I obtained my B.E. of Computer Science from Shanghai Jiao Tong Unive
                                         </h6>
                                         <p class="info">
 
-                                            <a href="https://arxiv.org/abs/2304.11470" class="conference"> [Arxiv] </a>
+                                            <a href="https://arxiv.org/abs/2304.11470" class="conference" style="color: green;"> [NeurIPS 2023] </a>
 
                                           
                                             <a href="https://aihub.org/2023/05/25/interview-with-haotian-xue-learning-intuitive-physics-from-videos/" class="conference">[AIhub]</a>
@@ -352,7 +398,7 @@ Previously, I obtained my B.E. of Computer Science from Shanghai Jiao Tong Unive
                                             <a>Zhouhan Lin</a>
                                         </h6>
                                         <p class="info">
-                                            <a href="https://aclanthology.org/2022.findings-emnlp.173/" class="conference">[EMNLP2022, Findings]</a>
+                                            <a href="https://aclanthology.org/2022.findings-emnlp.173/" class="conference" style="color: green;">[EMNLP2022, Findings]</a>
                                             
                                         </p>
                                     </div>
