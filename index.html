@@ -53,7 +53,7 @@ a:hover{color:#0d5797}
 @media (min-width: 768px) {
     #main-content-container .col-avatar{text-align:center}
 }
-#main-content-container .col-avatar .avatar{z-index:100;width:200px;margin-top:0px;border-radius:10%;box-shadow:0 0 0 0.05em rgb(4, 1, 1);opacity:0.9;}
+#main-content-container .col-avatar .avatar{z-index:100;width:200px;margin-top:0px;border-radius:10%;box-shadow:#ccc;opacity:1;}
 
 #main-content-container .col-info{height:100%;align-items:center;}
 #main-info-container{padding-top:15px}
@@ -148,15 +148,15 @@ a:hover{color:#0d5797}
                                     <h1 class="name"><span>Haotian Xue 薛昊天 </span><span style="font-size: medium;">/haʊtiˈæn ; ʃweɪ/</span></h1> 
                                     <h1 class="email">Email: htxue.ai [at] gatech [dot] edu</p>
                                     <p class="text">Office: 401, MK Building; 270 Ferst Dr, Atlanta, GA 30332</p>
-                                    <p class="text">I am a 2nd-year Ph.D. student working on <a>Machine Learning</a> at <a href="https://ml.gatech.edu/">ML@GaTech</a>, advised by
-Prof. <a href="https://yongxin.ae.gatech.edu/", target="_blank"> Yongxin Chen</a>.
-Previously, I obtained my B.E. of Computer Science from Shanghai Jiao Tong University with honor in 2022. I  was a Visiting Student at MIT CSAIL supervised by Prof. <a href="https://scholar.google.com/citations?user=rRJ9wTJMUB8C">Josh Tenenbaum</a>, working closely with <a href="https://yunzhuli.github.io/">Yunzhu Li</a> and <a href="https://sfish0101.bitbucket.io/">Fish Tung</a>.</p>
+                                    <p class="text">I am currently a 2nd-year ML Ph.D. student at <a href="https://ml.gatech.edu/">ML@GaTech</a>, advised by
+Dr. <a href="https://yongxin.ae.gatech.edu/", target="_blank"> Yongxin Chen</a>.
+Previously, I obtained my B.E. of Computer Science from Shanghai Jiao Tong University with honor in 2022. I  was a Visiting Student at MIT CSAIL supervised by Prof. <a href="https://scholar.google.com/citations?user=rRJ9wTJMUB8C">Josh Tenenbaum</a>, working closely with <a href="https://yunzhuli.github.io/">Yunzhu Li</a> and <a href="https://sfish0101.bitbucket.io/">Fish Tung</a>. Feel free to contact me if you want to discuss or collaborate!</p>
                             </div>
 
                             <div class="col-name">
                             <i style="font-size:24px" class="fa">&#xf1a0;</i>
                             <a href="https://scholar.google.com/citations?hl=en&user=wnweG9UAAAAJ&view_op=list_works">[Google Scholar]</a>
-                            <a href="https://www.semanticscholar.org/author/Haotian-Xue/30944025">[Semantic Scholar] </a>
+                            <!-- <a href="https://www.semanticscholar.org/author/Haotian-Xue/30944025">[Semantic Scholar] </a> -->
 
                             <i style="font-size:24px" class="fa">&#xf09b;</i>
                             <a href="https://github.com/xavihart">[Github]</a>
@@ -183,6 +183,9 @@ Previously, I obtained my B.E. of Computer Science from Shanghai Jiao Tong Unive
             <h5 class="subtitle">News 📢</h5>
             <ul>
                 <li>
+                    <span style="color:#4e613e">[2024.03] </span>  I received the ICLR'2024 travel award, thanks!
+                </li>
+                <li>
                     <span style="color:#4e613e">[2024.01] </span>  Our <a href="https://github.com/xavihart/Diff-Protect" style="color:#BB2222;font-weight: normal;"><u>Diff-Protect</u></a> is accepted by ICLR'2024!
                 </li>
 
@@ -190,7 +193,7 @@ Previously, I obtained my B.E. of Computer Science from Shanghai Jiao Tong Unive
                     <span style="color:#4e613e">[2024.01] </span>  I will join NVIDIA as a research intern in 2024 summer!
                 </li>
                 <li>
-                    <span style="color: #0d5797">[2023.10] </span>  I was awarded the NeurIPS scholar award, thanks!
+                    <span style="color: #0d5797">[2023.10] </span>  I was awarded the NeurIPS'2023 scholar award, thanks!
                 </li>
                 <li>
                     <span style="color: #0d5797">[2023.10] </span>  I was invited as a reviewer for TPAMI.
@@ -224,26 +227,31 @@ Previously, I obtained my B.E. of Computer Science from Shanghai Jiao Tong Unive
 
             <h5 class="subtitle" style="margin-top:30px">Research Interest</h5>
             <p>
-                My research interest lies in broad aspects of Machine Learning, Computer Vision and Natural Language Processing. Currenty, I target in the following directions: 
+                My research interest lies in broad aspects of <b>Machine Learning</b> topics such as Computer Vision and Natural Language Processing. From 2022 to now, I focus on the following topics: 
             </p>
             <ul>
-                <li><b>Generative Models + X</b>: utilize/learn strong prior knowledge using <b style="color
-                    :green">Generative Models</b> (e.g. Diffusion Models), to solve AI problems, including robust AI, robot learning  and inverse problem</li>
+                <li><b>Robust AI System</b>: I am interested in building more <b style="color
+                    :green">Robust AI Systems</b>, especially for <b style="color
+                    :green">GenAI</b> such as Diffusion Models and LLMs. I did investigation in adversarial attacks for diffusion models [<a href="https://arxiv.org/abs/2305.16494">NeurIPS'23</a>] 
+                    and privacy protection against diffusion-based mimicry [<a href="https://arxiv.org/abs/2305.16494">ICLR'24</a>, <a href="https://arxiv.org/abs/2305.16494">Arxiv'24</a>] .  </li>
                 <li><b>Compositional and Explainable AI</b>: learning <b style="color
                     :green">Compositional</b> and <b style="color
-                    :green">Explainable</b> representation, stuctures or solutions for deep learning problems in e.g. Computer Vision and Natural Language Processing</li>
+                    :green">Explainable</b> representation, stuctures or algorithms for deep learning problems in e.g. Computer Vision and Natural Language Processing. I did research on Explanable AI before [<a href="https://openreview.net/forum?id=WevBjPK4V3j&referrer=%5Bthe%20profile%20of%20Haotian%20Xue%5D(%2Fprofile%3Fid%3D~Haotian_Xue1)">Arxiv'19</a>, <a href="https://arxiv.org/abs/2108.02646">Arxiv'20</a>]
+                 and learning compositional structure for vision tasks[<a href="https://arxiv.org/abs/2304.11470">NeurIPS'23</a>]  and NLP tasks [<a href="https://aclanthology.org/2022.findings-emnlp.173/">EMNLP'22</a>] .
+                </li>
             </ul>
 
             <h5 class="subtitle" style="margin-top:30px">Research Experience</h5>
          
             <ul>
-                <li>[2023-2024]: Start collaborating with Prof. <a href="https://animesh.garg.tech/">Animesh Garg</a>, GaTech, on DM+RL </li>
-                <li>[2023-2024]: Start collaborating with Prof. <a href="https://binhu7.github.io/">Bin Hu</a>, UIUC, on DM+Robustness </li>
-                <li>[2022-Current]: Work as a GRA Ph.D. student at FLAIR lab with Prof. <a href="https://yongxin.ae.gatech.edu/", target="_blank"> Yongxin Chen</a></li>
-                <li>[2022-2023]: Work as a visiting student at MIT CSAIL, advised by <a href="https://scholar.google.com/citations?user=rRJ9wTJMUB8C&hl=zh-CN">Josh Tenenbaum</a>, <a href="https://yunzhuli.github.io/">Yunzhu Li</a> and <a href="https://sfish0101.bitbucket.io/">Fish Tung</a></li>
+                
+                <li>[2023-2024]: Collaborate with Dr. <a href="https://animesh.garg.tech/">Animesh Garg</a>, GaTech, on DM+RL </li>
+                <li>[2023-2024]: Collaborate with Dr. <a href="https://binhu7.github.io/">Bin Hu</a> from UIUC and Dr. <a href="">Alexandre Araujo</a> from NYU on DM+Robustness </li>
+                <li>[2022-Current]: Work as a GRA Ph.D. student at FLAIR lab with Dr. <a href="https://yongxin.ae.gatech.edu/", target="_blank"> Yongxin Chen</a></li>
+                <li>[2022-2023]: Work as a visiting student at MIT, advised by Prof. <a href="https://scholar.google.com/citations?user=rRJ9wTJMUB8C&hl=zh-CN">Josh Tenenbaum</a>, <a href="https://yunzhuli.github.io/">Yunzhu Li</a> and <a href="https://sfish0101.bitbucket.io/">Fish Tung</a></li>
                 <li>[2021-2021]: Work as a research intern at NLC group, Microsoft Research, advised by Dr. <a href="https://www.microsoft.com/en-us/research/people/lecu/">Lei Cui</a></li>
-                <li>[2021-2022]: Work as a research intern at John Hopcroft Center, advised by Prof. <a href="https://hantek.github.io/">Zhouhan Lin</a> on NLP</li>
-                <li>[2020-2021]: Work as a research intern at John Hopcroft Center, advised by Prof. <a href="https://scholar.google.com/citations?user=YvN-H_0AAAAJ&hl=zh-CN">Quanshi Zhang</a> on XAI</li>
+                <li>[2021-2022]: Work as a research intern at John Hopcroft Center, advised by Dr. <a href="https://hantek.github.io/">Zhouhan Lin</a> on NLP</li>
+                <li>[2020-2021]: Work as a research intern at John Hopcroft Center, advised by Dr. <a href="https://scholar.google.com/citations?user=YvN-H_0AAAAJ&hl=zh-CN">Quanshi Zhang</a> on XAI</li>
             </ul>
 
             <h5 class="subtitle" style="margin-top:30px">Reviewer Experience</h5>
@@ -324,6 +332,81 @@ Previously, I obtained my B.E. of Computer Science from Shanghai Jiao Tong Unive
                             </div>
                         </div>
                     </div> -->
+
+
+                    <!-- <div id="main-pub-card-container" class="activated hide">
+                        <div class="pub-card" data-topic="gm" data-year="2023" data-selected="true">
+                            <div class="row">
+                                <div class="col-l col-xs-12 col-lg-3">
+                                    <img src="" width="100%" />
+                                </div>
+                                <div class="col-r col-xs-12 col-lg-9">
+                                    <div class="pub-card-body">
+                                        <h5 class="title">Skill Diffusion</h5>
+                                        <h6 class="authors">
+                                            <a>Arthava Mete*</a>,
+                                            <u>Haotian Xue* </u>,
+                                            <a> Yongxin Chen</a>,
+                                            <a> Animesh Garg <a>,
+                                        </h6>
+                                        <p class="info">
+                                            <a href="" class="conference" style="color:#0d5797;"> [Ongoing] </a>
+                                            <a href="" class="conference"> [GitHub] </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  -->
+
+                    <!-- <div id="main-pub-card-container" class="activated hide">
+                        <div class="pub-card" data-topic="gm" data-year="2023" data-selected="true">
+                            <div class="row">
+                                <div class="col-l col-xs-12 col-lg-3">
+                                    <img src="" width="100%" />
+                                </div>
+                                <div class="col-r col-xs-12 col-lg-9">
+                                    <div class="pub-card-body">
+                                        <h5 class="title">Diffusion policy attacker</h5>
+                                        <h6 class="authors">
+                                            <u>Haotian Xue*</u>,
+                                            <a>Yipu Chen* </a>,
+                                            <a> Yongxin Chen</a>
+                                        </h6>
+                                        <p class="info">
+                                            <a href="" class="conference" style="color:#0d5797;"> [Ongoing] </a>
+                                            <a href="" class="conference"> [GitHub] </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>     -->
+
+
+                    <div id="main-pub-card-container" class="activated hide">
+                        <div class="pub-card" data-topic="gm" data-year="2023" data-selected="true">
+                            <div class="row">
+                                <div class="col-l col-xs-12 col-lg-3">
+                                    <img src="static/image/pdm-pure.jpg" width="100%" />
+                                </div>
+                                <div class="col-r col-xs-12 col-lg-9">
+                                    <div class="pub-card-body">
+                                        <h5 class="title">Pixel is a Barrier: Rethinking Adversarial-Based Protection for Diffusion-Based Generation</h5>
+                                        <h6 class="authors">
+                                           <u>Haotian Xue</u>,
+                                           <a> Yongxin Chen</a>
+                                        </h6>
+                                        <p class="info">
+                                            <a href="" class="conference" style="color:#0d5797;"> [Coming Soon] </a>
+                                            <a href="" class="conference"> [GitHub] </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+         
+
+
+        
             
                 <div id="main-pub-card-container" class="activated hide">
                     <div class="pub-card" data-topic="gm" data-year="2023" data-selected="true">
@@ -408,6 +491,12 @@ Previously, I obtained my B.E. of Computer Science from Shanghai Jiao Tong Unive
 
                                         </p>
 
+                                        <p class="info">
+
+                                            [Abridged in CVPR 2023 3DVR & Precognition]
+
+                                        </p>
+
 
 
                                         
@@ -418,7 +507,7 @@ Previously, I obtained my B.E. of Computer Science from Shanghai Jiao Tong Unive
            
 
                     <div id="main-pub-card-container" class="activated hide">
-                        <div class="pub-card" data-topic="nlp" data-year="2022" data-selected="true">
+                        <div class="pub-card" data-topic="nlp" data-year="2022" data-selected="false">
                             <div class="row">
                                 <div class="col-l col-xs-12 col-lg-3">
                                     <img src="static/image/emnlp22.png" width="100%"/>
@@ -447,7 +536,7 @@ Previously, I obtained my B.E. of Computer Science from Shanghai Jiao Tong Unive
 
 
                         <div id="main-pub-card-container" class="activated hide">
-                            <div class="pub-card" data-topic="nlp" data-year="2022" data-selected="true">
+                            <div class="pub-card" data-topic="nlp" data-year="2022" data-selected="false">
                                 <div class="row">
                                     <div class="col-l col-xs-12 col-lg-3">
                                         <center><img src="static/image/gating_syntax.png" width="100%" /></center>
@@ -468,7 +557,7 @@ Previously, I obtained my B.E. of Computer Science from Shanghai Jiao Tong Unive
                         </div>
 
                         <div id="main-pub-card-container" class="activated hide">
-                            <div class="pub-card" data-topic="xai" data-year="2021" data-selected="true">
+                            <div class="pub-card" data-topic="xai" data-year="2021" data-selected="false">
                                 <div class="row">
                                     <div class="col-l col-xs-12 col-lg-3">
                                         <img src="static/image/aesthetics/demo2.png" width="100%"  />
@@ -495,7 +584,7 @@ Previously, I obtained my B.E. of Computer Science from Shanghai Jiao Tong Unive
                         </div>
             
                             <div id="main-pub-card-container" class="activated hide">
-                                <div class="pub-card" data-topic="xai" data-year="2020" data-selected="true">
+                                <div class="pub-card" data-topic="xai" data-year="2020" data-selected="false">
                                     <div class="row">
                                         <div class="col-l col-xs-12 col-lg-3">
                                             <img src="static/image/eval/iccv.png" width="100%" />
@@ -523,7 +612,7 @@ Previously, I obtained my B.E. of Computer Science from Shanghai Jiao Tong Unive
                             
 
                                 <div id="main-pub-card-container" class="activated hide">
-                                    <div class="pub-card" data-topic="xai" data-year="2022" data-selected="true">
+                                    <div class="pub-card" data-topic="xai" data-year="2022" data-selected="false">
                                         <div class="row">
                                             <div class="col-l col-xs-12 col-lg-3">
                                                 <img src="static/image/active_ad.png" width="100%" />
