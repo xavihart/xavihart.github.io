@@ -123,6 +123,39 @@ a:hover{color:#0d5797}
 .highlight{color:#BB2222;font-weight:600}
 .highlight:hover{color:#BB2222;font-weight:600}
 .hide{display:none}
+
+
+
+.news-list{
+    list-style:none;          /* remove bullets           */
+    margin:0;                 /* no outer spacing          */
+    padding:0;                /* no inner spacing          */
+    max-height:340px;         /* ≈ 10 items – tweak at will*/
+    overflow-y:auto;          /* vertical scrollbar        */
+    border:1px solid #e6e6e6; /* subtle outline            */
+    border-radius:6px;
+    box-shadow:0 2px 6px rgba(0,0,0,.05);
+    background:#fff;
+    scroll-behavior:smooth;   /* nicer scrolling feel      */
+}
+
+/* row‑separators and nicer typography */
+.news-list li{
+    padding:8px 12px;
+    border-bottom:1px solid #f4f4f4;
+    font-size:15px;
+    line-height:1.4;
+}
+.news-list li:last-child{border-bottom:none}
+
+/* custom thin scrollbar (Chrome/Edge/Safari) */
+.news-list::-webkit-scrollbar{width:6px}
+.news-list::-webkit-scrollbar-track{background:#fafafa}
+.news-list::-webkit-scrollbar-thumb{
+    background:#c4c4c4;
+    border-radius:3px;
+}
+
     </style>
 </head>
 
@@ -137,9 +170,9 @@ a:hover{color:#0d5797}
         <div id="main-content-container" class="container">
             <div class="row">
                 <div class="col-avatar">
-                    <img src="static/image/yosemite-haotian.jpg" class="avatar"/>
-                    <figcaption style="font-size: small;">Yosemite National Park, CA</figcaption>
-                    <figcaption style="font-size: small;">2nd June 2024</figcaption>
+                    <img src="static/image/xht_budapest.jpg" class="avatar"/>
+                    <figcaption style="font-size: small;">Budapest, Hungary</figcaption>
+                    <figcaption style="font-size: small;">May 2024</figcaption>
                     <figcaption style="font-size: small;">Credit to <a href="https://www.linkedin.com/in/sunyirong?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAADfiBvIBol-vFtGZl3izEye18jYo4yl1ak4&lipi=urn%3Ali%3Apage%3Ad_flagship3_search_srp_people%3BQ0V8CCKEShWZfoACXuqXAA%3D%3D">Rebecca Sun</a> </figcaption>
                 </div>
                 <div class="col-sm-12 col-md-9">
@@ -148,7 +181,7 @@ a:hover{color:#0d5797}
                                     <h1 class="name"><span>Haotian Xue 薛昊天 </span><span style="font-size: medium;">/haʊtiˈæn ; ʃweɪ/</span></h1> 
                                     <h1 class="email">Email: htxue.ai [at] gatech [dot] edu</p>
                                     <p class="text">Office: CODA E1011,  756 W Peachtree St NW, Atlanta, GA 30332</p>
-                                    <p class="text">I am currently a 3rd-year ML Ph.D. student at <img src="static/image/gt-logo.png" alt="Microsoft Logo" style="vertical-align: middle; width: 20px; height: auto;"> <a href="https://ml.gatech.edu/">ML@GaTech</a>, advised by
+                                    <p class="text">I am currently a 3rd-year Machine Learning Ph.D. student at <img src="static/image/gt-logo.png" alt="Microsoft Logo" style="vertical-align: middle; width: 20px; height: auto;"> <a href="https://ml.gatech.edu/">ML@GaTech</a>, advised by
 Dr. <a href="https://yongxin.ae.gatech.edu/", target="_blank"> Yongxin Chen</a>.
 Previously, I obtained my B.E. of Computer Science from <img src="static/image/sjtu.png" alt="Microsoft Logo" style="vertical-align: middle; width: 20px; height: auto;"> <a href="https://en.sjtu.edu.cn/">Shanghai Jiao Tong University</a>  with honor in <a href="https://en.zhiyuan.sjtu.edu.cn/">Zhiyuan College</a>  in  2022. </p>
 
@@ -157,7 +190,7 @@ Previously, I obtained my B.E. of Computer Science from <img src="static/image/s
     <img src="static/image/microsoft.png" alt="Microsoft Logo" style="vertical-align: middle; width: 20px; height: auto;"> Microsoft Research Asia (21 Winter). I was a Visiting Student (2021) at 
     <img src="static/image/mit.png" alt="MIT Logo" style="vertical-align: middle; width: 20px; height: auto;"> MIT CSAIL.</p>
 
-                    <p>📢 Feel free to contact me if you want to discuss or collaborate! If you want to do research under my mentorship, please refer to <a href="./supervision.html" style="color:rgb(239, 69, 69);">[Supervision Guidance]</a>. </p>
+                    <!-- <p>📢 Feel free to contact me if you want to discuss or collaborate! If you want to do research under my mentorship, please refer to <a href="./supervision.html" style="color:rgb(239, 69, 69);">[Supervision Guidance]</a>. </p> -->
                             </div>
 
                             <div class="col-name">
@@ -174,9 +207,6 @@ Previously, I obtained my B.E. of Computer Science from <img src="static/image/s
                             <i style="font-size:24px" class="fa">&#xf1c1;</i>
                             <a href="static/image/cv.pdf"> [Curriculum Vitae (Sept 2024)]</a>
 
-
- 
-
                     </div>
                 </div>
             </div>
@@ -184,16 +214,34 @@ Previously, I obtained my B.E. of Computer Science from <img src="static/image/s
     </div>
 </div>
 
+
 <div class="main-content">
     <div class="main-more-container">
         <div class="main-bio-container">
+            <h5 class="subtitle" style="margin-bottom:0px">Research Interest</h5>
+            <p>
+                My research interest lies in broad aspects of Machine Learning topics such as CV and NLP. 
+                <br>
+                <br>
+                Currently, I focus on
+                exploring and stimulating the <b>Physical  Intelligence</b> of GenAI, e.g. Vision-Language Models and Generative Diffusion Models:
+                <ul>
+                    <li>Visual Grounding / Spatial Understanding of Vision-Language-Models</li>
+                    <li>Physical Alignment / 3D Consistency post-training of Video Diffusion Models</li>
+                    <li>Foundation Models for Embodied AI</li>
+                </ul>
+
+                Previously, I worked on <b>adversarial attacks and defenses</b> in <b>GenAI</b>, I did investigation in attacks and defenses for diffusion-based models, and developed several interesting algorithms: e.g. Diff-PGD, 
+                SDS-Attack, Diff-Pure and DP-Attacker.
+            </p>
+                
             <h5 class="subtitle">News 📢</h5>
-            <ul>
+            <ul class="news-list">
                 <!-- <li>
                     <span style="color:#4e613e">[2025.00] </span>  I will spend 2025 summer at Adobe Firefly <img src="static/image/Adobe_Firefly_Logo.svg.png" alt="Nvidia Logo" style="vertical-align: middle; width: 20px; height: auto;"> in San Jose.
                 </li> -->
                 <li>
-                    <span style="color:#0d5797">[2025.01] </span>  I received my Master's degree in Computer Science from Georgia Tech.
+                    <span style="color:#0d5797">[2025.04] </span>  I will be at <img src="static/image/Adobe_Firefly_Logo.svg.png" alt="Nvidia Logo" style="vertical-align: middle; width: 20px; height: auto;"> <a href="https://www.adobe.com/products/firefly.html">Adobe Firefly</a>  this summer, working on cool video diffusion stuff!
                 </li>
                 <li>
                     <span style="color:#4e613e">[2024.10] </span>  I was awarded the NeurIPS'2024 scholar award, thanks! See you in Vancouver, CA.
@@ -214,7 +262,7 @@ Previously, I obtained my B.E. of Computer Science from <img src="static/image/s
                     <span style="color:#4e613e">[2024.03] </span>  I received the ICLR'2024 travel award, thanks!
                 </li>
                 <li>
-                    <span style="color:#4e613e">[2024.01] </span>  Our <a href="https://github.com/xavihart/Diff-Protect" style="color:#BB2222;font-weight: normal;"><u>Diff-Protect</u></a> is accepted by ICLR'2024!
+                    <span style="color:#4e613e">[2024.01] </span>  Our <a href="https://github.com/xavihart/Diff-Protect" style="color:#BB2222;font-weight: normal;"><u>SDS-Attack</u></a> is accepted by ICLR'2024!
                 </li>
                 <li>
                     <span style="color: #0d5797">[2023.10] </span>  I was awarded the NeurIPS'2023 scholar award, thanks!
@@ -222,9 +270,9 @@ Previously, I obtained my B.E. of Computer Science from <img src="static/image/s
                 <li>
                     <span style="color: #0d5797">[2023.10] </span>  I was invited as a reviewer for TPAMI.
                 </li>
-                <li>
+                <!-- <li>
                     <span style="color: #0d5797">[2023.10]  </span> We propose <a href="https://github.com/xavihart/Diff-Protect" style="color:#BB2222;font-weight: normal;"><u>Diff-Protect</u></a>, a more effective protection framework against AI mimicry.
-                </li>
+                </li> -->
                 <li>
                     <span style="color:#0d5797">[2023.09]  </span> <a href="https://github.com/xavihart/Diff-PGD" style="color:#BB2222;font-weight: normal;"><u>Diff-PGD</u></a> and <a href="https://github.com/xavihart/3D-IntPhys" style="color:#BB2222;font-weight: normal;"><u>3D-IntPhys</u></a> are accepted by NeurIPS'2023!
                 </li>
@@ -249,16 +297,7 @@ Previously, I obtained my B.E. of Computer Science from <img src="static/image/s
                 
             </ul>
 
-            <h5 class="subtitle" style="margin-top:30px">Research Interest</h5>
-            <p>
-                My research interest lies in broad aspects of <b>Machine Learning</b> topics such as Computer Vision and Natural Language Processing. Currently, I focus on the following topics: 
-            </p>
-            <ul>  
-                <li><b>Generative Models</b> (e.g. diffusion models, auto-regressive generative models)
-                <li><b>Generalized Embodied AI</b>(e.g. diffusion policy, vision-language models)
-                <li><b>Safety and Robustness of GenAI</b>(e.g. adversarial attacks, protection of diffusion models)
-            </ul>
-
+            
             <!-- <h5 class="subtitle" style="margin-top:30px">Research Experience</h5>
          
             <ul>
@@ -288,7 +327,8 @@ Previously, I obtained my B.E. of Computer Science from <img src="static/image/s
             <p style="color:#BB2222">
             Journals:
             <ul>
-                <li>TPAMI</li>
+                <li>IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)</li>
+                <li>IEEE Transactions on Circuits and Systems for Video Technology (TCSVT)</li>
 
             </ul>
 
