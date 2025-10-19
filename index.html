@@ -1,1003 +1,434 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Haotian Xue</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Haotian Xue is a PhD student at Georgia Tech.">
-    <meta name="keywords" content="Haotian Xue,Machine Learning,Computer Vision,Natural Language Processing,Robotics">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="shortcut icon" href="static/image/georgia-tech-yellow-jackets-ncaa-logo-sticker-5145-756891.png">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Haotian Xue — CV</title>
+  <meta name="description" content="Haotian Xue is a Machine Learning PhD student at Georgia Tech." />
+  <link rel="shortcut icon" href="static/image/georgia-tech-yellow-jackets-ncaa-logo-sticker-5145-756891.png" />
 
-    <!--[if lt IE 9]>
-      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+  <style>
+    :root{
+      --bg: #ffffff;
+      --card: #fafafa;
+      --text: #1b1f23;
+      --muted: #5e6a75;
+      --line: #e7e7e9;
+      --accent: #0d5797;
+      --radius: 16px;
+      --shadow: 0 4px 16px rgba(0,0,0,.06);
+      --maxw: 980px;
+    }
+    html[data-theme="dark"]{
+      --bg:#0f1216; --card:#151a20; --text:#e9eef3; --muted:#a7b1bc; --line:#242b33; --shadow: 0 6px 18px rgba(0,0,0,.35);
+    }
 
-    <style type="text/css">
-body{margin:0;padding:0;}
-a{color:rgb(5, 82, 59)}
-a:hover{color:#0d5797}
-#background{position:fixed;top:0;overflow:hidden;height:0}
-#wave-canvas{display:block;position:relative;top:0;left:5%;width:55%;min-width:850px;height:150px;border:0}
-/*#main{z-index:2;margin:0 auto;position:absolute;padding-top:5%;width:100%;min-width:240px;text-align:center;background-color:rgb(254,250,246)}*/
-#main{margin:0 auto;padding:45px 30px 15px;width:100%;min-width:240px;text-align:center;background-color:white}
+    *{box-sizing:border-box}
+    html,body{margin:0; padding:0; background:var(--bg); color:var(--text); font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"}
+    a{color:var(--accent); text-decoration:none}
+    a:hover{opacity:.9; text-decoration:underline}
 
-.main-content{padding:0;text-align:center;cursor:default;text-align:center;}
-/*#main-content{background:rgba(238,238,238,0.95);padding:0;text-align:center;cursor:default;text-align:center;}*/
-/*.main-content{margin-left:6.5104167%;width:86.9791667%;}*/
-@media (min-width: 768px) {
-    .main-content{width:66%;min-width:668px;margin:auto;}
-}
-@media (min-width: 1200px) {
-    .main-content{width:66%;max-width:900px;margin:auto;}
-}
-/*.main-content {
-    width:86.9791667%;
-    margin: 0 auto;
-}
-@media (min-width: 768px) {
-    .main-content{width:66%;min-width:668px;}
-}
-@media (min-width: 1200px) {
-    .main-content{width:66%;max-width:900px;}
-}*/
-/* Avatar, Name, etc. */
-#main-content-container{margin:0 auto;padding:15px 0 0;max-width:1080px;}
-@media (min-width: 768px) {
-    #main-content-container{padding:15px 0;}
-}
-#main-content-container .col-avatar{text-align:center}
-@media (min-width: 768px) {
-    #main-content-container .col-avatar{text-align:center}
-}
-#main-content-container .col-avatar .avatar{z-index:100;width:200px;margin-top:0px;border-radius:10%;box-shadow:#ccc;opacity:1;}
+    .container{max-width:var(--maxw); margin:0 auto; padding:28px 20px 60px}
 
-#main-content-container .col-info{height:100%;align-items:center;}
-#main-info-container{padding-top:15px}
-#main-info-container .col-name{text-align:center;margin-top:30px}
-@media (min-width: 768px) {
-    #main-info-container .col-name{text-align:left;margin-top:0;}
-}
-#main-info-container .col-name .text{text-align:left}
-#main-info-container .col-name .name{margin:0;color:#566c7f;font-size:1.85em;font-family:'Times New Roman', Times, serif}
-#main-info-container .col-name .email{color:#666; font-size:14px}
-#main-info-container .col-link{text-align:center;margin:-5px 0 -25px;}
-#main-info-container .col-link ul {margin:0px auto auto;padding:0;list-style:none;text-align:center}
-#main-info-container .col-link li {display:inline-block;margin:auto;padding:0 10px;color:#ccc;line-height:10px}
-#main-info-container .col-link li a{width:45px;height:45px;color:#ccc;padding:0;font-size:45px;line-height:45px}
-#main-info-container .col-link li a:focus,
-#main-info-container .col-link li a:hover{text-decoration:none;cursor:hand}
-#main-info-container .col-link li a.border{border:1px solid #ccc;border-radius:100%;}
-#main-info-container .col-link li a.padding{padding:0px 0px;font-size:22px}
+    header{display:grid; gap:24px; grid-template-columns: 120px 1fr; align-items:center; padding:28px; border:1px solid var(--line); background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); position:relative}
+    .theme-toggle{position:absolute; right:16px; top:16px; border:1px solid var(--line); background:transparent; color:var(--text); padding:6px 10px; border-radius:10px; font-size:14px; cursor:pointer}
+    .theme-toggle:hover{background:rgba(13,87,151,.07)}
 
-/* Other */
-.main-more-container{width:100%;padding:0 30px}
-
-.main-bio-container{margin:auto;padding: 0 0em;max-width:1080px;text-align:left;padding-top:30px;max-width:1080px;font-size:1rem;line-height:1.4}
-.main-bio-container .subtitle{margin-top:0px;color:#566c7f;}
-
-#main-pub-container{margin:auto;padding: 0 0em;max-width:1080px;text-align:left;padding-top:30px;max-width:1080px}
-#main-pub-container .subtitle{color:#566c7f;}
-#main-pub-container .subtitle a {font-size:18px; color: #96a5b3; font-weight:400}
-#main-pub-container .subtitle a.activated {color:#333333; font-weight:600}
-#main-pub-container .subtitle a.activated:focus,
-#main-pub-container .subtitle a.activated:hover {text-decoration:none;cursor:initial}
-
-#main-pub-container .subtitle-aux {font-size:1rem}
-#main-pub-container .subtitle-aux a.activated {color:#333333}
-#main-pub-container .subtitle-aux a.activated:focus,
-#main-pub-container .subtitle-aux a.activated:hover {text-decoration:none;cursor:initial}
-#main-pub-container .subtitle-aux .note{margin-left:1em;color:#999999;text-decoration:none;font-size:14px}
-
-#main-pub-card-container{}
-#main-pub-card-container>h5{margin-bottom: 20px}
-#main-pub-card-container .pub-card{width: 100%;padding-bottom:15px;font-size:1rem}
-#main-pub-card-container .pub-card .col-l{text-align:center;padding-top:10px}
-#main-pub-card-container .pub-card .col-r{padding-top:10px}
-#main-pub-card-container .pub-card img{width:100%;margin:0 auto}
-#main-pub-card-container .pub-card-body{width:100%;background:transparent;padding-left:0px}
-#main-pub-card-container .pub-card .title{font-weight:600;font-size:1rem;margin-bottom:4px;line-height:1.4}
-#main-pub-card-container .pub-card .authors{font-weight:400;color:#666666;margin-bottom:4px;line-height:1.4}
-#main-pub-card-container .pub-card .authors a{color:#666666}
-#main-pub-card-container .pub-card .authors u{color:#333333;font-weight:600;text-decoration:none}
-#main-pub-card-container .pub-card .conference{color:cornflowerblue;font-weight:600}
-#main-pub-card-container .pub-card .note{display:block;color:#999999;text-decoration:none;font-size:14px}
-#main-pub-card-container .pub-card .info{margin-bottom:0;}
-#main-pub-card-container .row{margin:0}
-#main-pub-card-container .col-l,
-#main-pub-card-container .col-r{vertical-align:top;display:inline-block;margin:0;padding-left:0px}
-
-#footer{padding:0 0 1.5em;margin-top:2rem;min-width:240px;background:#fff;font-size:14px;line-height:12px;text-align:left;background:#fff}
-#footer .container{max-width:540px;padding:0 45px;position:relative}
-#footer .row{align-items:center}
-#footer .comic{padding-right:15px;}
-#footer .stat{width:200px;overflow:hidden;margin:0 auto -25px;padding-right:15px;}
-#footer .copyright{flex-grow:1;margin:25px auto 5px;text-align:left;display:block;font-size:1rem;line-height:1.4;color:#666666}
-#footer a{color:#666666}
-#footer a:hover{color:#333333}
-
-.bold{font-weight:600}
-.highlight{color:#BB2222;font-weight:600}
-.highlight:hover{color:#BB2222;font-weight:600}
-.hide{display:none}
-
-
-
-.news-list{
-    list-style:none;          /* remove bullets           */
-    margin:0;                 /* no outer spacing          */
-    padding:0;                /* no inner spacing          */
-    max-height:340px;         /* ≈ 10 items – tweak at will*/
-    overflow-y:auto;          /* vertical scrollbar        */
-    border:1px solid #e6e6e6; /* subtle outline            */
-    border-radius:6px;
-    box-shadow:0 2px 6px rgba(0,0,0,.05);
-    background:#fff;
-    scroll-behavior:smooth;   /* nicer scrolling feel      */
+.photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 120px;
 }
 
-/* row‑separators and nicer typography */
-.news-list li{
-    padding:8px 12px;
-    border-bottom:1px solid #f4f4f4;
-    font-size:15px;
-    line-height:1.4;
-}
-.news-list li:last-child{border-bottom:none}
-
-/* custom thin scrollbar (Chrome/Edge/Safari) */
-.news-list::-webkit-scrollbar{width:6px}
-.news-list::-webkit-scrollbar-track{background:#fafafa}
-.news-list::-webkit-scrollbar-thumb{
-    background:#c4c4c4;
-    border-radius:3px;
+.portrait {
+  position: relative;
+  width: 120px;
+  height: 120px;
 }
 
-    </style>
+.portrait img {
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  object-fit: cover;
+  transition: opacity 0.4s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.portrait img.main {
+  opacity: 1;
+  z-index: 1;
+}
+
+.portrait img.hover {
+  opacity: 0;
+  z-index: 2;
+}
+
+.portrait:hover img.main {
+  opacity: 0;
+}
+
+.portrait:hover img.hover {
+  opacity: 1;
+}
+
+.credit {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+}
+    header img{width:120px; height:120px; border-radius:14px; object-fit:cover}
+    .credit{margin-top:6px; font-size:12px; color:var(--muted); text-align:center}
+
+    .id h1{margin:0; font-size:clamp(22px, 3.2vw, 32px)}
+    .id .pron{font-size:14px; color:var(--muted)}
+    .id .line{margin:8px 0 10px; color:var(--muted)}
+
+    .rows{display:flex; flex-direction:column; gap:6px}
+    .row{display:flex; flex-wrap:wrap; gap:14px; align-items:center; font-size:14px}
+    .label{font-weight:600; color:var(--muted);}
+    .sep{opacity:.5}
+
+    nav{margin:18px 2px 0; display:flex; flex-wrap:wrap; gap:8px}
+    nav a{padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:transparent; font-size:14px}
+    nav a:hover{background:rgba(13,87,151,.07); text-decoration:none}
+
+    section{margin-top:28px}
+    .card{border:1px solid var(--line); background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:22px}
+    h2{margin:0 0 8px; font-size:20px}
+    .muted{color:var(--muted)}
+
+    /* News with scrollbar; visible height sized to first 5 items (set via JS) */
+    .news{list-style:none; margin:0; padding:0; overflow-y:auto; border:1px dashed var(--line); border-radius:12px}
+    .news li{display:flex; gap:8px; padding:10px 12px; border-bottom:1px dashed var(--line)}
+    .news li:last-child{border-bottom:none}
+    .tag{font-size:12px; font-weight:600; color:#fff; border-radius:6px; padding:2px 6px; align-self:flex-start}
+
+    .news::-webkit-scrollbar{width:6px}
+    .news::-webkit-scrollbar-track{background:var(--card)}
+    .news::-webkit-scrollbar-thumb{background:#c4c4c4; border-radius:3px}
+
+    .pubs{list-style:none; margin:0; padding:0}
+    .pubs li{padding:10px 0; border-bottom:1px solid var(--line)}
+    .pubs li:last-child{border-bottom:none}
+    .venue{font-size:12px; font-weight:700; letter-spacing:.3px; padding:2px 6px; border-radius:6px; background:rgba(13,87,151,.12); color:var(--accent)}
+    .links a{margin-right:10px; font-size:14px}
+
+    details{border:1px solid var(--line); border-radius:12px; padding:14px 16px; background:transparent}
+    summary{cursor:pointer; font-weight:600}
+
+    footer{margin:34px 0 0; padding:18px 6px; color:var(--muted); font-size:14px; display:flex; gap:10px; align-items:center; justify-content:space-between}
+
+    /* Inline logos (scaled with text) */
+    .logo{height:1em; width:auto; vertical-align:middle; margin:0 4px 2px; object-fit:contain}
+    @media (min-width:900px){ .logo{height:1.2em} }
+
+    .labels{display:flex; gap:8px; margin:6px 0 2px; flex-wrap:wrap}
+.plabel{
+  font-size:8px; font-weight:700; letter-spacing:.2px;
+  padding:2px 6px; border-radius:999px;
+  border:1px solid var(--line); background:transparent; color:var(--muted);
+  cursor:default; user-select:none;
+}
+
+/* Tag colors */
+:root{
+  --tag-diffusion: #0fc0f7;
+  --tag-vlm:#8a2be2;
+  --tag-safety:#db4437;
+  --tag-robotics:#0b8043;
+  --tag-vision:#5e6a75;
+  --tag-3d:#f4b400;
+}
+html[data-theme="dark"]{
+  --tag-vision:#a7b1bc; /* slightly brighter in dark mode */
+}
+
+.plabel[data-k="diffusion"]{ border-color:color-mix(in oklab, var(--tag-diffusion) 35%, var(--line)); background:color-mix(in oklab, var(--tag-diffusion) 12%, transparent); color:var(--tag-diffusion) }
+.plabel[data-k="vlm"]{       border-color:color-mix(in oklab, var(--tag-vlm) 35%, var(--line));       background:color-mix(in oklab, var(--tag-vlm) 12%, transparent);       color:var(--tag-vlm) }
+.plabel[data-k="safety"]{    border-color:color-mix(in oklab, var(--tag-safety) 35%, var(--line));    background:color-mix(in oklab, var(--tag-safety) 12%, transparent);    color:var(--tag-safety) }
+.plabel[data-k="robotics"]{  border-color:color-mix(in oklab, var(--tag-robotics) 35%, var(--line));  background:color-mix(in oklab, var(--tag-robotics) 12%, transparent);  color:var(--tag-robotics) }
+.plabel[data-k="vision"]{    border-color:color-mix(in oklab, var(--tag-vision) 35%, var(--line));    background:color-mix(in oklab, var(--tag-vision) 12%, transparent);    color:var(--tag-vision) }
+.plabel[data-k="3d"]{    border-color:color-mix(in oklab, var(--tag-3d) 35%, var(--line));    background:color-mix(in oklab, var(--tag-3d) 12%, transparent);    color:var(--tag-3d) }
+
+  </style>
 </head>
-
 <body>
-
-<!--img src="static/img/hal-gatewood.jpg" id="background" class="" /-->
-
-<div id="main">
-    <!--canvas id="wave-canvas"></canvas-->
-
-    <div class="main-content">
-        <div id="main-content-container" class="container">
-            <div class="row">
-                <div class="col-avatar">
-                    <img src="static/image/xht_budapest.jpg" class="avatar"/>
-                    <figcaption style="font-size: small;">Budapest, Hungary</figcaption>
-                    <figcaption style="font-size: small;">May 2024</figcaption>
-                    <figcaption style="font-size: small;">Credit to <a href="https://www.linkedin.com/in/sunyirong?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAADfiBvIBol-vFtGZl3izEye18jYo4yl1ak4&lipi=urn%3Ali%3Apage%3Ad_flagship3_search_srp_people%3BQ0V8CCKEShWZfoACXuqXAA%3D%3D">Rebecca Sun</a> </figcaption>
-                </div>
-                <div class="col-sm-12 col-md-9">
-                    <div id="main-info-container">
-                            <div class="col-name">
-                                    <h1 class="name"><span>Haotian Xue 薛昊天 </span><span style="font-size: medium;">/haʊtiˈæn ; ʃweɪ/</span></h1> 
-                                    <h1 class="email">Email: htxue.ai [at] gatech [dot] edu</p>
-                                    <p class="text">Office: CODA E1011,  756 W Peachtree St NW, Atlanta, GA 30332</p>
-                                    <p class="text">I am currently a 4th-year Machine Learning Ph.D. student at <img src="static/image/gt-logo.png" alt="Microsoft Logo" style="vertical-align: middle; width: 20px; height: auto;"> <a href="https://ml.gatech.edu/">ML@GaTech</a>, advised by
-Dr. <a href="https://yongxin.ae.gatech.edu/", target="_blank"> Yongxin Chen</a>.
-Previously, I obtained my B.E. of Computer Science from <img src="static/image/sjtu.png" alt="Microsoft Logo" style="vertical-align: middle; width: 20px; height: auto;"> <a href="https://en.sjtu.edu.cn/">Shanghai Jiao Tong University</a>  with honor in <a href="https://en.zhiyuan.sjtu.edu.cn/">Zhiyuan College</a>  in  2022. </p>
-
-<p class="text">I did my research intern at 
-    <img src="static/image/Adobe_Firefly_Logo.svg.png" alt="Nvidia Logo" style="vertical-align: middle; width: 20px; height: auto;"> Adobe (25 Summer + Fall), 
-    <img src="static/image/235_Nvidia_logo-512.webp" alt="Nvidia Logo" style="vertical-align: middle; width: 20px; height: auto;"> Nvidia (24 Summer + Fall) and 
-    <img src="static/image/microsoft.png" alt="Microsoft Logo" style="vertical-align: middle; width: 20px; height: auto;"> Microsoft Research Asia (21 Winter). I was a Visiting Student (2021) at 
-    <img src="static/image/mit.png" alt="MIT Logo" style="vertical-align: middle; width: 20px; height: auto;"> MIT CSAIL.</p>
-
-                    <!-- <p>📢 Feel free to contact me if you want to discuss or collaborate! If you want to do research under my mentorship, please refer to <a href="./supervision.html" style="color:rgb(239, 69, 69);">[Supervision Guidance]</a>. </p> -->
-                            </div>
-
-                            <div class="col-name">
-                            <i style="font-size:24px" class="fa">&#xf1a0;</i>
-                            <a href="https://scholar.google.com/citations?hl=en&user=wnweG9UAAAAJ&view_op=list_works">[Google Scholar]</a>
-                            <!-- <a href="https://www.semanticscholar.org/author/Haotian-Xue/30944025">[Semantic Scholar] </a> -->
-
-                            <i style="font-size:24px" class="fa">&#xf09b;</i>
-                            <a href="https://github.com/xavihart">[Github]</a>
-
-                            <i style="font-size:24px" class="fa">&#xf081;</i>
-                            <a href="https://twitter.com/Haotianxue_GT">[Twitter]</a>
-
-                            <i style="font-size:24px" class="fa">&#xf1c1;</i>
-                            <a href="static/image/cv.pdf"> [Curriculum Vitae (Sept 2024)]</a>
-
-                    </div>
-                </div>
-            </div>
+  <div class="container">
+    <header>
+      <button class="theme-toggle" id="themeBtn" aria-label="Toggle dark or light mode">Dark mode</button>
+    <div class="photo">
+        <div class="portrait">
+            <img class="main" src="static/image/xht_paris.jpg" 
+                alt="Portrait of Haotian Xue in Budapest, May 2024" />
+            <img class="hover" src="static/image/xht_cat.png" 
+                alt="Haotian Xue with cat" />
         </div>
-    </div>
-</div>
-
-
-<div class="main-content">
-    <div class="main-more-container">
-        <div class="main-bio-container">
-            <h5 class="subtitle" style="margin-bottom:0px">Research Interest</h5>
-            <p>
-                <!-- My research interest lies in broad aspects of Machine Learning topics such as CV and NLP. 
-                <br>
-                <br>
-                Currently, I focus on
-                exploring and stimulating the <b>Physical  Intelligence</b> of GenAI, e.g. Vision-Language Models and Generative Diffusion Models:
-                <ul>
-                    <li>Visual Grounding / Spatial Understanding of Vision-Language-Models</li>
-                    <li>Physical Alignment / 3D Consistency post-training of Video Diffusion Models</li>
-                    <li>Foundation Models for Embodied AI</li>
-                </ul> -->
-
-                Currently, I am interested at improving <b style="color:#0d5797">physical understanding and physical alignment </b>  of <b>Generative AI</b> models, e.g. Vision-Language Models and Video Diffusion Models.
-                <br>
-                I am also committed to developing safe GenAI, in my early Ph.D., I worked on <b>adversarial attacks and defenses</b> in <b>GenAI</b>, and  developed several important algorithms across Image Diffusion Model and Robot Diffusion Policy: e.g. Diff-PGD, 
-                SDS-Attack, Diff-Pure and DP-Attacker.
-            </p>
-                
-            <h5 class="subtitle">News 📢</h5>
-            <ul class="news-list">
-                <!-- <li>
-                    <span style="color:#4e613e">[2025.00] </span>  I will spend 2025 summer at Adobe Firefly <img src="static/image/Adobe_Firefly_Logo.svg.png" alt="Nvidia Logo" style="vertical-align: middle; width: 20px; height: auto;"> in San Jose.
-                </li> -->
-                <li>
-                    <span style="color:#0d5797">[2025.04] </span>  I will be at <img src="static/image/Adobe_Firefly_Logo.svg.png" alt="Nvidia Logo" style="vertical-align: middle; width: 20px; height: auto;"> <a href="https://www.adobe.com/products/firefly.html">Adobe Firefly</a>  this summer and fall, working on post-training of video diffusion models.
-                </li>
-                <li>
-                    <span style="color:#4e613e">[2024.10] </span>  I was awarded the NeurIPS'2024 scholar award, thanks! See you in Vancouver, CA.
-                </li>
-                <li>
-                    <span style="color:#4e613e">[2024.09] </span>  3 Papers (<a href="https://sites.google.com/view/diffusion-policy-attacker" style="color:#BB2222;font-weight: normal;"><u>DP-Attacker</u></a>, <a href="https://sbyebss.github.io/refdrop/" style="color:#BB2222;font-weight: normal;"><u>RefDrop</u></a>, <a href="https://quest-model.github.io/" style="color:#BB2222;font-weight: normal;"><u>QueST</u></a>) are accepted to NeurIPS 2024</a> !
-                </li>
-                <li>
-                    <span style="color:#4e613e">[2024.05] </span>  I started as a summer research intern at <a href="https://research.nvidia.com/labs/dir/">Nvidia DIR Group</a> !
-                </li>
-                <li>
-                    <span style="color:#4e613e">[2024.05] </span> We propose <a href="https://sites.google.com/view/diffusion-policy-attacker" style="color:#BB2222;font-weight: normal;"><u>DP-Attacker</u></a>, a framework to attack Diffusion-based policy generator.
-                </li>
-                <li>
-                    <span style="color:#4e613e">[2024.04] </span>  We release <a href="https://github.com/xavihart/PDM-Pure" style="color:#BB2222;font-weight: normal;"><u>PDM-Pure</u></a>, a universal purifier for protection against diffusion models
-                </li>
-                <li>
-                    <span style="color:#4e613e">[2024.03] </span>  I received the ICLR'2024 travel award, thanks!
-                </li>
-                <li>
-                    <span style="color:#4e613e">[2024.01] </span>  Our <a href="https://github.com/xavihart/Diff-Protect" style="color:#BB2222;font-weight: normal;"><u>SDS-Attack</u></a> is accepted by ICLR'2024!
-                </li>
-                <li>
-                    <span style="color: #0d5797">[2023.10] </span>  I was awarded the NeurIPS'2023 scholar award, thanks!
-                </li>
-                <li>
-                    <span style="color: #0d5797">[2023.10] </span>  I was invited as a reviewer for TPAMI.
-                </li>
-                <!-- <li>
-                    <span style="color: #0d5797">[2023.10]  </span> We propose <a href="https://github.com/xavihart/Diff-Protect" style="color:#BB2222;font-weight: normal;"><u>Diff-Protect</u></a>, a more effective protection framework against AI mimicry.
-                </li> -->
-                <li>
-                    <span style="color:#0d5797">[2023.09]  </span> <a href="https://github.com/xavihart/Diff-PGD" style="color:#BB2222;font-weight: normal;"><u>Diff-PGD</u></a> and <a href="https://github.com/xavihart/3D-IntPhys" style="color:#BB2222;font-weight: normal;"><u>3D-IntPhys</u></a> are accepted by NeurIPS'2023!
-                </li>
-                <li>
-                    <span style="color:#0d5797">[2023.08]  </span> I was invited as a reviewer for ICLR'2024.
-                <li>
-                    <span style="color:#0d5797">[2023.05]  </span> We propose <a href="https://github.com/xavihart/Diff-PGD" style="color:#BB2222;font-weight: normal;"><u>Diff-PGD</u></a>, a diffusion-based adv-sample generation framework.
-                </li>
-                <!-- <li>
-                    <span style="color:blue">[2023.04]  </span> Our <a href="https://arxiv.org/abs/2304.11470" style="color:#BB2222;"><u>3D-IntPhys</u>  </a> is accepted to  CVPRW2023:Precognitions as full paper oral presentation
-                </li> -->
-                <li>
-                    <span style="color:orange">[2022.12] </span> I am selected as the Top Reviewer of NeurIPS 2022.
-                </li>
-                <li>
-                    <span style="color:orange">[2022.10] </span> Our <a href="https://aclanthology.org/2022.findings-emnlp.173/" style="color:#BB2222;"><u>Distance-Transformer</u></a> is accepted to EMNLP2022 Findings.
-                </li>
-                <li>
-                    <span style="color:orange">[2022.08] </span> I will start as a PhD student at (ML@GT) starting from 2022Fall.
-                </li>
-                
-                
-            </ul>
-
-            
-            <!-- <h5 class="subtitle" style="margin-top:30px">Research Experience</h5>
-         
-            <ul>
-                
-                <li>[2023-2024]: Collaborate with Dr. <a href="https://animesh.garg.tech/">Animesh Garg</a>, GaTech, on DM+RL </li>
-                <li>[2023-2024]: Collaborate with Dr. <a href="https://binhu7.github.io/">Bin Hu</a> from UIUC and Dr. <a href="">Alexandre Araujo</a> from NYU on DM+Robustness </li>
-                <li>[2022-Current]: Work as a GRA Ph.D. student at FLAIR lab with Dr. <a href="https://yongxin.ae.gatech.edu/", target="_blank"> Yongxin Chen</a></li>
-                <li>[2022-2023]: Work as a visiting student at MIT, advised by Prof. <a href="https://scholar.google.com/citations?user=rRJ9wTJMUB8C&hl=zh-CN">Josh Tenenbaum</a>, <a href="https://yunzhuli.github.io/">Yunzhu Li</a> and <a href="https://sfish0101.bitbucket.io/">Fish Tung</a></li>
-                <li>[2021-2021]: Work as a research intern at NLC group, Microsoft Research, advised by Dr. <a href="https://www.microsoft.com/en-us/research/people/lecu/">Lei Cui</a></li>
-                <li>[2021-2022]: Work as a research intern at John Hopcroft Center, advised by Dr. <a href="https://hantek.github.io/">Zhouhan Lin</a> on NLP</li>
-                <li>[2020-2021]: Work as a research intern at John Hopcroft Center, advised by Dr. <a href="https://scholar.google.com/citations?user=YvN-H_0AAAAJ&hl=zh-CN">Quanshi Zhang</a> on XAI</li>
-            </ul> -->
-
-            <h5 class="subtitle" style="margin-top:30px">Reviewer Experience</h5>
-            <!-- <p style="color:#566c7f">#Conference(#Paper Number)</p> -->
-
-            <p style="color:#BB2222">
-            Conference:
-            <ul>
-                <li>NeurIPS@22/23/24/25</li>
-                <li>ICLR@24/25</li>
-                <li>AISTATS@25</li>
-                <li>ICML@22/23/24/25</li>
-                <li>CVPRW@25</li>
-
-            </ul>
-            <p style="color:#BB2222">
-            Journals:
-            <ul>
-                <li>IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)</li>
-                <li>IEEE Transactions on Circuits and Systems for Video Technology (TCSVT)</li>
-
-            </ul>
-
-            </p>
-            
-            <!-- <p style="color:#BB2222">
-                ICML'22(2), NeurIPS'22(4), ICML'23(2), NeurIPS'23(6), ICLR'24(4), ICML'24(3)
-            </p> -->
-            
-
-            
+        <div class="credit">Paris · 2024 · Credit to 
+            <a href="https://www.linkedin.com/in/sunyirong?...">Rebecca Sun</a>
         </div>
-    </div>
+         <div class="credit">Hover to see my cat!
+        </div>
+        </div>
 
-    <div class="main-more-container">
-        <div id="main-pub-container">
-            <h5 class="subtitle">Publications
-            (
-                <a id="publication-by-selected" href="javascript:;", onClick="publicationBySelected();">show selected</a> /
-                <a id="publication-by-date" href="javascript:;", onClick="publicationByDate();">show all by date</a> /
-                <a id="publication-by-topic" href="javascript:;", onClick="publicationByTopic();">show all by topic</a>
-            )
-            </h5>
-            <p class="subtitle-aux"><span class="bold">Topics:</span>
-                <a href="#topic-vision" onClick="return publicationByTopicSpecific(this)" data-topic="vision">Vision</a> /
-                <a href="#topic-nlp" onClick="return publicationByTopicSpecific(this)" data-topic="nlp">NLP</a>/
-                <a href="#topic-nlp" onClick="return publicationByTopicSpecific(this)" data-topic="robo">Robot Learning</a>/
-                <a href="#topic-gm" onClick="return publicationByTopicSpecific(this)" data-topic="gm">GenAI</a>/
-                <a href="#topic-xai" onClick="return publicationByTopicSpecific(this)" data-topic="xai">Explainable AI</a> /
+      <div class="id">
+        <h1>Haotian Xue </h1>
+        <div class="pron">/haʊtiˈæn ; ʃweɪ/</div>
+        <p class="line">
+          4th-year PhD (Machine Learning),
+          <a href="https://ml.gatech.edu/">Georgia Tech</a>.
+          Advised by <a href="https://yongxin.ae.gatech.edu/" target="_blank" rel="noopener">Yongxin Chen</a>.
+        </p>
 
-                <span class="note">(*/†: indicates equal contribution.)</span>
-            </p>
+        <div class="rows">
+          <div class="row">
+            <span class="label">Email:</span>
+            <span>htxue.ai [at] gatech [dot] edu</span>
+          </div>
+          <div class="row">
+            <span class="label">Address:</span>
+            <span>CODA E1011, 756 W Peachtree St NW, Atlanta, GA 30332</span>
+          </div>
+          <div class="row">
+            <span class="label">Links:</span>
+            <a href="https://scholar.google.com/citations?hl=en&user=wnweG9UAAAAJ&view_op=list_works">Google Scholar</a>
+            <span class="sep">·</span>
+            <a href="https://github.com/xavihart">GitHub</a>
+            <span class="sep">·</span>
+            <a href="https://twitter.com/Haotianxue_GT">X (Twitter)</a>
+            <span class="sep">·</span>
+            <a href="static/image/cv.pdf">Curriculum Vitae (Sept 2024)</a>
+          </div>
+        </div>
+      </div>
+    </header>
 
-            <!-- <div id="main-pub-card-container" class="activated hide">
-                <div class="pub-card" data-topic="gm" data-year="2023" data-selected="true">
-                    <div class="row">
-                        <div class="col-l col-xs-12 col-lg-3">
-                            <img src="static/image/diffpgd.pic.jpg" width="100%" height="70%" />
-                        </div>
-                        <div class="col-r col-xs-12 col-lg-9">
-                            <div class="pub-card-body">
-                                <h5 class="title">Rethinking The Adversarial Samples for Generative Diffusion Models </h5>
-                                <h6 class="authors">
-                                   <u>Haotian Xue</u>,
-                                   <a> Yongxin Chen</a>
-                                </h6>
-                                <p class="info">
+    <nav aria-label="Section navigation">
+      <a href="#about">About</a>
+      <a href="#news">News</a>
+      <a href="#publications">Selected Publications</a>
+      <a href="#review">Reviewer Experience</a>
+    </nav>
 
-                                    <a href="" class="conference"> [Arxiv] </a>
-                                    <a href="" class="conference"> [GitHub] </a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
-                <!-- <div id="main-pub-card-container" class="activated hide">
-                    <div class="pub-card" data-topic="gm" data-year="2023" data-selected="true">
-                        <div class="row">
-                            <div class="col-l col-xs-12 col-lg-3">
-                                <img src="none" width="100%" />
-                            </div>
-                            <div class="col-r col-xs-12 col-lg-9">
-                                <div class="pub-card-body">
-                                    <h5 class="title">Rethinking Adversarial Samples for Generative Diffusion Models</h5>
-                                    <h6 class="authors">
-                                       <u>[Ongoting]</u>,
-                                    </h6>
-                                    <p class="info">
-    
-                                        <a href="" class="conference" style="color:#0d5797;"> [In Preparation] </a>
-                                        <a href="" class="conference"> [GitHub] </a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
-              
-                    <div id="main-pub-card-container" class="activated hide">
-                        <div class="pub-card" data-topic="gm" data-year="2024" data-selected="false">
-                            <div class="row">
-                                <div class="col-l col-xs-12 col-lg-3">
-                                    <img src="static/image/refdrop.jpg" width="100%" />
-                                </div>
-                                <div class="col-r col-xs-12 col-lg-9">
-                                    <div class="pub-card-body">
-                                        <h5 class="title">RefDrop: Controllable Consistency in Image or Video Generation via Reference Feature Guidance</h5>
-                                        <h6 class="authors">
-                                            <a>Jiaojiao Fan</a>,
-                                            <u style="color: #BB2222;">Haotian Xue</u>,
-                                            <a>Qinsheng, Zhang</a>,
-                                            <a> Yongxin Chen</a>
-                                        </h6>
-                                        <p class="info">
-                                            <a href="https://arxiv.org/abs/2405.17661" class="conference" style="color:green;"> [NeurIPS 2024] </a>                                
-                                            <a href="https://sbyebss.github.io/refdrop/" class="conference"> [Project Website] </a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> 
-
-
-                    <div id="main-pub-card-container" class="activated hide">
-                        <div class="pub-card" data-topic="robo" data-year="2024" data-selected="false">
-                            <div class="row">
-                                <div class="col-l col-xs-12 col-lg-3">
-                                    <img src="static/image/quest.png" width="100%" />
-                                </div>
-                                <div class="col-r col-xs-12 col-lg-9">
-                                    <div class="pub-card-body">
-                                        <h5 class="title">QueST: Self-Supervised Skill Abstractions for Learning Continuous Control</h5>
-                                        <h6 class="authors">
-                                            <a>Arthava Mete</a>,
-                                            <u style="color: #BB2222;">Haotian Xue</u>,
-                                            <a> Albert Wilcox</a>,
-                                            <a> Yongxin Chen</a>,
-                                            <a> Animesh Garg <a>
-                                        </h6>
-                                        <p class="info">
-                                            <a href="https://arxiv.org/abs/2407.15840" class="conference" style="color:green;"> [NeurIPS 2024] </a>    
-                                            <a href="https://quest-model.github.io/" class="conference"> [Webpage] </a>                                          
-                                             <a href="https://github.com/pairlab/QueST" class="conference"> [GitHub] </a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> 
-
-                    <div id="main-pub-card-container" class="activated hide">
-                        <div class="pub-card" data-topic="gm" data-year="2024" data-selected="true">
-                            <div class="row">
-                                <div class="col-l col-xs-12 col-lg-3">
-                                    <img src="static/image/dp-attacker.jpg" width="100%" />
-                                </div>
-                                <div class="col-r col-xs-12 col-lg-9">
-                                    <div class="pub-card-body">
-                                        <h5 class="title">Diffusion Policy Attacker: Crafting Adversarial
-                                            Attacks for Diffusion-based Policies</h5>
-                                        <h6 class="authors">
-                                            <a>Yipu Chen* </a>,
-                                            <u style="color: #BB2222;">Haotian Xue*</u>,
-                                            <a> Yongxin Chen</a>
-                                        </h6>
-                                        <p class="info">
-                                            <a href="https://arxiv.org/abs/2405.19424" class="conference" style="color:green;"> [NeurIPS 2024] </a>
-                                            <a href="https://sites.google.com/view/diffusion-policy-attacker/" class="conference"> [Project Website] </a>              
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>    
-
-
-                    <div id="main-pub-card-container" class="activated hide">
-                        <div class="pub-card" data-topic="gm" data-year="2024" data-selected="true">
-                            <div class="row">
-                                <div class="col-l col-xs-12 col-lg-3">
-                                    <img src="static/image/pdm-pure.pic.jpg" width="100%" />
-                                </div>
-                                <div class="col-r col-xs-12 col-lg-9">
-                                    <div class="pub-card-body">
-                                        <h5 class="title">Pixel is a Barrier: Diffusion Models Are More Adversarially Robust Than We Think
-                                        </h5>
-                                        <h6 class="authors">
-                                           <u style="color: #BB2222;">Haotian Xue</u>,
-                                           <a> Yongxin Chen</a>
-                                        </h6>
-                                        <p class="info">
-                                            <a href="https://arxiv.org/abs/2404.13320" class="conference" style="color:green;"> [Arxiv] </a>
-                                            <a href="https://github.com/xavihart/PDM-Pure" class="conference"> [GitHub] </a>
-                                        </p>
-                                        <p class="info">
-                                            <a href="https://arxiv.org/abs/2404.13320" class="conference" style="color:green;"> [Abridged in NeurIPS 2024:SafeGenAI] </a>
-                                            </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-         
-
-
+    <section id="about" class="card">
+      <h2>About & Research Interests</h2>
+      <p>
+        I'm broadly interested in <strong>Generative AI</strong> across vision and robotics, with a current focus on
+        <strong style="color:var(--accent)">physical understanding</strong> and <strong style="color:var(--accent)">physical alignment</strong>
+        of <em>Vision–Language Models</em> and <em>Video Diffusion Models</em>, through post-training.
         
-            
-                <div id="main-pub-card-container" class="activated hide">
-                    <div class="pub-card" data-topic="gm" data-year="2023" data-selected="true">
-                        <div class="row">
-                            <div class="col-l col-xs-12 col-lg-3">
-                                <img src="static/image/diff-protect.jpg" width="100%" />
-                            </div>
-                            <div class="col-r col-xs-12 col-lg-9">
-                                <div class="pub-card-body">
-                                    <h5 class="title">Towards More Effective Protection Against Diffusion-Based Mimicry with Score Distillation </h5>
-                                    <h6 class="authors">
-                                        <u style="color: #BB2222;">Haotian Xue</u>,
-                                       <a>Chumeng Liang</a>*,
-                                       <a>Xiaoyu Wu</a>*,
-                                       <a> Yongxin Chen</a>
-                                    </h6>
-                                    <p class="info">
-    
-                                        <a href="https://arxiv.org/abs/2311.12832" class="conference" style="color:green"> [ICLR 2024] </a>
-                                        <a href="https://github.com/xavihart/Diff-Protect" class="conference"> [GitHub] </a>
-                                        <a href="https://iclr.cc/media/iclr-2024/Slides/18759.pdf" class="conference"> [Poster] </a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        Earlier in my PhD I worked on
+        <strong>adversarial attacks & defenses</strong> for GenAI and developed algorithms across diffusion models
+        and diffusion-based policy: <em>Diff-PGD</em>, <em>SDS-Attack</em>, <em>PDM-Pure</em>, and <em>DP-Attacker</em>.
+      </p>
+      <p class="muted">
+       Previously, I completed research internships at
+<img src="static/image/Adobe_Firefly_Logo.svg.png" alt="Adobe Firefly logo" class="logo"> Adobe Firefly (2025),
+<img src="static/image/235_Nvidia_logo-512.webp" alt="NVIDIA logo" class="logo"> NVIDIA DIR (2024), and
+<img src="static/image/microsoft.png" alt="Microsoft Research Asia logo" class="logo"> Microsoft Research Asia (2021).
 
-            <div id="main-pub-card-container" class="activated hide">
-                <div class="pub-card" data-topic="gm" data-year="2023" data-selected="true">
-                    <div class="row">
-                        <div class="col-l col-xs-12 col-lg-3">
-                            <img src="static/image/diff-pgd.png" width="100%"/>
-                        </div>
-                        <div class="col-r col-xs-12 col-lg-9">
-                            <div class="pub-card-body">
-                                <h5 class="title">Diffusion-Based Adversarial Sample Generation for Improved Stealthiness and Controllability </h5>
-                                <h6 class="authors">
-                                    <u style="color: #BB2222;">Haotian Xue</u>,
-                                   <a>Alexandre Araujo</a>,
-                                   <a>Bin Hu</a>,
-                                   <a> Yongxin Chen</a>
-                                </h6>
-                                <p class="info">
+I was also a visiting student at
+<img src="static/image/mit.png" alt="MIT logo" class="logo"> MIT CSAIL (2021).
 
-                                    <a href="https://arxiv.org/abs/2305.16494" class="conference" style="color: green;"> [NeurIPS 2023] </a>
-                                    <a href="https://github.com/xavihart/Diff-PGD" class="conference"> [GitHub] </a>
-                                    <a href="static/image/poster_diffpgd.pdf" class="conference">[Poster]</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+I earned my B.E. in Computer Science (Honors) from
+<img src="static/image/sjtu.png" alt="SJTU logo" class="logo"> Shanghai Jiao Tong University (Zhiyuan College) in 2022.
+      </p>
+    </section>
 
-                    <div id="main-pub-card-container" class="activated hide">
-                        <div class="pub-card" data-topic="vision" data-year="2023" data-selected="true">
-                            <div class="row">
-                                <div class="col-l col-xs-12 col-lg-3">
-                                    <img src="static/image/3d-intphys.png" width="100%"/>
-                                </div>
-                                <div class="col-r col-xs-12 col-lg-9">
-                                    <div class="pub-card-body">
-                                        <h5 class="title">3D-IntPhys: Towards More Generalized 3D-grounded Visual Intuitive Physics under Challenging Scenes  </h5>
-                                        <h6 class="authors">
-                                            <u style="color: #BB2222;">Haotian Xue</u>,
-                                           <a>Antonio Torralba</a>,
-                                           <a>Joshua B. Tenenbaum</a>,
-                                           <a> Daniel LK Yamins</a>,
-                                           <a> Yunzhu Li</a>,
-                                           <a> Hsiao-Yu Tung</a>
+    <section id="news" class="card">
+      <h2>News</h2>
+      <ul class="news" id="newsList" aria-live="polite">
+        <li data-date="2025-04-01"><span class="tag">2025-04</span>  Joining <img src="static/image/Adobe_Firefly_Logo.svg.png" alt="Adobe logo" class="logo"> <strong>Adobe Firefly</strong> (Summer+Fall) to work on post-training for video diffusion.</li>
+        <li data-date="2024-10-01"><span class="tag">2024-10</span>  NeurIPS 2024 Scholar Award — see you in Vancouver!</li>
+        <li data-date="2024-09-01"><span class="tag">2024-09</span>  Three papers accepted to NeurIPS 2024: <a href="https://sites.google.com/view/diffusion-policy-attacker"><u>DP-Attacker</u></a>, <a href="https://sbyebss.github.io/refdrop/"><u>RefDrop</u></a>, <a href="https://quest-model.github.io/"><u>QueST</u></a>.</li>
+        <li data-date="2024-05-01"><span class="tag">2024-05</span>  Started summer research intern at <img src="static/image/235_Nvidia_logo-512.webp" alt="NVIDIA logo" class="logo"> <a href="https://research.nvidia.com/labs/dir/">NVIDIA DIR Group</a>.</li>
+        <li data-date="2024-04-01"><span class="tag">2024-04</span>  Released <a href="https://github.com/xavihart/PDM-Pure"><u>PDM-Pure</u></a>, a universal purifier against diffusion models.</li>
+        <li data-date="2024-03-01"><span class="tag">2024-03</span>  ICLR 2024 Travel Award.</li>
+        <li data-date="2024-01-01"><span class="tag">2024-01</span>  <a href="https://github.com/xavihart/Diff-Protect"><u>SDS-Attack</u></a> accepted to ICLR 2024.</li>
+        <li data-date="2023-10-01"><span class="tag">2023-10</span>  NeurIPS 2023 Scholar Award; invited reviewer for TPAMI.</li>
+        <li data-date="2023-09-01"><span class="tag">2023-09</span>  <a href="https://github.com/xavihart/Diff-PGD"><u>Diff-PGD</u></a> and <a href="https://github.com/xavihart/3D-IntPhys"><u>3D-IntPhys</u></a> accepted to NeurIPS 2023.</li>
+        <li data-date="2023-08-01"><span class="tag">2023-08</span>  Invited reviewer for ICLR 2024.</li>
+        <li data-date="2023-05-01"><span class="tag">2023-05</span>  Proposed <a href="https://github.com/xavihart/Diff-PGD"><u>Diff-PGD</u></a>, a diffusion-based adversarial sample framework.</li>
+        <li data-date="2022-12-01"><span class="tag">2022-12</span>  Selected as a Top Reviewer of NeurIPS 2022.</li>
+        <li data-date="2022-10-01"><span class="tag">2022-10</span>  <a href="https://aclanthology.org/2022.findings-emnlp.173/">Distance-Transformer</a> accepted to EMNLP 2022 Findings.</li>
+        <li data-date="2022-08-01"><span class="tag">2022-08</span>  Started PhD at ML@GT.</li>
+      </ul>
+    </section>
 
-                                        </h6>
-                                        <p class="info">
-
-                                            <a href="https://arxiv.org/abs/2304.11470" class="conference" style="color: green;"> [NeurIPS 2023] </a>
-
-                                          
-                                            <a href="https://aihub.org/2023/05/25/interview-with-haotian-xue-learning-intuitive-physics-from-videos/" class="conference">[AIhub]</a>
-
-                                            
-
-                                            
-                                            <a href="static/image/poster_3dintphys.pdf" class="conference">[Poster]</a>
-
-                                        </p>
-
-                                        <p class="info">
-
-                                            [Abridged in CVPR 2023 3DVR & Precognition]
-
-                                        </p>
-
-
-
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-           
-
-                    <div id="main-pub-card-container" class="activated hide">
-                        <div class="pub-card" data-topic="nlp" data-year="2022" data-selected="false">
-                            <div class="row">
-                                <div class="col-l col-xs-12 col-lg-3">
-                                    <img src="static/image/emnlp22.png" width="100%"/>
-                                </div>
-                                <div class="col-r col-xs-12 col-lg-9">
-                                    <div class="pub-card-body">
-                                        <h5 class="title">Syntax-guided Localized Self-attention by Constituency Syntactic Distance </h5>
-                                        <h6 class="authors">
-                                            <a>Shengyuan Hou</a>*,
-                                            <a>Jushi Kai</a>*,
-                                            <u style="color: #BB2222;">Haotian Xue</u>*,
-                                            <a>Bingyu Zhu</a>,
-                                            <a>Bo  Yuan</a>,
-                                            <a>Longtao Huang</a>,
-                                            <a>Xinbin Wang</a>,
-                                            <a>Zhouhan Lin</a>
-                                        </h6>
-                                        <p class="info">
-                                            <a href="https://aclanthology.org/2022.findings-emnlp.173/" class="conference" style="color: green;">[EMNLP2022, Findings]</a>
-                                            <a href="https://github.com/LUMIA-Group/distance_transformer" class="conference"> [GitHub] </a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div id="main-pub-card-container" class="activated hide">
-                            <div class="pub-card" data-topic="nlp" data-year="2022" data-selected="false">
-                                <div class="row">
-                                    <div class="col-l col-xs-12 col-lg-3">
-                                        <center><img src="static/image/gating_syntax.png" width="100%" /></center>
-                                    </div>
-                                    <div class="col-r col-xs-12 col-lg-9">
-                                        <div class="pub-card-body">
-                                            <h5 class="title">Learning to Adaptively Incorporate External Syntax through Gated Self-Attention</h5>
-                                            <h6 class="authors">
-                                                [TBA]
-                                            </h6>
-                                            <p class="info">
-                                                <a href="" class="conference" style="color:#0d5797;"> [In Submission] </a>                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div id="main-pub-card-container" class="activated hide">
-                            <div class="pub-card" data-topic="xai" data-year="2021" data-selected="false">
-                                <div class="row">
-                                    <div class="col-l col-xs-12 col-lg-3">
-                                        <img src="static/image/aesthetics/demo2.png" width="100%"  />
-                                    </div>
-                                    <div class="col-r col-xs-12 col-lg-9">
-                                        <div class="pub-card-body">
-                                            <h5 class="title">A Hypothesis For The Cognitive Difficulty of Images</h5>
-                                            <h6 class="authors">
-                                                <a>Xu Chen</a>,
-                                                <a>Xin Wang</a>,
-                                                <u style="color: #BB2222;">Haotian Xue</u>,
-                                                <a>Zhengyang Liang</a>,
-                                                <a>Xin Jin</a>,
-                                                <a>Quanshi Zhang</a>
-                                            </h6>
-                                            <p class="info">
-                                                <a href="https://arxiv.org/abs/2108.02646" class="conference">[Arxiv]</a>
-                                                
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-            
-                            <div id="main-pub-card-container" class="activated hide">
-                                <div class="pub-card" data-topic="xai" data-year="2020" data-selected="false">
-                                    <div class="row">
-                                        <div class="col-l col-xs-12 col-lg-3">
-                                            <img src="static/image/eval/iccv.png" width="100%" />
-                                        </div>
-                                        <div class="col-r col-xs-12 col-lg-9">
-                                            <div class="pub-card-body">
-                                                <h5 class="title">Evaluation of Attribution Explanations without Ground Truth </h5>
-                                                <h6 class="authors">
-                                                    <a>Hao Zhang</a>,
-                                                    <u style="color: #BB2222;">Haotian Xue</u>,
-                                                    <a>Jiayi Chen</a>,
-                                                    <a>Yiting Chen</a>,
-                                                    <a>Wen Shen</a>,
-                                                    <a>Quanshi Zhang</a>
-                                                </h6>
-                                                <p class="info">
-                                                    <a href="https://openreview.net/forum?id=WevBjPK4V3j&referrer=%5Bthe%20profile%20of%20Haotian%20Xue%5D(%2Fprofile%3Fid%3D~Haotian_Xue1)" class="conference">[OpenReview]</a>
-                                                    
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-
-                                <div id="main-pub-card-container" class="activated hide">
-                                    <div class="pub-card" data-topic="xai" data-year="2022" data-selected="false">
-                                        <div class="row">
-                                            <div class="col-l col-xs-12 col-lg-3">
-                                                <img src="static/image/active_ad.png" width="100%" />
-                                            </div>
-                                            <div class="col-r col-xs-12 col-lg-9">
-                                                <div class="pub-card-body">
-                                                    <h5 class="title">Active Adversarial Learning</h5>
-                                                    <h6 class="authors">
-                                                        <u style="color: #BB2222;">Haotian Xue</u>,
-                                                    </h6>
-                                                    <p> Advisor: Nanyang Ye</p>
-
-                                                    <p class="info">
-                                                        <a href="" class="conference">[Bachelor Thesis]</a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-            </div>
-        </div>
+    <section id="publications" class="card">
+      <h2>Selected Publications</h2>
+      <ul class="pubs">
+  <li>
+    <div><strong>Point-It-Out: Benchmarking Embodied Reasoning for Vision Language Models in Multi-Stage Visual Grounding</strong></div>
+    <div class="muted"> <u>Haotian Xue</u>, Yunhao Ge, Yu Zeng, Max Li, Ming-Yu Liu, Yongxin Chen, Jiaojiao Fan</div>
+    <div class="venue">In submission</div>
+    <div class="labels" aria-label="labels">
+      <button class="plabel" data-k="vlm" aria-label="VLM label">VLM</button>
+      <button class="plabel" data-k="robotics" aria-label="Robotics label">Robotics</button>
     </div>
+    <div class="links"><a href="https://arxiv.org/abs/2509.25794">arXiv</a> · <a href="https://github.com/xavihart/PIO/">project</a></div>
+  </li>
 
-</div>
-
-
-
-
-<div id="footer">
-    <div class="container">
-        <div class="row">
-            <div class="copyright">
-                &copy; Haotian Xue, template from <a href="https://jiayuanm.com/">[link]<a>
-            </div>
-            <div class="stat">
-                <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=lmkK8aTWCzGFAk1l3e5QjSf0w3G9ZWTwhKk1NTQfxJg&cl=ffffff&w=a"></script>
-            </div>
-        </div>
+  <li>
+    <div><strong>RefDrop: Controllable Consistency in Image or Video Generation via Reference Feature Guidance</strong></div>
+    <div class="muted">Jiaojiao Fan, <u>Haotian Xue</u>, Qinsheng Zhang, Yongxin Chen</div>
+    <div class="venue">NeurIPS 2024</div>
+    <div class="labels" aria-label="labels">
+      <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
+      <button class="plabel" data-k="vision" aria-label="Vision label">Vision</button>
     </div>
-</div>
+    <div class="links"><a href="https://arxiv.org/abs/2405.17661">arXiv</a> · <a href="https://sbyebss.github.io/refdrop/">project</a></div>
+  </li>
 
+  <li>
+    <div><strong>QueST: Self-Supervised Skill Abstractions for Learning Continuous Control</strong></div>
+    <div class="muted">Arthava Mete, <u>Haotian Xue</u>, Albert Wilcox, Yongxin Chen, Animesh Garg</div>
+    <div class="venue">NeurIPS 2024</div>
+    <div class="labels" aria-label="labels">
+      <button class="plabel" data-k="robotics" aria-label="Robotics label">Robotics</button>
+      <button class="plabel" data-k="vision" aria-label="Vision label">Vision</button>
+    </div>
+    <div class="links"><a href="https://arxiv.org/abs/2407.15840">arXiv</a> · <a href="https://quest-model.github.io/">project</a> · <a href="https://github.com/pairlab/QueST">code</a></div>
+  </li>
 
-<!-- jQuery first, then Tether, then Bootstrap JS. -->
-<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-<script type="text/javascript" src="static/js/jquery.color.min.js"></script>
-<!--script type="text/javascript" src="static/js/wave.js"></script-->
-<script type="text/javascript">
+  <li>
+    <div><strong>Diffusion Policy Attacker: Crafting Adversarial Attacks for Diffusion-based Policies</strong></div>
+    <div class="muted">Yipu Chen*, <u>Haotian Xue*</u>, Yongxin Chen</div>
+    <div class="venue">NeurIPS 2024</div>
+    <div class="labels" aria-label="labels">
+      <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
+      <button class="plabel" data-k="safety" aria-label="Safety label">Safety</button>
+    </div>
+    <div class="links"><a href="https://arxiv.org/abs/2405.19424">arXiv</a> · <a href="https://sites.google.com/view/diffusion-policy-attacker/">project</a></div>
+  </li>
 
-$.fn.isInViewport = function() {
-    var elementTop = $(this).offset().top;
-    var elementBottom = elementTop + $(this).xouterHeight();
-    var viewportTop = $(window).scrollTop();
-    var viewportBottom = viewportTop + $(window).height();
-    return elementBottom > viewportTop && elementTop < viewportBottom;
-};
+  <li>
+    <div><strong>Towards More Effective Protection Against Diffusion-Based Mimicry with Score Distillation</strong></div>
+    <div class="muted"><u>Haotian Xue</u>, Chumeng Liang*, Xiaoyu Wu*, Yongxin Chen</div>
+    <div class="venue">ICLR 2024</div>
+    <div class="labels" aria-label="labels">
+      <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
+      <button class="plabel" data-k="safety" aria-label="Safety label">Safety</button>
+    </div>
+    <div class="links"><a href="https://arxiv.org/abs/2311.12832">arXiv</a> · <a href="https://github.com/xavihart/Diff-Protect">code</a> · <a href="https://iclr.cc/media/iclr-2024/Slides/18759.pdf">poster</a></div>
+  </li>
 
-var allPublications = null;
+  <li>
+    <div><strong>Pixel is a Barrier: Diffusion Models Are More Adversarially Robust Than We Think</strong></div>
+    <div class="muted"><u>Haotian Xue</u>, Yongxin Chen</div>
+    <div class="venue">NeurIPSW: SafeGenAI 2024 · arXiv 2024</div>
+    <div class="labels" aria-label="labels">
+      <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
+      <button class="plabel" data-k="safety" aria-label="Safety label">Safety</button>
+    </div>
+    <div class="links"><a href="https://arxiv.org/abs/2404.13320">arXiv</a> · <a href="https://github.com/xavihart/PDM-Pure">code</a></div>
+  </li>
 
-function publicationBySelected() {
-    var a = $("#publication-by-selected")
-    if (a.hasClass("activated")) {
-        return ;
-    }
+  <li>
+    <div><strong>Diffusion-Based Adversarial Sample Generation for Improved Stealthiness and Controllability</strong></div>
+    <div class="muted"><u>Haotian Xue</u>, Alexandre Araujo, Bin Hu, Yongxin Chen</div>
+    <div class="venue">NeurIPS 2023</div>
+    <div class="labels" aria-label="labels">
+      <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
+      <button class="plabel" data-k="safety" aria-label="Safety label">Safety</button>
+    </div>
+    <div class="links"><a href="https://arxiv.org/abs/2305.16494">arXiv</a> · <a href="https://github.com/xavihart/Diff-PGD">code</a> · <a href="static/image/poster_diffpgd.pdf">poster</a></div>
+  </li>
 
-    $("#main-pub-container .subtitle a").removeClass("activated");
-    $("#main-pub-container .subtitle-aux a").removeClass("activated");
-    a.addClass("activated");
+  <li>
+    <div><strong>3D-IntPhys: Towards More Generalized 3D-grounded Visual Intuitive Physics</strong></div>
+    <div class="muted"><u>Haotian Xue</u>, Antonio Torralba, Joshua B. Tenenbaum, Daniel L. K. Yamins, Yunzhu Li, Hsiao-Yu Tung</div>
+    <div class="venue">NeurIPS 2023</div>
+    <div class="labels" aria-label="labels">
+      <button class="plabel" data-k="vision" aria-label="Vision label">Vision</button>
+      <button class="plabel" data-k="3d" aria-label="3D label">3D</button>
+    </div>
+    <div class="links"><a href="https://arxiv.org/abs/2304.11470">arXiv</a> · <a href="static/image/poster_3dintphys.pdf">poster</a></div>
+  </li>
+</ul>
+      <details style="margin-top:14px">
+        <summary>More & older publications</summary>
+        <p class="muted" style="margin:8px 0 0">See <a href="https://scholar.google.com/citations?hl=en&user=wnweG9UAAAAJ&view_op=list_works">Google Scholar</a> for the full, latest list.</p>
+      </details>
+    </section>
 
-    $("#main-pub-card-container").html("");
-    for (var pubId = 0; pubId < allPublications.length; pubId++) {
-        var pub = $(allPublications[pubId]);
-        if (pub.data("selected") == true) {
-            $("#main-pub-card-container").append(pub);
-        }
-    }
-}
+    <section id="review" class="card">
+      <h2>Reviewer Experience</h2>
+      <div style="display:grid; gap:16px; grid-template-columns: repeat(auto-fit,minmax(220px,1fr));">
+        <div>
+          <div class="muted" style="margin-bottom:6px">Conferences</div>
+          <ul style="margin:0; padding-left:18px">
+            <li>NeurIPS ’22–’25</li>
+            <li>ICLR ’24–’25</li>
+            <li>ICML ’22–’25</li>
+            <li>AISTATS ’25</li>
+            <li>CVPRW ’25</li>
+          </ul>
+        </div>
+        <div>
+          <div class="muted" style="margin-bottom:6px">Journals</div>
+          <ul style="margin:0; padding-left:18px">
+            <li>TPAMI</li>
+            <li>TCSVT</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-function publicationByDate() {
-    var a = $("#publication-by-date")
-    if (a.hasClass("activated")) {
-        return ;
-    }
+    <footer>
+      <div>© Haotian Xue • Last updated 2025-10-19</div>
+      <div><a href="https://jiayuanm.com/">Original inspiration</a></div>
+    </footer>
+  </div>
 
-    $("#main-pub-container .subtitle a").removeClass("activated");
-    $("#main-pub-container .subtitle-aux a").removeClass("activated");
-    a.addClass("activated");
+  <script>
+    // Theme toggle (default: light)
+    const btn = document.getElementById('themeBtn');
+    const root = document.documentElement;
+    const stored = localStorage.getItem('theme');
+    if(stored === 'dark'){ root.setAttribute('data-theme','dark'); btn.textContent = 'Light mode'; }
+    btn.addEventListener('click', ()=>{
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      if(isDark){
+        root.removeAttribute('data-theme');
+        localStorage.setItem('theme','light');
+        btn.textContent = 'Dark mode';
+      }else{
+        root.setAttribute('data-theme','dark');
+        localStorage.setItem('theme','dark');
+        btn.textContent = 'Light mode';
+      }
+    });
 
-    $("#main-pub-card-container").html("");
-    for (var pubId = 0; pubId < allPublications.length; pubId++) {
-        if (pubId == 0 || $(allPublications[pubId-1]).data("year") != $(allPublications[pubId]).data("year")) {
-            var year = $(allPublications[pubId]).data("year");
-            $("#main-pub-card-container").append($("<h5 id='year-" + year.toString() + "'>" + year.toString() + "</h5>"));
-        }
-        $("#main-pub-card-container").append(allPublications[pubId]);
-    }
-}
+    // NEWS: set max height to fit first 5 items and color years differently
+    (function(){
+      const list = document.getElementById('newsList');
+      if(!list) return;
+      const items = Array.from(list.children);
 
-function publicationByTopicInner() {
-    var a = $("#publication-by-topic")
-    if (a.hasClass("activated")) {
-        return ;
-    }
-    $("#main-pub-container .subtitle a").removeClass("activated");
-    a.addClass("activated");
+      // Compute height of first 5 items so ~5 are visible; the rest are scrollable
+      const firstFive = items.slice(0,5);
+      // use offsetHeight after forcing layout to ensure accurate measurement
+      const h = firstFive.reduce((acc, li)=> acc + li.offsetHeight, 0);
+      list.style.maxHeight = Math.ceil(h) + 'px';
 
-    $("#main-pub-card-container").html("");
-    for (var topicId in allTopics) {
-        var topic = allTopics[topicId].name;
-        var topicTitle = allTopics[topicId].title;
-        // var topicTitle = topic.split("-").map(function (a) { return a[0].toUpperCase() + a.substr(1).toLowerCase(); }).join(" ");
-        $("#main-pub-card-container").append($("<h5 id='topic-" + topic + "'>" + topicTitle + "</h5>"));
-        for (var pubId = 0; pubId < allPublications.length; pubId++) {
-            var pub = $(allPublications[pubId]);
-            if (pub.data("topic").indexOf(topic) != -1) {
-                $("#main-pub-card-container").append(pub);
-            }
-        }
-    }
-}
-
-function publicationByTopicSpecificInner(a) {
-    if ($(a).hasClass("activated")) {
-        return false;
-    }
-
-    $("#main-pub-container .subtitle-aux a").removeClass("activated");
-    $(a).addClass("activated");
-}
-
-function publicationByTopic() {
-    publicationByTopicInner();
-    publicationByTopicSpecificInner($("#main-pub-container .subtitle-aux a:first"));
-    return true;
-}
-
-function publicationByTopicSpecific(a) {
-    publicationByTopicInner();
-    publicationByTopicSpecificInner(a);
-
-    var hash = a.hash;
-    $(hash).prop('id', hash.substr(1) + '-noscroll');
-    window.location.hash = hash;
-    $(hash + '-noscroll').prop('id', hash.substr(1));
-
-    if (!$(hash).isInViewport()) {
-        $('html, body').animate({
-            scrollTop: $(hash).offset().top
-        }, 1000, function(){
-        });
-    }
-
-    return false;
-}
-
-$(function() {
-    getRealSize = function(bgImg) {
-        var img = new Image();
-        img.src = bgImg.attr("src");
-        var width = img.width,
-            height = img.height;
-        return {
-            width: width,
-            height: height
-        }
-    };
-
-    getRealWindowSize = function() {
-        var winWidth = null,
-            winHeight = null;
-        if (window.innerWidth) winWidth = window.innerWidth;
-        else if ((document.body) && (document.body.clientWidth)) winWidth = document.body.clientWidth;
-        if (window.innerHeight) winHeight = window.innerHeight;
-        else if ((document.body) && (document.body.clientHeight)) winHeight = document.body.clientHeight;
-        if (document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth) {
-            winHeight = document.documentElement.clientHeight;
-            winWidth = document.documentElement.clientWidth
-        }
-        return {
-            width: winWidth,
-            height: winHeight
-        }
-    };
-
-    fullBg = function() {
-        var bgImg = $("#background");
-        var mainContainer = $("#main");
-        var firstFire = null;
-
-        if (bgImg.length == 0) {
-            return ;
-        }
-
-        function resizeImg() {
-            var realSize = getRealSize(bgImg);
-            var imgWidth = realSize.width;
-            var imgHeight = realSize.height;
-
-            if (imgWidth == 0 || imgHeight == 0) {
-                setTimeout(function() {
-                    resizeImg();
-                }, 200);
-            }
-
-            console.log(realSize);
-            var realWinSize = getRealWindowSize();
-            var winWidth = realWinSize.width;
-            var winHeight = realWinSize.height;
-            var widthRatio = winWidth / imgWidth;
-            var heightRatio = winHeight / imgHeight;
-            console.log(realWinSize);
-            if (widthRatio > heightRatio) {
-                bgImg.width(imgWidth * widthRatio + 'px').height(imgHeight * widthRatio + 'px').css({'top':
-                    -(imgHeight * widthRatio - winHeight) / 10 * 5 + 'px', 'left': '0'})
-            } else {
-                bgImg.width(imgWidth * heightRatio + 'px').height(imgHeight * heightRatio + 'px').css({'left':
-                    -(imgWidth * heightRatio - winWidth) / 10 * 3 + 'px', 'top': '0'})
-            }
-            // mainContainer.css({
-            //     width: winWidth,
-            //     height: winHeight
-            // });
-        }
-
-        resizeImg();
-        window.onresize = function() {
-            if (firstFire === null) {
-                firstFire = setTimeout(function() {
-                    resizeImg();
-                    firstFire = null
-                }, 100)
-            }
-        }
-    };
-
-    targetColor = $("#main-content-container .name").css("color");
-    animatedLink = function(speed) {
-        $("#main-content-container .col-link li").hover(function() {
-            $(this).find('.icon').animate({
-                color: targetColor,
-                borderColor: targetColor
-            }, speed);
-            $(this).find('.caption').animate({
-                color: targetColor
-            })
-        }, function() {
-            $(this).find('.icon').animate({
-                borderColor: '#cccccc',
-                color: '#cccccc'
-            }, speed);
-            $(this).find('.caption').animate({
-                color: '#cccccc'
-            })
-        })
-    };
-
-    // fullBg();
-    animatedLink(400);
-
-    allPublications = $("#main-pub-card-container .pub-card");
-    allTopicsLink = $("#main-pub-container .subtitle-aux a");
-    allTopics = [];
-    for (var topicId = 0; topicId < allTopicsLink.length; topicId++) {
-        allTopics.push({name: $(allTopicsLink[topicId]).data("topic"), title: $(allTopicsLink[topicId]).html()});
-    }
-
-    $("#publication-by-selected").click();
-    // $("#publication-by-date").click();
-    $("#main-pub-card-container").removeClass("hide");
-});
-</script>
+      // Color tags by year with a stable palette
+      const palette = ['#0d5797','#8a2be2','#db4437','#0b8043','#f4b400','#ff6d01'];
+      const yearColor = new Map(); let idx = 0;
+      items.forEach(li=>{
+        const d = li.getAttribute('data-date') || '';
+        const y = d.slice(0,4) || (li.textContent.match(/\b(20\d{2})\b/)||[])[1];
+        const badge = li.querySelector('.tag'); if(!badge) return;
+        if(!yearColor.has(y)){ yearColor.set(y, palette[idx % palette.length]); idx++; }
+        badge.style.background = yearColor.get(y);
+        badge.style.color = '#fff';
+      });
+    })();
+  </script>
 </body>
 </html>
