@@ -1,0 +1,402 @@
+[
+  {
+    "image_path": "agibot/0_mark_0.19_0.72.jpg",
+    "lang": "Pick up the kettle and pour water into the cup."
+  },
+  {
+    "image_path": "agibot/0_mark_0.19_0.72.jpg",
+    "lang": "Pick up the kettle and put it to the right of the cup"
+  },
+  {
+    "image_path": "agibot/0_mark_0.19_0.72.jpg",
+    "lang": "Pick up the cup"
+  },
+  {
+    "image_path": "agibot/1_mark_0.2_0.52.jpg",
+    "lang": "Pick up the corn on the left and place it into the shopping cart."
+  },
+  {
+    "image_path": "agibot/1_mark_0.2_0.52.jpg",
+    "lang": "Pick up the corn on the right and place it into the shopping cart."
+  },
+  {
+    "image_path": "agibot/1_mark_0.2_0.52.jpg",
+    "lang": "Move the trolley to the right."
+  },
+  {
+    "image_path": "agibot/1_mark_0.2_0.52.jpg",
+    "lang": "Move the trolley to the left."
+  },
+  {
+    "image_path": "agibot/2_mark_0.3_0.77.jpg",
+    "lang": "Wipe the surface of the toilet lid with a cloth."
+  },
+  {
+    "image_path": "agibot/2_mark_0.3_0.77.jpg",
+    "lang": "Wipe the tank lid of the  toilet with a cloth."
+  },
+  {
+    "image_path": "agibot/2_mark_0.3_0.77.jpg",
+    "lang": "lift the toilet lid to open it"
+  },
+  {
+    "image_path": "agibot/2_mark_0.3_0.77.jpg",
+    "lang": "place the cleaning cloth into a bucket after wiping"
+  },
+  {
+    "image_path": "agibot/2_mark_0.3_0.77.jpg",
+    "lang": "press the flush button on top of the toilet"
+  },
+  {
+    "image_path": "agibot/3_mark_0.74_0.79.jpg",
+    "lang": "Pick up the coke bottle and place it to the left of the ice red tea bottle."
+  },
+  {
+    "image_path": "agibot/3_mark_0.74_0.79.jpg",
+    "lang": "Pick up the coke bottle and place it to the right space on the table"
+  },
+  {
+    "image_path": "agibot/4_mark_0.73_0.64.jpg",
+    "lang": "Lift the tray."
+  },
+  {
+    "image_path": "agibot/4_mark_0.73_0.64.jpg",
+    "lang": "pick up the fork from the orange bowl and place it on the tray"
+  },
+  {
+    "image_path": "agibot/4_mark_0.73_0.64.jpg",
+    "lang": "move the crumpled tissue from the table into the mug"
+  },
+  {
+    "image_path": "agibot/4_mark_0.73_0.64.jpg",
+    "lang": "pick up the orange bowl and place it onto the tray"
+  },
+  {
+    "image_path": "agibot/4_mark_0.73_0.64.jpg",
+    "lang": "arrange the tray neatly in the center of the table"
+  },
+  {
+    "image_path": "agibot/4_mark_0.73_0.64.jpg",
+    "lang": "pick up the empty mug and place it inside the tray"
+  },
+  {
+    "image_path": "agibot/5_mark_0.74_0.74.jpg",
+    "lang": "Reach to the key on the left gripper"
+  },
+  {
+    "image_path": "agibot/5_mark_0.74_0.74.jpg",
+    "lang": "Open the door"
+  },
+  {
+    "image_path": "droid/0_mark_0.17_0.4.jpg",
+    "lang": "Press the button on the water dispenser to stop the water flow."
+  },
+  {
+    "image_path": "droid/0_mark_0.17_0.4.jpg",
+    "lang": "Pick up the white cup and place it on the table."
+  },
+  {
+    "image_path": "droid/1_mark_0.36_0.27.jpg",
+    "lang": "Turn off the faucet to stop the flow of water."
+  },
+  {
+    "image_path": "droid/1_mark_0.36_0.27.jpg",
+    "lang": "Pick up the right ruber glove and place it on the table."
+  },
+  {
+    "image_path": "droid/2_mark_0.32_0.21.jpg",
+    "lang": "Clean the table with the cloth"
+  },
+  {
+    "image_path": "droid/3_mark_0.17_0.41.jpg",
+    "lang": "Pick up the cup under the dirnking machine and place it on the table."
+  },
+  {
+    "image_path": "droid/4_mark_0.29_0.27.jpg",
+    "lang": "Take a piece of tissue from the green tissue box."
+  },
+  {
+    "image_path": "droid/4_mark_0.29_0.27.jpg",
+    "lang": "Pick up the red cup and place it on the table."
+  },
+  {
+    "image_path": "rt/0_mark_0.92_0.33.jpg",
+    "lang": "Pick up the bottle on the table."
+  },
+  {
+    "image_path": "rt/0_mark_0.92_0.33.jpg",
+    "lang": "Pick up the green chip bag on the table."
+  },
+  {
+    "image_path": "rt/1_mark_0.91_0.27.jpg",
+    "lang": "Pick up the white bowl on the table and put it in the botton drawer."
+  },
+  {
+    "image_path": "rt/1_mark_0.91_0.27.jpg",
+    "lang": "open the top drawer"
+  },
+  {
+    "image_path": "rt/2_mark_0.91_0.3.jpg",
+    "lang": "Close the top drawer by pushing the handle."
+  },
+  {
+    "image_path": "rt/3_mark_0.91_0.28.jpg",
+    "lang": "Pick up the green soda can on the table and put it to the left of the sliver can"
+  },
+  {
+    "image_path": "rt/4_mark_0.87_0.33.jpg",
+    "lang": "Pick up the apple and put it to the left of the water bottle."
+  },
+  {
+    "image_path": "rt/4_mark_0.87_0.33.jpg",
+    "lang": "Pick up the apple and put it to the right of the water bottle."
+  },
+  {
+    "image_path": "rt/4_mark_0.87_0.33.jpg",
+    "lang": "Pick up the water bottle and put it to the right of the apple"
+  },
+  {
+    "image_path": "rt/4_mark_0.87_0.33.jpg",
+    "lang": "Pick up the water bottle and put it to the left of the apple"
+  },
+  {
+    "image_path": "rt/5_mark_0.9_0.33.jpg",
+    "lang": "Pick up the soda can in the drawer and put it on the vacant space on the top half of the table"
+  },
+  {
+    "image_path": "rt/5_mark_0.9_0.33.jpg",
+    "lang": "Pick up the blue chip bag and put it inside the drawer"
+  },
+  {
+    "image_path": "rt/5_mark_0.9_0.33.jpg",
+    "lang": "Open the top drawer by pulling the handle."
+  },
+  {
+    "image_path": "rt/5_mark_0.9_0.33.jpg",
+    "lang": "Close the bottom drawer by pushing the handle."
+  },
+  {
+    "image_path": "rt/9_mark_0.91_0.33.jpg",
+    "lang": "Pick one orange and put it on the table."
+  },
+  {
+    "image_path": "rt/9_mark_0.91_0.33.jpg",
+    "lang": "I am hungry, please put something on the table for me to eat."
+  },
+  {
+    "image_path": "rt/10_mark_0.93_0.3.jpg",
+    "lang": "Clean the table using existing object on the table"
+  },
+  {
+    "image_path": "rt/11_mark_0.92_0.34.jpg",
+    "lang": "Pick up the coke on the top layer"
+  },
+  {
+    "image_path": "rt/11_mark_0.92_0.34.jpg",
+    "lang": "Pick up the coke on the second layer"
+  },
+  {
+    "image_path": "droid_more/1.png",
+    "lang": "put the orange into the microwave"
+  },
+  {
+    "image_path": "droid_more/1.png",
+    "lang": "pick up the orange"
+  },
+  {
+    "image_path": "droid_more/1.png",
+    "lang": "pick up the orange and put it on the microwave"
+  },
+  {
+    "image_path": "droid_more/1.png",
+    "lang": "pick up the orange and put it vacant space on the right of the microwave"
+  },
+  {
+    "image_path": "droid_more/2.png",
+    "lang": "pick up the lid and put it on the pot"
+  },
+  {
+    "image_path": "droid_more/2.png",
+    "lang": "pick up the spatula in the pot and put it on the table"
+  },
+  {
+    "image_path": "droid_more/2.png",
+    "lang": "pick up the lid and put it far from the pot"
+  },
+  {
+    "image_path": "droid_more/3.png",
+    "lang": "close the waffle maker"
+  },
+  {
+    "image_path": "droid_more/3.png",
+    "lang": "pick up the food in the waffle maker and put it on table"
+  },
+  {
+    "image_path": "droid_more/3.png",
+    "lang": "pick up the turkey leg and put it into the waffle maker"
+  },
+  {
+    "image_path": "droid_more/3.png",
+    "lang": "pick up the toy bread and put it into the waffle maker"
+  },
+  {
+    "image_path": "droid_more/4.png",
+    "lang": "pick up the green packet and put it into the bowl"
+  },
+  {
+    "image_path": "droid_more/4.png",
+    "lang": "pick up the red chips bag and place it next to the bowl"
+  },
+  {
+    "image_path": "droid_more/4.png",
+    "lang": "pick up the small bottle and put it into the bowl"
+  },
+  {
+    "image_path": "droid_more/4.png",
+    "lang": "move the bowl to the center of the table"
+  },
+  {
+    "image_path": "droid_more/4.png",
+    "lang": "pick up the green packet and place it on top of the red chips bag"
+  },
+  {
+    "image_path": "droid_more/5.png",
+    "lang": "pick up the plastic cup from the stove and place it on the counter"
+  },
+  {
+    "image_path": "droid_more/5.png",
+    "lang": "pick up the olive oil bottle and move it to the counter"
+  },
+  {
+    "image_path": "droid_more/5.png",
+    "lang": "pick up the red detergent bottle and place it on the floor"
+  },
+  {
+    "image_path": "droid_more/5.png",
+    "lang": "close the cabinet door above the counter"
+  },
+  {
+    "image_path": "droid_more/5.png",
+    "lang": "pick up the snack bag near the coffee machine and put it on the counter"
+  },
+  {
+    "image_path": "droid_more/6.png",
+    "lang": "turn on the faucet and let the water run"
+  },
+  {
+    "image_path": "droid_more/6.png",
+    "lang": "pick up the towel and hang it on the rack"
+  },
+  {
+    "image_path": "droid_more/6.png",
+    "lang": "squeeze some soap from the dispenser onto the sink"
+  },
+  {
+    "image_path": "droid_more/6.png",
+    "lang": "open the toothpaste cap and place it back on the counter"
+  },
+  {
+    "image_path": "droid_more/6.png",
+    "lang": "wipe the counter surface with the towel to clean it"
+  },
+  {
+    "image_path": "droid_more/7.png",
+    "lang": "pick up the remote control and place it inside the open drawer"
+  },
+  {
+    "image_path": "droid_more/7.png",
+    "lang": "close the open drawer under the desk"
+  },
+  {
+    "image_path": "droid_more/7.png",
+    "lang": "pick up the notebook from the desk and put it on the shelf"
+  },
+  {
+    "image_path": "droid_more/7.png",
+    "lang": "push the chair closer to the desk"
+  },
+  {
+    "image_path": "droid_more/7.png",
+    "lang": "rotate the painting on the floor and place it upright against the wall"
+  },
+  {
+    "image_path": "droid_more/8.png",
+    "lang": "open the refrigerator door fully"
+  },
+  {
+    "image_path": "droid_more/8.png",
+    "lang": "pick up the bottle from the fridge door shelf and place it on the counter"
+  },
+  {
+    "image_path": "droid_more/8.png",
+    "lang": "take out the carton of eggs and put it on the counter"
+  },
+  {
+    "image_path": "droid_more/8.png",
+    "lang": "close the refrigerator door"
+  },
+  {
+    "image_path": "droid_more/8.png",
+    "lang": "adjust the items on the fridge shelf to make more space"
+  },
+  {
+    "image_path": "droid_more/9.png",
+    "lang": "pick up the milk bottle and pour it into the pan"
+  },
+  {
+    "image_path": "droid_more/9.png",
+    "lang": "pick up the yellow measuring cup and place it inside the orange bowl"
+  },
+  {
+    "image_path": "droid_more/9.png",
+    "lang": "move the RTX graphics card box to the side of the table"
+  },
+  {
+    "image_path": "droid_more/9.png",
+    "lang": "pick up the red Cheez-It box and place it next to the other snack box"
+  },
+  {
+    "image_path": "droid_more/9.png",
+    "lang": "pick up the Pringles can and put it inside the orange bowl"
+  },
+  {
+    "image_path": "droid_more/9.png",
+    "lang": "pick up the spoon from the yellow measuring cup and place it in the pan"
+  },
+  {
+    "image_path": "droid_more/9.png",
+    "lang": "move the orange bowl closer to the milk bottle"
+  },
+  {
+    "image_path": "droid_more/9.png",
+    "lang": "pick up the Pringles can and place it on top of the RTX box"
+  },
+  {
+    "image_path": "droid_more/9.png",
+    "lang": "pick up the milk bottle and put it inside the orange bowl"
+  },
+  {
+    "image_path": "droid_more/9.png",
+    "lang": "close the lid of the Pringles can and return it to its original position"
+  },
+  {
+    "image_path": "droid_more/10.png",
+    "lang": "pick up the toy airplane and place it inside the open cabinet"
+  },
+  {
+    "image_path": "droid_more/10.png",
+    "lang": "close the cabinet door under the counter"
+  },
+  {
+    "image_path": "droid_more/10.png",
+    "lang": "pick up the paper cup and place it on the stove"
+  },
+  {
+    "image_path": "droid_more/10.png",
+    "lang": "move the green canister closer to the Pringles can"
+  },
+  {
+    "image_path": "droid_more/10.png",
+    "lang": "pick up the black cable on the stove and put it inside the cabinet"
+  }
+]

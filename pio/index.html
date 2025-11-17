@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PIO Data Explorer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f7f8fb;
+      --bg-card: #ffffff;
+      --fg: #202338;
+      --muted: #7a7f9a;
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.1);
+      --border: #e0e3f0;
+      --chip-bg: #eef2ff;
+      --chip-fg: #3730a3;
+      --shadow-soft: 0 8px 20px rgba(15, 23, 42, 0.08);
+      --radius-lg: 18px;
+      --radius-md: 10px;
+      --radius-pill: 999px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Inter", sans-serif;
+      background: radial-gradient(circle at top left, #e0ecff 0, #f7f8fb 40%, #f7f8fb 100%);
+      color: var(--fg);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 16px 40px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .title {
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .header-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .pill-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .pill-link span.icon {
+      font-size: 1rem;
+    }
+
+    .pill-link strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    main {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 26px;
+      padding: 20px 20px 24px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      backdrop-filter: blur(12px);
+    }
+
+    .top-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    .split-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px;
+      border-radius: var(--radius-pill);
+      background: #eef1ff;
+    }
+
+    .split-btn {
+      border: none;
+      background: transparent;
+      border-radius: var(--radius-pill);
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s ease-out;
+    }
+
+    .split-btn.active {
+      background: #ffffff;
+      color: var(--accent);
+      box-shadow: 0 3px 10px rgba(37, 99, 235, 0.15);
+    }
+
+    .page-info {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .nav-buttons {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-buttons button {
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      background: #ffffff;
+      color: var(--fg);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease-out;
+    }
+
+    .nav-buttons button:hover:not(:disabled) {
+      border-color: var(--accent);
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.14);
+      transform: translateY(-1px);
+    }
+
+    .nav-buttons button:disabled {
+      opacity: 0.45;
+      cursor: default;
+      box-shadow: none;
+      transform: none;
+    }
+
+    #cases {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .case-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.05);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .case-header {
+      padding: 10px 14px 6px;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .case-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--fg);
+    }
+
+    .chip {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      background: var(--chip-bg);
+      color: var(--chip-fg);
+      white-space: nowrap;
+    }
+
+    .case-body {
+      padding: 10px 12px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .image-wrapper {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+    }
+
+    .image-canvas,
+    .image-wrapper img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .img-error {
+      padding: 30px 12px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .case-text {
+      font-size: 0.82rem;
+      color: var(--fg);
+    }
+
+    .prompt-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin: 0 0 2px;
+    }
+
+    .prompt-text {
+      margin: 0 0 4px;
+      font-size: 0.86rem;
+      line-height: 1.4;
+    }
+
+    .meta {
+      margin: 0;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .meta strong {
+      color: var(--fg);
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .error {
+      color: #b91c1c;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      margin-top: 14px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    footer a {
+      color: var(--accent);
+    }
+
+    @media (max-width: 640px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .header-links {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="title-block">
+        <div class="title">Point-It-Out (PIO)</div>
+        <div class="subtitle">Multi-stage visual grounding benchmark · Data Explorer</div>
+      </div>
+      <div class="header-links">
+        <a class="pill-link" href="https://arxiv.org/abs/2509.25794" target="_blank" rel="noopener noreferrer">
+          <span class="icon">📄</span>
+          <span>Paper · <strong>arXiv:2509.25794</strong></span>
+        </a>
+        <a class="pill-link" href="https://github.com/xavihart/PIO/" target="_blank" rel="noopener noreferrer">
+          <span class="icon">💻</span>
+          <span>Code · <strong>GitHub</strong></span>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <div class="top-bar">
+        <div class="split-toggle">
+          <button class="split-btn active" data-split="s1">Stage S1 · Object Reference</button>
+          <button class="split-btn" data-split="s2">Stage S2 · Task Grounding</button>
+          <button class="split-btn" data-split="s3">Stage S3 · Visual Trace</button>
+        </div>
+
+        <div class="nav-tools">
+          <span class="page-info" id="page-info">Loading…</span>
+          <span class="nav-buttons">
+            <button id="prev-btn" disabled>
+              ← Prev 10
+            </button>
+            <button id="next-btn" disabled>
+              Next 10 →
+            </button>
+          </span>
+        </div>
+      </div>
+
+      <div id="cases">
+        <!-- Cards injected by JS -->
+      </div>
+
+      <footer>
+        Explore all examples from the <a href="https://arxiv.org/abs/2509.25794" target="_blank">PIO paper</a>.
+        Dataset and code: <a href="https://github.com/xavihart/PIO/" target="_blank">xavihart/PIO</a>.
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    const PAGE_SIZE = 10;
+    const IMG_S1S2_ROOT = 'data/images_s1s2/';
+    const IMG_S3_ROOT = 'data/images_s3/';
+
+    let s1Data = [];
+    let s2Data = [];
+    let s3Data = [];
+
+    let currentSplit = 's1';
+    let currentPage = 0;
+
+    async function loadData() {
+      try {
+        const [s1s2Resp, s3Resp] = await Promise.all([
+          fetch('data/s1s2.json'),
+          fetch('data/s3.json')
+        ]);
+
+        const s1s2Raw = await s1s2Resp.json();
+        const s3Raw = await s3Resp.json();
+
+        // s1/s2 share the same json
+        s1Data = s1s2Raw.filter(d => (d.s1_or_s2 || d.s1S2 || '').toLowerCase() === 's1');
+        s2Data = s1s2Raw.filter(d => (d.s1_or_s2 || d.s1S2 || '').toLowerCase() === 's2');
+        s3Data = s3Raw;
+
+        renderPage();
+      } catch (e) {
+        console.error('Failed to load data', e);
+        const container = document.getElementById('cases');
+        container.innerHTML = '<p class="error">Failed to load dataset. Please check that <code>data/s1s2.json</code> and <code>data/s3.json</code> exist and are served from the same origin.</p>';
+        document.getElementById('page-info').textContent = 'Error loading data';
+      }
+    }
+
+    function getCurrentDataset() {
+      if (currentSplit === 's1') return s1Data;
+      if (currentSplit === 's2') return s2Data;
+      return s3Data;
+    }
+
+    function changeSplit(split) {
+      currentSplit = split;
+      currentPage = 0;
+      setActiveButtons();
+      renderPage();
+    }
+
+    function nextPage() {
+      const dataset = getCurrentDataset();
+      const maxPage = Math.floor((dataset.length - 1) / PAGE_SIZE);
+      if (currentPage < maxPage) {
+        currentPage++;
+        renderPage();
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        currentPage--;
+        renderPage();
+      }
+    }
+
+    function setActiveButtons() {
+      document.querySelectorAll('.split-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.split === currentSplit);
+      });
+    }
+
+    function updateNavButtons() {
+      const dataset = getCurrentDataset();
+      const maxPage = Math.max(0, Math.floor((dataset.length - 1) / PAGE_SIZE));
+      document.getElementById('prev-btn').disabled = currentPage === 0;
+      document.getElementById('next-btn').disabled = currentPage >= maxPage || dataset.length === 0;
+    }
+
+    function renderPage() {
+      const dataset = getCurrentDataset();
+      const container = document.getElementById('cases');
+      container.innerHTML = '';
+
+      if (!dataset || dataset.length === 0) {
+        container.innerHTML = '<p class="muted">No samples for this stage.</p>';
+        document.getElementById('page-info').textContent = '0 cases';
+        updateNavButtons();
+        return;
+      }
+
+      const start = currentPage * PAGE_SIZE;
+      const end = Math.min(start + PAGE_SIZE, dataset.length);
+      document.getElementById('page-info').textContent =
+        `Showing ${start + 1}–${end} of ${dataset.length} cases`;
+
+      for (let i = start; i < end; i++) {
+        const sample = dataset[i];
+        const card = document.createElement('div');
+        card.className = 'case-card';
+
+        // Header
+        const header = document.createElement('div');
+        header.className = 'case-header';
+
+        const titleSpan = document.createElement('span');
+        titleSpan.className = 'case-title';
+
+        if (currentSplit === 's1' || currentSplit === 's2') {
+          const subclass = sample.subclass || sample.subclasses || '—';
+          titleSpan.textContent = `${currentSplit.toUpperCase()} · Case #${i + 1}`;
+          const chip = document.createElement('span');
+          chip.className = 'chip';
+          chip.textContent = subclass;
+          header.appendChild(titleSpan);
+          header.appendChild(chip);
+        } else {
+          titleSpan.textContent = `S3 · Case #${i + 1}`;
+          header.appendChild(titleSpan);
+        }
+
+        card.appendChild(header);
+
+        // Body
+        const body = document.createElement('div');
+        body.className = 'case-body';
+
+        const imgContainer = document.createElement('div');
+        imgContainer.className = 'image-wrapper';
+
+        if (currentSplit === 's3') {
+          const img = document.createElement('img');
+          img.src = IMG_S3_ROOT + sample.image_path;
+          img.alt = sample.lang || 'S3 image';
+          img.loading = 'lazy';
+          imgContainer.appendChild(img);
+        } else {
+          const canvas = document.createElement('canvas');
+          canvas.className = 'image-canvas';
+          imgContainer.appendChild(canvas);
+          drawSegmentationOnCanvas(canvas, sample);
+        }
+
+        body.appendChild(imgContainer);
+
+        // Text
+        const textBlock = document.createElement('div');
+        textBlock.className = 'case-text';
+
+        const promptLabel = document.createElement('p');
+        promptLabel.className = 'prompt-label';
+        promptLabel.textContent = 'Prompt';
+        textBlock.appendChild(promptLabel);
+
+        const promptText = document.createElement('p');
+        promptText.className = 'prompt-text';
+        promptText.textContent = sample.lang || '';
+        textBlock.appendChild(promptText);
+
+        if (currentSplit !== 's3') {
+          const meta = document.createElement('p');
+          meta.className = 'meta';
+          const subclass = sample.subclass || sample.subclasses || '—';
+          const w = sample.width || sample.w || '–';
+          const h = sample.height || sample.h || '–';
+          meta.innerHTML = `Subclass: <strong>${subclass}</strong> · Size: ${w}×${h}`;
+          textBlock.appendChild(meta);
+        }
+
+        body.appendChild(textBlock);
+        card.appendChild(body);
+        container.appendChild(card);
+      }
+
+      updateNavButtons();
+    }
+
+    function drawSegmentationOnCanvas(canvas, sample) {
+      const img = new Image();
+      img.src = IMG_S1S2_ROOT + sample.image_path;
+      img.onload = () => {
+        const maxWidth = 420;
+        const scale = Math.min(1, maxWidth / img.width);
+        const canvasW = img.width * scale;
+        const canvasH = img.height * scale;
+        canvas.width = canvasW;
+        canvas.height = canvasH;
+
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvasW, canvasH);
+        ctx.drawImage(img, 0, 0, canvasW, canvasH);
+
+        const origW = sample.width || img.width;
+        const origH = sample.height || img.height;
+        const sx = canvasW / origW;
+        const sy = canvasH / origH;
+
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'rgba(56, 189, 248, 0.95)';
+        ctx.fillStyle = 'rgba(56, 189, 248, 0.24)';
+
+        const polys = sample.polygon || sample.poly || [];
+        for (const seg of polys) {
+          if (!seg || seg.length < 6) continue;
+          ctx.beginPath();
+          ctx.moveTo(seg[0] * sx, seg[1] * sy);
+          for (let j = 2; j < seg.length; j += 2) {
+            ctx.lineTo(seg[j] * sx, seg[j + 1] * sy);
+          }
+          ctx.closePath();
+          ctx.fill();
+          ctx.stroke();
+        }
+      };
+      img.onerror = () => {
+        canvas.parentElement.innerHTML = '<div class="img-error">Image not found.</div>';
+      };
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.split-btn').forEach(btn => {
+        btn.addEventListener('click', () => changeSplit(btn.dataset.split));
+      });
+      document.getElementById('next-btn').addEventListener('click', nextPage);
+      document.getElementById('prev-btn').addEventListener('click', prevPage);
+
+      setActiveButtons();
+      loadData();
+    });
+  </script>
+</body>
+</html>

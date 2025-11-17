@@ -1,0 +1,6 @@
+/ssdscratch/hxue45/data/datasets/agibot/661325-682653/661325/videos/head_color.mp4
+/ssdscratch/hxue45/data/datasets/agibot/684757-685393/684757/videos/head_color.mp4
+/ssdscratch/hxue45/data/datasets/agibot/772148-774617/772148/videos/head_color.mp4
+/ssdscratch/hxue45/data/datasets/agibot/829907-833809/829907/videos/head_color.mp4
+/ssdscratch/hxue45/data/datasets/agibot/922956-926778/925436/videos/head_color.mp4
+/ssdscratch/hxue45/data/datasets/agibot/925454-926229/925454/videos/head_color.mp4
