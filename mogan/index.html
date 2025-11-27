@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoGAN: Improving Motion Quality in Video Diffusion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --bg-color: #ffffff;
+        --card-bg: #ffffff;
+        --text-main: #111111;
+        --text-muted: #666666;
+        --border-subtle: #e5e5e5;
+        --accent-color: #111111;
+        --accent-soft: #f5f5f5;
+        --shadow-sm: 0 4px 16px rgba(0,0,0,0.04);
+        --shadow-hover: 0 18px 40px rgba(0,0,0,0.08);
+        --radius: 12px;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        background: var(--bg-color);
+        color: var(--text-main);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px 60px;
+    }
+
+    .page-container {
+        width: 100%;
+        max-width: 1040px;
+    }
+
+    /* HERO */
+
+    .hero {
+        text-align: center;
+        margin-bottom: 24px;
+    }
+
+    .hero-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        padding: 5px 12px;
+        border-radius: 999px;
+        border: 1px solid #111111;
+        background: #ffffff;
+        color: #111111;
+        margin-bottom: 16px;
+    }
+
+    .hero-pill-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: #111111;
+    }
+
+    h1 {
+        margin: 0 0 10px 0;
+        font-size: clamp(2.0rem, 3.4vw, 2.6rem);
+        letter-spacing: -0.04em;
+        line-height: 1.1;
+    }
+
+    .title-highlight {
+        font-weight: 700;
+    }
+
+    .authors {
+        margin: 14px 0 4px;
+        font-size: 0.95rem;
+    }
+
+    .authors span {
+        white-space: nowrap;
+    }
+
+    .meta {
+        margin: 0;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+    }
+
+    .meta span {
+        white-space: nowrap;
+    }
+
+    .logo-row {
+        margin-top: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 18px;
+    }
+
+    .logo-row img {
+        height: 120px;
+        width: auto;
+        object-fit: contain;
+        border-radius: 8px;
+        background: #ffffff;
+        padding: 6px 10px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    }
+
+    .hero-cta {
+        margin-top: 22px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        font-size: 0.86rem;
+        padding: 7px 16px;
+        border-radius: 999px;
+        border: 1px solid #111111;
+        background: #ffffff;
+        color: #111111;
+        text-decoration: none;
+        transition:
+            background-color 0.14s ease-out,
+            color 0.14s ease-out,
+            transform 0.14s ease-out,
+            box-shadow 0.14s ease-out;
+    }
+
+    .btn-primary {
+        background: #111111;
+        color: #ffffff;
+    }
+
+    .btn-subtle {
+        background: var(--accent-soft);
+        border-color: #cccccc;
+    }
+
+    .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+
+    .btn-primary:hover {
+        background: #000000;
+        border-color: #000000;
+    }
+
+    .btn-icon {
+        font-size: 0.95rem;
+        line-height: 1;
+    }
+
+    /* TL;DR */
+
+    .tldr {
+        max-width: 780px;
+        margin: 0 auto 28px;
+        background: var(--accent-soft);
+        border-radius: 999px;
+        border: 1px solid var(--border-subtle);
+        padding: 10px 18px;
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        font-size: 0.9rem;
+    }
+
+    .tldr-label {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--text-muted);
+        font-weight: 600;
+    }
+
+    /* MAIN CONTENT GRID (now single-column stack) */
+
+    .content-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+        align-items: flex-start;
+        margin-bottom: 40px;
+        border-top: 1px solid var(--border-subtle);
+        padding-top: 28px;
+    }
+
+    /* Sections */
+
+    .section {
+        margin-bottom: 28px;
+    }
+
+    .section-title {
+        font-size: 0.84rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin: 0 0 8px 0;
+    }
+
+    .section h2 {
+        margin: 0 0 10px 0;
+        font-size: 1.3rem;
+        letter-spacing: -0.02em;
+    }
+
+    .section p {
+        margin: 0 0 8px 0;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: var(--text-main);
+    }
+
+    /* CARD + IMAGE CARDS */
+
+    .card {
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        border: 1px solid var(--border-subtle);
+        box-shadow: var(--shadow-sm);
+        padding: 14px 14px 16px;
+        overflow: hidden;
+        transition:
+            transform 0.12s ease-out,
+            box-shadow 0.12s ease-out,
+            border-color 0.12s ease-out;
+    }
+
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+        border-color: #111111;
+    }
+
+    .thumb-wrapper {
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+        background: #f0f0f0;
+        margin-bottom: 12px;
+    }
+
+    .thumb-wrapper img {
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    .thumb-pill {
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        background: rgba(0,0,0,0.86);
+        color: #f9f9f9;
+        border: 1px solid rgba(255,255,255,0.3);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .thumb-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: #ffffff;
+    }
+
+    .card-body {
+        padding: 2px 2px 0;
+    }
+
+    .card-title {
+        font-size: 1.02rem;
+        font-weight: 600;
+        margin: 0 0 4px 0;
+        letter-spacing: -0.01em;
+    }
+
+    .card-desc {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin: 0 0 8px 0;
+    }
+
+    .card-link-inline {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.86rem;
+        color: #111111;
+        text-decoration: none;
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid #111111;
+        background: #ffffff;
+    }
+
+    .card-link-inline:hover {
+        background: #111111;
+        color: #ffffff;
+    }
+
+    .image-card {
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        border: 1px solid var(--border-subtle);
+        box-shadow: var(--shadow-sm);
+        padding: 14px;
+    }
+
+    .image-card img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .image-caption {
+        margin-top: 8px;
+        font-size: 0.86rem;
+        color: var(--text-muted);
+    }
+
+    /* VIDEO PREVIEW SECTION (3–4 lines of video) */
+
+    .preview-section {
+        margin-bottom: 40px;
+        border-top: 1px solid var(--border-subtle);
+        padding-top: 24px;
+    }
+
+    .preview-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .preview-card {
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        border: 1px solid var(--border-subtle);
+        box-shadow: var(--shadow-sm);
+        padding: 14px 14px 16px;
+    }
+
+    .preview-card h3 {
+        margin: 0 0 8px 0;
+        font-size: 0.98rem;
+        font-weight: 500;
+    }
+
+    .preview-row {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 18px;
+        flex-wrap: wrap;
+        margin-top: 8px;
+    }
+
+    .preview-video-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1 1 260px;
+        max-width: 340px;
+    }
+
+    .model-label {
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin-bottom: 6px;
+    }
+
+    .preview-video-col video {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        border-radius: 10px;
+        background: #000000;
+        border: 1px solid #111111;
+    }
+
+    @media (max-width: 768px) {
+        .preview-video-col {
+            max-width: 100%;
+        }
+    }
+
+    footer {
+        text-align: center;
+        padding-bottom: 18px;
+        font-size: 0.78rem;
+        color: #999999;
+        border-top: 1px solid var(--border-subtle);
+        padding-top: 12px;
+    }
+</style>
+</head>
+<body>
+
+<main>
+  <div class="page-container">
+
+    <!-- Hero section -->
+    <header class="hero">
+      <div class="hero-pill">
+        <span class="hero-pill-dot"></span>
+        <span>Video Diffusion · Motion GAN</span>
+      </div>
+
+      <h1>
+        <span class="title-highlight">MoGAN</span>: Improving Motion Quality in Video Diffusion via Few-Step Motion Adversarial Post-Training
+      </h1>
+
+      <p class="authors">
+        <span>Haotian Xue<sup>1,2</sup></span>,
+        <span>Qi Chen<sup>1</sup></span>,
+        <span>Zhonghao Wang<sup>1</sup></span>,
+        <span>Xun Huang<sup>1</sup></span>,
+        <span>Eli Shechtman<sup>1</sup></span>,
+        <span>Jinrong Xie<sup>1</sup></span>,
+        <span>Yongxin Chen<sup>2</sup></span>
+      </p>
+
+      <p class="meta">
+        <span><sup>1</sup> Adobe Research</span> ·
+        <span><sup>2</sup> Georgia Tech</span>
+      </p>
+
+      <div class="logo-row">
+        <img src="src_out/adobe_logo.jpg" alt="Adobe Research logo">
+        <img src="src_out/gatech_logo.jpg" alt="Georgia Tech logo">
+      </div>
+
+      <div class="hero-cta">
+        <!-- TODO: fill in real links -->
+        <a class="btn btn-primary" href="#" target="_blank" rel="noopener">
+          <span class="btn-icon">📄</span>
+          <span>Paper (arXiv)</span>
+        </a>
+        <a class="btn" href="#" target="_blank" rel="noopener">
+          <span class="btn-icon">💻</span>
+          <span>Code (GitHub)</span>
+        </a>
+        <a class="btn btn-subtle" href="supp/index.html">
+          <span class="btn-icon">🎥</span>
+          <span>Supplementary Videos</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- TL;DR -->
+    <section class="tldr">
+      <span class="tldr-label">TL;DR</span>
+      <span>We combine a GAN loss in optical-flow space with a few-step video diffusion generator, as a novel post-training strategy, we produce videos with more realistic motions.</span>
+    </section>
+
+       <!-- Abstract (full-width first) -->
+      <section class="section">
+        <h2>Abstract</h2>
+        <p>
+          Video diffusion models achieve strong frame-level fidelity but still struggle with motion coherence, dynamics, and realism, often producing jitter, ghosting, or implausible dynamics. A key limitation is that the standard denoising MSE objective provides no direct supervision on temporal consistency, so low-loss predictions can still exhibit poor motion.
+        </p>
+        <p>
+          We introduce MoGAN, a motion-centric post-training framework that improves motion realism without reward models or human preference data. Built on a 3-step distilled video diffusion model, we train a DiT-based optical-flow discriminator to distinguish real versus generated motion, coupled with a distribution-matching regularizer to preserve visual fidelity.
+        </p>
+        <p>
+          Applied to Wan2.1-T2V-1.3B, our 3-step model delivers better motion quality and comparable visual quality compared with the 50-step baseline, while running over fifteen times faster. On VBench, our method improves smoothness (+0.6%) and significantly restores dynamics degree compared with the distilled model (+15.7% versus DMD), achieving the highest motion score (0.960 versus 0.915 for the 50-step model). Similar improvements are observed on VideoJAM-Bench.
+        </p>
+        <p>
+          A human evaluation further shows that our model is preferred for motion (52% versus 38% for the 50-step model, 56% versus 29% for DMD) and visual quality. Overall, our approach substantially improves motion realism without sacrificing visual fidelity or efficiency.
+        </p>
+      </section>
+
+    <!-- 3–4 lines of videos before abstract -->
+    <section class="section preview-section">
+        <div class="section-title">Wan2.1-T2V-1.3B (50 steps) - DMD (3 steps) - Ours (3 steps)</div>
+
+      <div class="preview-grid">
+   
+        <!-- VBench example 1 -->
+        <div class="preview-card">
+          <h3>a person swimming in ocean</h3>
+          <div class="preview-row">
+            <div class="preview-video-col">
+              <div class="model-label">WAN2.1 FULL (50 STEPS)</div>
+              <video autoplay loop muted playsinline src="src_out/src/vbench_0_666/wan2.1_full.mp4"></video>
+            </div>
+            <div class="preview-video-col">
+              <div class="model-label">DMD-3</div>
+              <video autoplay loop muted playsinline src="src_out/src/vbench_0_666/dmd4_step0.mp4"></video>
+            </div>
+            <div class="preview-video-col">
+              <div class="model-label">MOGAN (OURS)</div>
+              <video autoplay loop muted playsinline src="src_out/src/vbench_0_666/exp3_step600.mp4"></video>
+            </div>
+          </div>
+        </div>
+
+        <!-- VBench example 2 -->
+        <div class="preview-card">
+          <h3>a car turning a corner</h3>
+          <div class="preview-row">
+            <div class="preview-video-col">
+              <div class="model-label">WAN2.1 FULL (50 STEPS)</div>
+              <video autoplay loop muted playsinline src="src_out/src/vbench_12_1337/wan2.1_full.mp4"></video>
+            </div>
+            <div class="preview-video-col">
+              <div class="model-label">DMD-3</div>
+              <video autoplay loop muted playsinline src="src_out/src/vbench_12_1337/dmd4_step0.mp4"></video>
+            </div>
+            <div class="preview-video-col">
+              <div class="model-label">MOGAN (OURS)</div>
+              <video autoplay loop muted playsinline src="src_out/src/vbench_12_1337/exp3_step600.mp4"></video>
+            </div>
+          </div>
+        </div>
+
+        <!-- VideoJam example 1 -->
+        <div class="preview-card">
+          <h3>A woman performing an intricate dance on stage, illuminated by a single spotlight in the first frame. The woman dances Argentine flamenco.</h3>
+          <div class="preview-row">
+            <div class="preview-video-col">
+              <div class="model-label">WAN2.1 FULL (50 STEPS)</div>
+              <video autoplay loop muted playsinline src="src_out/src/videojam_0_23/wan2.1_full.mp4"></video>
+            </div>
+            <div class="preview-video-col">
+              <div class="model-label">DMD-3</div>
+              <video autoplay loop muted playsinline src="src_out/src/videojam_0_23/dmd4_step0.mp4"></video>
+            </div>
+            <div class="preview-video-col">
+              <div class="model-label">MOGAN (OURS)</div>
+              <video autoplay loop muted playsinline src="src_out/src/videojam_0_23/exp3_step600.mp4"></video>
+            </div>
+          </div>
+        </div>
+
+        <!-- VideoJam example 2 -->
+        <!-- <div class="preview-card">
+          <h3>A woman engaging in a challenging workout routine, performing pull-ups on green bars.</h3>
+          <div class="preview-row">
+            <div class="preview-video-col">
+              <div class="model-label">WAN2.1 FULL (50 STEPS)</div>
+              <video autoplay loop muted playsinline src="src_out/src/videojam_2_1337/wan2.1_full.mp4"></video>
+            </div>
+            <div class="preview-video-col">
+              <div class="model-label">DMD-3</div>
+              <video autoplay loop muted playsinline src="src_out/src/videojam_2_1337/dmd4_step0.mp4"></video>
+            </div>
+            <div class="preview-video-col">
+              <div class="model-label">MOGAN (OURS)</div>
+              <video autoplay loop muted playsinline src="src_out/src/videojam_2_1337/exp3_step600.mp4"></video>
+            </div>
+          </div>
+        </div> -->
+
+      </div>
+    </section>
+
+    <!-- Main content: abstract first, thumb card on a new line -->
+    <div class="content-grid">
+
+
+      <!-- Qualitative results card (stacked below) -->
+      <aside class="section">
+        <div class="section-title">Click to view more results</div>
+        <div class="card">
+          <div class="thumb-wrapper">
+            <img src="src_out/src/thumb_results.png" alt="MoGAN teaser">
+            <div class="thumb-pill">
+              <span class="thumb-dot"></span>
+              Main comparisons
+            </div>
+          </div>
+          <div class="card-body">
+            <!-- <h3 class="card-title">Few-step MoGAN vs 50-step Baselines</h3>
+            <p class="card-desc">
+              Side-by-side video comparisons on VBench and VideoJAM-Bench, highlighting improved motion smoothness, restored dynamics degree, and preserved visual quality.
+            </p> -->
+            <a class="card-link-inline" href="supp/index.html">
+              <span class="btn-icon">↗</span>
+              <span>Open supplementary video gallery</span>
+            </a>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- Method section -->
+    <section class="section">
+      <div class="section-title">Method</div>
+      <h2>MoGAN Motion Adversarial Post-Training</h2>
+      <p>
+        MoGAN augments a distilled few-step video diffusion model with a motion-focused adversarial objective in optical-flow space.
+        A DiT-based discriminator operates on RAFT flow fields of real and generated videos, while a distribution-matching
+        regularizer preserves the original model’s appearance distribution.
+      </p>
+      <div class="image-card">
+        <img src="src_out/pipeline.jpg" alt="MoGAN pipeline illustration">
+        <div class="image-caption">
+          Overall pipeline of MoGAN. The few-step generator produces videos that are converted to optical flow and scored by a DiT-based motion discriminator, combined with a distribution-matching regularizer.
+        </div>
+      </div>
+    </section>
+
+    <!-- Results table section -->
+    <section class="section">
+      <div class="section-title">Quantitative Results</div>
+      <h2>Motion and Visual Quality</h2>
+      <p>
+        On VBench and VideoJAM-Bench, MoGAN significantly improves motion smoothness and dynamics score over the distilled baseline,
+        while maintaining or slightly improving frame quality metrics compared with the original 50-step model.
+      </p>
+      <div class="image-card">
+        <img src="src_out/result_table.jpg" alt="MoGAN quantitative results table">
+        <div class="image-caption">
+          Summary of quantitative results on VBench and VideoJAM-Bench, including motion smoothness, dynamics degree, and visual quality metrics for Wan2.1 full-step, DMD-distilled, and MoGAN.
+        </div>
+      </div>
+    </section>
+
+    <!-- Human survey section -->
+    <section class="section">
+      <div class="section-title">Human Evaluation</div>
+      <h2>Preference for Motion and Visual Quality</h2>
+      <p>
+        We conduct a human study comparing MoGAN with both the 50-step Wan2.1 model and the distilled DMD baseline.
+        Annotators consistently prefer MoGAN for motion realism and also for overall visual quality, confirming that the
+        motion-focused adversarial training does not sacrifice perceptual fidelity.
+      </p>
+      <div class="image-card">
+        <img src="src_out/human_survey.jpg" alt="MoGAN human evaluation results">
+        <div class="image-caption">
+          Human preference study showing win–tie–lose rates for MoGAN against 50-step Wan2.1 and DMD, across motion quality, visual quality, and text alignment.
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  MoGAN project page · Update paper and code links when available.
+</footer>
+
+</body>
+</html>

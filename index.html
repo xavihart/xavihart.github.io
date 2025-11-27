@@ -114,10 +114,79 @@
     .news::-webkit-scrollbar-thumb{background:#c4c4c4; border-radius:3px}
 
     .pubs{list-style:none; margin:0; padding:0}
-    .pubs li{padding:10px 0; border-bottom:1px solid var(--line)}
+    .pubs li{padding:14px 0; border-bottom:1px solid var(--line)}
     .pubs li:last-child{border-bottom:none}
-    .venue{font-size:12px; font-weight:700; letter-spacing:.3px; padding:2px 6px; border-radius:6px; background:rgba(13,87,151,.12); color:var(--accent)}
+
+    /* Publication teaser layout */
+    .pub{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+    }
+   .pub-teaser{
+      flex:0 0 150px;
+      max-width:180px;
+      border-radius:12px;
+      overflow:hidden;
+      background:linear-gradient(135deg, rgba(13,87,151,0.06), rgba(13,87,151,0.14));
+      box-shadow:0 4px 14px rgba(0,0,0,0.06);
+      position:relative;
+      isolation:isolate;
+  /* NEW: force a consistent shape so images can fill it */
+  /* aspect-ratio:4/2;  tweak to 16/9, 4/3, etc. as you like */
+}
+    .pub-teaser::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at 20% 0%, rgba(255,255,255,0.4), transparent 55%),
+                 radial-gradient(circle at 80% 100%, rgba(255,255,255,0.3), transparent 55%);
+      mix-blend-mode:soft-light;
+      pointer-events:none;
+    }
+    .pub-teaser img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transition:transform 0.35s ease, opacity 0.35s ease;
+      opacity:0.9;
+    }
+    .pub-main{
+      flex:1;
+      min-width:0;
+    }
+    .pub-main > div:first-child strong{
+      display:inline-block;
+      line-height:1.4;
+    }
+    .pub:hover .pub-teaser img{
+      transform:scale(1.03);
+      opacity:1;
+    }
+
+    .venue{font-size:12px; font-weight:700; letter-spacing:.3px; padding:2px 6px; border-radius:6px; background:rgba(13,87,151,.12); color:var(--accent); display:inline-block; margin-top:4px}
     .links a{margin-right:10px; font-size:14px}
+
+    @media (max-width:680px){
+      .pub{
+        flex-direction:row;
+        align-items:flex-start;
+      }
+      .pub-teaser{
+        flex:0 0 120px;
+      }
+    }
+
+    @media (max-width:520px){
+      .pub{
+        flex-direction:column;
+      }
+      .pub-teaser{
+        width:100%;
+        max-width:240px;
+      }
+    }
 
     details{border:1px solid var(--line); border-radius:12px; padding:14px 16px; background:transparent}
     summary{cursor:pointer; font-weight:600}
@@ -134,6 +203,13 @@
   padding:2px 6px; border-radius:999px;
   border:1px solid var(--line); background:transparent; color:var(--muted);
   cursor:default; user-select:none;
+}
+
+.author{
+  text-decoration:underline;
+  /* color set to green */
+  color: #080116;
+
 }
 
 /* Tag colors */
@@ -155,6 +231,7 @@ html[data-theme="dark"]{
 .plabel[data-k="robotics"]{  border-color:color-mix(in oklab, var(--tag-robotics) 35%, var(--line));  background:color-mix(in oklab, var(--tag-robotics) 12%, transparent);  color:var(--tag-robotics) }
 .plabel[data-k="vision"]{    border-color:color-mix(in oklab, var(--tag-vision) 35%, var(--line));    background:color-mix(in oklab, var(--tag-vision) 12%, transparent);    color:var(--tag-vision) }
 .plabel[data-k="3d"]{    border-color:color-mix(in oklab, var(--tag-3d) 35%, var(--line));    background:color-mix(in oklab, var(--tag-3d) 12%, transparent);    color:var(--tag-3d) }
+.plabel[data-k="video"]{    border-color:color-mix(in oklab, var(--tag-video) 35%, var(--line));    background:color-mix(in oklab, var(--tag-video) 12%, transparent);    color:var(--tag-video) }
 
   </style>
 </head>
@@ -218,16 +295,12 @@ html[data-theme="dark"]{
     <section id="about" class="card">
       <h2>About & Research Interests</h2>
       <p>
-        I'm broadly interested in <strong>Generative AI</strong> across vision and robotics, with a current focus on
-        <strong style="color:var(--accent)">physical understanding</strong> and <strong style="color:var(--accent)">physical alignment</strong>
-        of <em>Vision–Language Models</em> and <em>Video Diffusion Models</em>, through post-training.
+        I do research in machine learning and computer vision. Currently, I am interested in physics AI regarding multi-modal language models, video diffusion model and world models. 
         
-        Earlier in my PhD I worked on
-        <strong>adversarial attacks & defenses</strong> for GenAI and developed algorithms across diffusion models
-        and diffusion-based policy: <em>Diff-PGD</em>, <em>SDS-Attack</em>, <em>PDM-Pure</em>, and <em>DP-Attacker</em>.
+        I am also committed to safety problem in generative AI, focusing on adversarial protection of diffusion model.
       </p>
       <p class="muted">
-       Previously, I completed research internships at
+      I did research  at
 <img src="static/image/Adobe_Firefly_Logo.svg.png" alt="Adobe Firefly logo" class="logo"> Adobe Firefly (2025),
 <img src="static/image/235_Nvidia_logo-512.webp" alt="NVIDIA logo" class="logo"> NVIDIA DIR (2024), and
 <img src="static/image/microsoft.png" alt="Microsoft Research Asia logo" class="logo"> Microsoft Research Asia (2021).
@@ -236,13 +309,14 @@ I was also a visiting student at
 <img src="static/image/mit.png" alt="MIT logo" class="logo"> MIT CSAIL (2021).
 
 I earned my B.E. in Computer Science (Honors) from
-<img src="static/image/sjtu.png" alt="SJTU logo" class="logo"> Shanghai Jiao Tong University (Zhiyuan College) in 2022.
+<img src="static/image/sjtu.png" alt="SJTU logo" class="logo"> Shanghai Jiao Tong University (Zhiyuan Honor Program) in 2022.
       </p>
     </section>
 
     <section id="news" class="card">
       <h2>News</h2>
       <ul class="news" id="newsList" aria-live="polite">
+        <li data-date="2025-09-10"><span class="tag">2025-10</span> We propose <a href="https://github.com/xavihart/mogan"><u>MoGAN</u></a>, a novel post-training to improve motion quality for few-step video diffusion models.</li>
         <li data-date="2025-09-10"><span class="tag">2025-09</span> We propose <a href="https://github.com/xavihart/PIO"><u>PIO-Bench</u></a>, a visual-grounding-centric benchmark for embodied reasoning of VLMs.</li>
         <li data-date="2025-04-01"><span class="tag">2025-04</span>  Joining <img src="static/image/Adobe_Firefly_Logo.svg.png" alt="Adobe logo" class="logo"> <strong>Adobe Firefly</strong> (Summer+Fall) to work on post-training for video diffusion.</li>
         <li data-date="2024-10-01"><span class="tag">2024-10</span>  NeurIPS 2024 Scholar Award — see you in Vancouver!</li>
@@ -264,92 +338,169 @@ I earned my B.E. in Computer Science (Honors) from
     <section id="publications" class="card">
       <h2>Selected Publications</h2>
       <ul class="pubs">
-  <li>
-    <div><strong>Point-It-Out: Benchmarking Embodied Reasoning for Vision Language Models in Multi-Stage Visual Grounding</strong></div>
-    <div class="muted"> <u>Haotian Xue</u>, Yunhao Ge, Yu Zeng, Max Li, Ming-Yu Liu, Yongxin Chen, Jiaojiao Fan</div>
-    <div class="venue">In submission</div>
-    <div class="labels" aria-label="labels">
-      <button class="plabel" data-k="vlm" aria-label="VLM label">VLM</button>
-      <button class="plabel" data-k="robotics" aria-label="Robotics label">Robotics</button>
+
+   <li>
+    <div class="pub">
+      <div class="pub-teaser">
+        <img src="static/image/mogan.jpg" alt="Teaser for MoGAN" loading="lazy" />
+      </div>
+      <div class="pub-main">
+        <div><strong>MoGAN: Improving Motion Quality in Video Diffusion via Few-Step Motion Adversarial Post-Training
+</strong></div>
+        <div class="muted"> <b class='author'>Haotian Xue</b>, Qi Chen, Zhonghao Wang, Xun Huang, Eli Shechtman, Jinrong Xie, Yongxin Chen</div>
+        <div class="venue">Arxiv 2025</div>
+        <div class="labels" aria-label="labels">
+          <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
+                    <button class="plabel" data-k="video" aria-label="Video label">Video</button>
+
+        </div>
+        <div class="links"><a href="https://arxiv.org/abs/2511.21592">arXiv</a> · <a href="https://github.com/xavihart/mogan/">code</a> · <a href="https://github.com/xavihart/mogan/">project</a></div>
+      </div>
     </div>
-    <div class="links"><a href="https://arxiv.org/abs/2509.25794">arXiv</a> · <a href="https://github.com/xavihart/PIO/">code</a> · <a href="https://github.com/xavihart/PIO/">project</a></div>
+  </li>
+    
+  <li>
+    <div class="pub">
+      <div class="pub-teaser">
+        <img src="static/image/pio.jpg" alt="Teaser for Point-It-Out" loading="lazy" />
+      </div>
+      <div class="pub-main">
+        <div><strong>Point-It-Out: Benchmarking Embodied Reasoning for Vision Language Models in Multi-Stage Visual Grounding</strong></div>
+        <div class="muted"> <b class='author'>Haotian Xue</b>, Yunhao Ge, Yu Zeng, Max Li, Ming-Yu Liu, Yongxin Chen, Jiaojiao Fan</div>
+        <div class="venue">Arxiv 2025</div>
+        <div class="labels" aria-label="labels">
+          <button class="plabel" data-k="vlm" aria-label="VLM label">VLM</button>
+          <button class="plabel" data-k="robotics" aria-label="Robotics label">Robotics</button>
+        </div>
+        <div class="links"><a href="https://arxiv.org/abs/2509.25794">arXiv</a> · <a href="https://github.com/xavihart/PIO/">code</a> · <a href="https://github.com/xavihart/PIO/">project</a></div>
+      </div>
+    </div>
   </li>
 
   <li>
-    <div><strong>RefDrop: Controllable Consistency in Image or Video Generation via Reference Feature Guidance</strong></div>
-    <div class="muted">Jiaojiao Fan, <u>Haotian Xue</u>, Qinsheng Zhang, Yongxin Chen</div>
-    <div class="venue">NeurIPS 2024</div>
-    <div class="labels" aria-label="labels">
-      <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
-      <button class="plabel" data-k="vision" aria-label="Vision label">Vision</button>
+    <div class="pub">
+      <div class="pub-teaser">
+        <img src="static/image/refdrop.jpg" alt="Teaser for RefDrop" loading="lazy" />
+      </div>
+      <div class="pub-main">
+        <div><strong>RefDrop: Controllable Consistency in Image or Video Generation via Reference Feature Guidance</strong></div>
+        <div class="muted">Jiaojiao Fan, <b class='author'>Haotian Xue</b>, Qinsheng Zhang, Yongxin Chen</div>
+        <div class="venue">NeurIPS 2024</div>
+        <div class="labels" aria-label="labels">
+          <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
+          <button class="plabel" data-k="vision" aria-label="Vision label">Vision</button>
+        </div>
+        <div class="links"><a href="https://arxiv.org/abs/2405.17661">arXiv</a> · <a href="https://sbyebss.github.io/refdrop/">project</a></div>
+      </div>
     </div>
-    <div class="links"><a href="https://arxiv.org/abs/2405.17661">arXiv</a> · <a href="https://sbyebss.github.io/refdrop/">project</a></div>
   </li>
 
   <li>
-    <div><strong>QueST: Self-Supervised Skill Abstractions for Learning Continuous Control</strong></div>
-    <div class="muted">Arthava Mete, <u>Haotian Xue</u>, Albert Wilcox, Yongxin Chen, Animesh Garg</div>
-    <div class="venue">NeurIPS 2024</div>
-    <div class="labels" aria-label="labels">
-      <button class="plabel" data-k="robotics" aria-label="Robotics label">Robotics</button>
-      <button class="plabel" data-k="vision" aria-label="Vision label">Vision</button>
+    <div class="pub">
+      <div class="pub-teaser">
+        <img src="static/image/quest.png" alt="Teaser for QueST" loading="lazy" />
+      </div>
+      <div class="pub-main">
+        <div><strong>QueST: Self-Supervised Skill Abstractions for Learning Continuous Control</strong></div>
+        <div class="muted">Arthava Mete, <b class='author'>Haotian Xue</b>, Albert Wilcox, Yongxin Chen, Animesh Garg</div>
+        <div class="venue">NeurIPS 2024</div>
+        <div class="labels" aria-label="labels">
+          <button class="plabel" data-k="robotics" aria-label="Robotics label">Robotics</button>
+          <button class="plabel" data-k="vision" aria-label="Vision label">Vision</button>
+        </div>
+        <div class="links"><a href="https://arxiv.org/abs/2407.15840">arXiv</a> · <a href="https://quest-model.github.io/">project</a> · <a href="https://github.com/pairlab/QueST">code</a></div>
+      </div>
     </div>
-    <div class="links"><a href="https://arxiv.org/abs/2407.15840">arXiv</a> · <a href="https://quest-model.github.io/">project</a> · <a href="https://github.com/pairlab/QueST">code</a></div>
   </li>
 
   <li>
-    <div><strong>Diffusion Policy Attacker: Crafting Adversarial Attacks for Diffusion-based Policies</strong></div>
-    <div class="muted">Yipu Chen*, <u>Haotian Xue*</u>, Yongxin Chen</div>
-    <div class="venue">NeurIPS 2024</div>
-    <div class="labels" aria-label="labels">
-      <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
-      <button class="plabel" data-k="safety" aria-label="Safety label">Safety</button>
+    <div class="pub">
+      <div class="pub-teaser">
+        <img src="static/image/dp-attacker.jpg" alt="Teaser for Diffusion Policy Attacker" loading="lazy" />
+      </div>
+      <div class="pub-main">
+        <div><strong>Diffusion Policy Attacker: Crafting Adversarial Attacks for Diffusion-based Policies</strong></div>
+        <div class="muted">Yipu Chen*, <b class="author">Haotian Xue*</b>, Yongxin Chen</div>
+        <div class="venue">NeurIPS 2024</div>
+        <div class="labels" aria-label="labels">
+          <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
+          <button class="plabel" data-k="safety" aria-label="Safety label">Safety</button>
+        </div>
+        <div class="links"><a href="https://arxiv.org/abs/2405.19424">arXiv</a> · <a href="https://sites.google.com/view/diffusion-policy-attacker/">project</a></div>
+      </div>
     </div>
-    <div class="links"><a href="https://arxiv.org/abs/2405.19424">arXiv</a> · <a href="https://sites.google.com/view/diffusion-policy-attacker/">project</a></div>
   </li>
 
   <li>
-    <div><strong>Towards More Effective Protection Against Diffusion-Based Mimicry with Score Distillation</strong></div>
-    <div class="muted"><u>Haotian Xue</u>, Chumeng Liang*, Xiaoyu Wu*, Yongxin Chen</div>
-    <div class="venue">ICLR 2024</div>
-    <div class="labels" aria-label="labels">
-      <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
-      <button class="plabel" data-k="safety" aria-label="Safety label">Safety</button>
+    <div class="pub">
+      <div class="pub-teaser">
+        <img src="static/image/diff-protect.jpg" alt="Teaser for SDS-Attack" loading="lazy" />
+      </div>
+      <div class="pub-main">
+        <div><strong>Towards More Effective Protection Against Diffusion-Based Mimicry with Score Distillation</strong></div>
+        <div class="muted"><b class='author'>Haotian Xue</b>, Chumeng Liang*, Xiaoyu Wu*, Yongxin Chen</div>
+        <div class="venue">ICLR 2024</div>
+        <div class="labels" aria-label="labels">
+          <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
+          <button class="plabel" data-k="safety" aria-label="Safety label">Safety</button>
+        </div>
+        <div class="links"><a href="https://arxiv.org/abs/2311.12832">arXiv</a> · <a href="https://github.com/xavihart/Diff-Protect">code</a> · <a href="https://iclr.cc/media/iclr-2024/Slides/18759.pdf">poster</a></div>
+      </div>
     </div>
-    <div class="links"><a href="https://arxiv.org/abs/2311.12832">arXiv</a> · <a href="https://github.com/xavihart/Diff-Protect">code</a> · <a href="https://iclr.cc/media/iclr-2024/Slides/18759.pdf">poster</a></div>
   </li>
 
   <li>
-    <div><strong>Pixel is a Barrier: Diffusion Models Are More Adversarially Robust Than We Think</strong></div>
-    <div class="muted"><u>Haotian Xue</u>, Yongxin Chen</div>
-    <div class="venue">NeurIPSW: SafeGenAI 2024 · arXiv 2024</div>
-    <div class="labels" aria-label="labels">
-      <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
-      <button class="plabel" data-k="safety" aria-label="Safety label">Safety</button>
+    <div class="pub">
+      <div class="pub-teaser">
+        <img src="static/image/pdm-pure.pic.jpg" alt="Teaser for Pixel is a Barrier" loading="lazy" />
+      </div>
+      <div class="pub-main">
+        <div><strong>Pixel is a Barrier: Diffusion Models Are More Adversarially Robust Than We Think</strong></div>
+        <div class="muted"><b class='author'>Haotian Xue</b>, Yongxin Chen</div>
+        <div class="venue">NeurIPSW: SafeGenAI 2024 · arXiv 2024</div>
+        <div class="labels" aria-label="labels">
+          <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
+          <button class="plabel" data-k="safety" aria-label="Safety label">Safety</button>
+        </div>
+        <div class="links"><a href="https://arxiv.org/abs/2404.13320">arXiv</a> · <a href="https://github.com/xavihart/PDM-Pure">code</a></div>
+      </div>
     </div>
-    <div class="links"><a href="https://arxiv.org/abs/2404.13320">arXiv</a> · <a href="https://github.com/xavihart/PDM-Pure">code</a></div>
   </li>
 
   <li>
-    <div><strong>Diffusion-Based Adversarial Sample Generation for Improved Stealthiness and Controllability</strong></div>
-    <div class="muted"><u>Haotian Xue</u>, Alexandre Araujo, Bin Hu, Yongxin Chen</div>
-    <div class="venue">NeurIPS 2023</div>
-    <div class="labels" aria-label="labels">
-      <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
-      <button class="plabel" data-k="safety" aria-label="Safety label">Safety</button>
+    <div class="pub">
+      <div class="pub-teaser">
+        <img src="static/image/diff-pgd.png" alt="Teaser for Diff-PGD" loading="lazy" />
+      </div>
+      <div class="pub-main">
+        <div><strong>Diffusion-Based Adversarial Sample Generation for Improved Stealthiness and Controllability</strong></div>
+        <div class="muted"><b class='author'>Haotian Xue</b>, Alexandre Araujo, Bin Hu, Yongxin Chen</div>
+        <div class="venue">NeurIPS 2023</div>
+        <div class="labels" aria-label="labels">
+          <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
+          <button class="plabel" data-k="safety" aria-label="Safety label">Safety</button>
+        </div>
+        <div class="links"><a href="https://arxiv.org/abs/2305.16494">arXiv</a> · <a href="https://github.com/xavihart/Diff-PGD">code</a> · <a href="static/image/poster_diffpgd.pdf">poster</a></div>
+      </div>
     </div>
-    <div class="links"><a href="https://arxiv.org/abs/2305.16494">arXiv</a> · <a href="https://github.com/xavihart/Diff-PGD">code</a> · <a href="static/image/poster_diffpgd.pdf">poster</a></div>
   </li>
 
   <li>
-    <div><strong>3D-IntPhys: Towards More Generalized 3D-grounded Visual Intuitive Physics</strong></div>
-    <div class="muted"><u>Haotian Xue</u>, Antonio Torralba, Joshua B. Tenenbaum, Daniel L. K. Yamins, Yunzhu Li, Hsiao-Yu Tung</div>
-    <div class="venue">NeurIPS 2023</div>
-    <div class="labels" aria-label="labels">
-      <button class="plabel" data-k="vision" aria-label="Vision label">Vision</button>
-      <button class="plabel" data-k="3d" aria-label="3D label">3D</button>
+    <div class="pub">
+      <div class="pub-teaser">
+        <img src="static/image/3d-intphys.png" alt="Teaser for 3D-IntPhys" loading="lazy" />
+      </div>
+      <div class="pub-main">
+        <div><strong>3D-IntPhys: Towards More Generalized 3D-grounded Visual Intuitive Physics</strong></div>
+        <div class="muted"><b class='author'>Haotian Xue</b>, Antonio Torralba, Joshua B. Tenenbaum, Daniel L. K. Yamins, Yunzhu Li, Hsiao-Yu Tung</div>
+        <div class="venue">NeurIPS 2023</div>
+        <div class="labels" aria-label="labels">
+          <button class="plabel" data-k="vision" aria-label="Vision label">Vision</button>
+          <button class="plabel" data-k="3d" aria-label="3D label">3D</button>
+        </div>
+        <div class="links"><a href="https://arxiv.org/abs/2304.11470">arXiv</a> · <a href="static/image/poster_3dintphys.pdf">poster</a></div>
+      </div>
     </div>
-    <div class="links"><a href="https://arxiv.org/abs/2304.11470">arXiv</a> · <a href="static/image/poster_3dintphys.pdf">poster</a></div>
   </li>
 </ul>
       <details style="margin-top:14px">
@@ -382,7 +533,7 @@ I earned my B.E. in Computer Science (Honors) from
     </section>
 
     <footer>
-      <div>© Haotian Xue • Last updated 2025-10-19</div>
+      <div>© Haotian Xue • Last updated 2025-11-27</div>
       <div><a href="https://jiayuanm.com/">Original inspiration</a></div>
     </footer>
   </div>
@@ -414,7 +565,6 @@ I earned my B.E. in Computer Science (Honors) from
 
       // Compute height of first 5 items so ~5 are visible; the rest are scrollable
       const firstFive = items.slice(0,5);
-      // use offsetHeight after forcing layout to ensure accurate measurement
       const h = firstFive.reduce((acc, li)=> acc + li.offsetHeight, 0);
       list.style.maxHeight = Math.ceil(h) + 'px';
 

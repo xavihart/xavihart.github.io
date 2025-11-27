@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ablation Study – Ours vs Variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --bg-color: #f4f5fb;
+        --card-bg: #ffffff;
+        --text-main: #15171a;
+        --text-muted: #6c757d;
+        --accent-color: #3461ff;
+        --accent-hover: #2647d4;
+        --accent-soft: rgba(52, 97, 255, 0.08);
+        --shadow-sm: 0 2px 8px rgba(15,23,42,0.06);
+        --shadow-md: 0 12px 32px rgba(15,23,42,0.14);
+        --radius: 16px;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background: radial-gradient(circle at top left, #eef2ff 0, #f8fafc 40%, #f4f5fb 100%);
+        color: var(--text-main);
+        margin: 0;
+        padding: 0;
+        line-height: 1.5;
+    }
+
+    header {
+        background: linear-gradient(135deg, #ffffff 0%, #f3f4ff 60%, #eef2ff 100%);
+        padding: 32px 20px 30px 20px;
+        text-align: center;
+        box-shadow: var(--shadow-sm);
+        margin-bottom: 32px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(10px);
+    }
+
+    h1 {
+        margin: 0;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        font-size: 2.1em;
+        background: linear-gradient(135deg, #111827 0%, #4b5563 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+        margin-top: 10px;
+        font-size: 0.95em;
+        color: var(--text-muted);
+    }
+
+    .section-title {
+        text-align: center;
+        margin: 40px 0 24px;
+        font-size: 1.5em;
+        font-weight: 600;
+        color: var(--text-main);
+    }
+
+    .section {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        padding: 0 20px 60px 20px;
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+
+    .cell-wide {
+        background: var(--card-bg);
+        padding: 24px 24px 26px 24px;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        width: 100%;
+        border: 1px solid rgba(15,23,42,0.03);
+        transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cell-wide::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top right, rgba(52,97,255,0.06), transparent 60%);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+    }
+
+    .cell-wide:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+        border-color: rgba(148,163,184,0.45);
+    }
+
+    .cell-wide:hover::before {
+        opacity: 1;
+    }
+
+    .cell-wide-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+        margin-bottom: 16px;
+        border-bottom: 1px solid #edf0f5;
+        padding-bottom: 8px;
+    }
+
+    .cell-wide-header h3 {
+        margin: 0;
+        font-size: 1.02em;
+        color: var(--text-muted);
+        font-weight: 500;
+    }
+
+    .case-pill {
+        font-size: 0.78em;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 2px 10px;
+        border-radius: 999px;
+        background: #f3f4ff;
+        color: var(--accent-color);
+        border: 1px solid rgba(52, 97, 255, 0.25);
+        white-space: nowrap;
+    }
+
+    .row {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    .video-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 360px;
+        flex: 1 1 260px;
+    }
+
+    .model-label {
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.9em;
+        color: var(--text-main);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 8px;
+        opacity: 0.9;
+    }
+
+    video {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        border-radius: 12px;
+        background: #000;
+        object-fit: cover;
+        box-shadow: 0 4px 18px rgba(15,23,42,0.22);
+        border: 1px solid rgba(15,23,42,0.5);
+    }
+
+    video::-webkit-media-controls {
+        display: none !important;
+    }
+
+    @media (max-width: 900px) {
+        header {
+            padding: 24px 16px 24px 16px;
+        }
+        h1 {
+            font-size: 1.8em;
+        }
+        .section {
+            padding-bottom: 40px;
+        }
+        .row {
+            gap: 18px;
+        }
+        .video-col {
+            max-width: 520px;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .cell-wide {
+            padding: 18px 16px 20px 16px;
+        }
+        .subtitle {
+            font-size: 0.86em;
+        }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Ablation Study</h1>
+    <p class="subtitle">Ours vs w/o DMD loss vs w/o R1/R2 loss vs Video-only GAN (VideoJam cases).</p>
+</header>
+
+<h2 class="section-title">Complementary Videos for Ablation Study</h2>
+
+<div class="section">
+
+    <!-- Case 1: videojam_0_23 -->
+    <div class="cell-wide">
+        <div class="cell-wide-header">
+            <h3>A woman performing an intricate dance on stage, illuminated by a single spotlight in the first frame. She is dressed in a long black dress and a wide-brimmed hat, with her arms raised above her head. The woman dance Argentine flamenco dance.
+</h3>
+            <span class="case-pill">videojam</span>
+        </div>
+        <div class="row">
+            <div class="video-col">
+                <div class="model-label">Ours</div>
+                <!-- TODO: replace ours.mp4 with your actual file name if different -->
+                <video src="src/videojam_0_23/exp3_step600.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="video-col">
+                <div class="model-label">w/o DMD Loss</div>
+                <video src="src/videojam_0_23/no_dmd.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="video-col">
+                <div class="model-label">w/o R1/R2 Loss</div>
+                <video src="src/videojam_0_23/no_r1r2.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="video-col">
+                <div class="model-label">Video-only GAN</div>
+                <video src="src/videojam_0_23/video_only.mp4" autoplay loop muted playsinline></video>
+            </div>
+        </div>
+    </div>
+
+    <!-- Case 2: videojam_4_2222 -->
+    <div class="cell-wide">
+        <div class="cell-wide-header">
+            <h3>A close-up of a runner’s legs as they sprint through a crowded city street, dodging pedestrians and street vendors, with the sounds of the city all around.</h3>
+            <span class="case-pill">videojam</span>
+        </div>
+        <div class="row">
+            <div class="video-col">
+                <div class="model-label">Ours</div>
+                <!-- TODO: replace ours.mp4 with your actual file name if different -->
+                <video src="src/videojam_4_2222/exp3_step600.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="video-col">
+                <div class="model-label">w/o DMD Loss</div>
+                <video src="src/videojam_4_2222/no_dmd.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="video-col">
+                <div class="model-label">w/o R1/R2 Loss</div>
+                <video src="src/videojam_4_2222/no_r1r2.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="video-col">
+                <div class="model-label">Video-only GAN</div>
+                <video src="src/videojam_4_2222/video_only.mp4" autoplay loop muted playsinline></video>
+            </div>
+        </div>
+    </div>
+
+    <!-- Case 3: videojam_2_4444 -->
+    <div class="cell-wide">
+        <div class="cell-wide-header">
+            <h3>A woman engaging in a challenging workout routine, performing pull-ups on green bars.</h3>
+            <span class="case-pill">videojam</span>
+        </div>
+        <div class="row">
+            <div class="video-col">
+                <div class="model-label">Ours</div>
+                <!-- TODO: replace ours.mp4 with your actual file name if different -->
+                <video src="src/videojam_2_4444/exp3_step600.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="video-col">
+                <div class="model-label">w/o DMD Loss</div>
+                <video src="src/videojam_2_4444/no_dmd.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="video-col">
+                <div class="model-label">w/o R1/R2 Loss</div>
+                <video src="src/videojam_2_4444/no_r1r2.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="video-col">
+                <div class="model-label">Video-only GAN</div>
+                <video src="src/videojam_2_4444/video_only.mp4" autoplay loop muted playsinline></video>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+document.querySelectorAll("video").forEach(v => {
+    v.playbackRate = 1.0;
+    v.addEventListener("canplay", () => {
+        v.play().catch(e => console.log("Autoplay prevented:", e));
+    });
+});
+</script>
+
+</body>
+</html>

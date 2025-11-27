@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Comparison Results -
+Wan2.1(50 steps) vs DMD(3 steps) vs Ours (3 steps)</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root {
+        --bg-color: #f4f5fb;
+        --card-bg: #ffffff;
+        --text-main: #15171a;
+        --text-muted: #6c757d;
+        --accent-color: #3461ff;
+        --accent-hover: #2647d4;
+        --accent-soft: rgba(52, 97, 255, 0.08);
+        --shadow-sm: 0 2px 8px rgba(15,23,42,0.06);
+        --shadow-md: 0 12px 32px rgba(15,23,42,0.14);
+        --radius: 16px;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background: radial-gradient(circle at top left, #eef2ff 0, #f8fafc 40%, #f4f5fb 100%);
+        color: var(--text-main);
+        margin: 0;
+        padding: 0;
+        line-height: 1.5;
+    }
+
+    header {
+        background: linear-gradient(135deg, #ffffff 0%, #f3f4ff 60%, #eef2ff 100%);
+        padding: 32px 20px 30px 20px;
+        text-align: center;
+        box-shadow: var(--shadow-sm);
+        margin-bottom: 32px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(10px);
+    }
+
+    h1 {
+        margin: 0;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        font-size: 2.2em;
+        background: linear-gradient(135deg, #111827 0%, #4b5563 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+        margin-top: 10px;
+        font-size: 0.95em;
+        color: var(--text-muted);
+    }
+
+    .nav-links {
+        margin-top: 18px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .nav-btn {
+        padding: 8px 16px;
+        border-radius: 999px;
+        border: 1px solid rgba(52, 97, 255, 0.25);
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--accent-color);
+        font-size: 0.9em;
+        font-weight: 500;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        box-shadow: 0 1px 4px rgba(15,23,42,0.08);
+        transition: all 0.18s ease;
+    }
+
+    .nav-btn span {
+        font-size: 1.1em;
+    }
+
+    .nav-btn:hover {
+        background: #ffffff;
+        color: var(--accent-hover);
+        box-shadow: 0 4px 14px rgba(15,23,42,0.15);
+        transform: translateY(-1px);
+        border-color: rgba(38, 71, 212, 0.7);
+    }
+
+    h2.section-title {
+        text-align: center;
+        margin: 56px 0 24px;
+        font-size: 1.7em;
+        font-weight: 600;
+        color: var(--text-main);
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .section-link {
+        font-size: 0.9em;
+        color: var(--accent-color);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        transition: all 0.18s ease;
+    }
+
+    .section-link span {
+        font-size: 0.9em;
+    }
+
+    .section-link:hover {
+        color: var(--accent-hover);
+        background: rgba(52, 97, 255, 0.16);
+    }
+
+    .section {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        padding: 0 20px 60px 20px;
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+
+    .cell-wide {
+        background: var(--card-bg);
+        padding: 24px 24px 26px 24px;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        width: 100%;
+        max-width: 100%;
+        border: 1px solid rgba(15,23,42,0.03);
+        transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cell-wide::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top right, rgba(52,97,255,0.06), transparent 60%);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+    }
+
+    .cell-wide:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+        border-color: rgba(148,163,184,0.45);
+    }
+
+    .cell-wide:hover::before {
+        opacity: 1;
+    }
+
+    .cell-wide h3 {
+        margin-top: 0;
+        margin-bottom: 18px;
+        font-size: 1.05em;
+        color: var(--text-muted);
+        font-weight: 500;
+        border-bottom: 1px solid #edf0f5;
+        padding-bottom: 8px;
+    }
+
+    .label-row {
+        /* will be hidden by JS after we use its labels */
+        display: none;
+    }
+
+    .row {
+        display: flex;
+        justify-content: center;   /* center the three videos */
+        align-items: flex-start;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    .video-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 480px;       /* 480p width */
+        flex: 1 1 320px;
+    }
+
+    .model-label {
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.9em;
+        color: var(--text-main);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 8px;
+        opacity: 0.9;
+    }
+
+    video {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;   /* 480p aspect */
+        border-radius: 12px;
+        background: #000;
+        object-fit: cover;
+        box-shadow: 0 4px 18px rgba(15,23,42,0.22);
+        border: 1px solid rgba(15,23,42,0.5);
+    }
+
+    video::-webkit-media-controls {
+        display: none !important;
+    }
+
+    @media (max-width: 900px) {
+        header {
+            padding: 24px 16px 24px 16px;
+        }
+        h1 {
+            font-size: 1.8em;
+        }
+        .section {
+            padding-bottom: 40px;
+        }
+        .row {
+            gap: 18px;
+        }
+        .video-col {
+            max-width: 520px;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .cell-wide {
+            padding: 18px 16px 20px 16px;
+        }
+        .subtitle {
+            font-size: 0.86em;
+        }
+        .nav-btn {
+            font-size: 0.84em;
+            padding: 7px 14px;
+        }
+    }
+</style>
+</head>
+<body>
+<header>
+<h1>
+  Comparison Results<br/>
+  Wan2.1 (50 steps) vs DMD (3 steps) vs Ours (3 steps)
+</h1>
+<p class="subtitle">Side-by-side qualitative results on VBench and VideoJam (all videos 480p).</p>
+<div class="nav-links">
+<a class="nav-btn" href="#vbench-section">
+<span>📊</span> Go to VBench
+        </a>
+<a class="nav-btn" href="#videojam-section">
+<span>🎬</span> Go to VideoJam
+        </a>
+</div>
+</header>
+<h2 class="section-title" id="vbench-section">
+    VBench Results (Same Seed)
+</h2><div class="section">
+<div class="cell-wide">
+<h3>a person swimming in ocean</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_0_666/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_0_666/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_0_666/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>a car turning a corner</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_12_1337/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_12_1337/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_12_1337/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>a person swimming in ocean</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_0_23/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_0_23/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_0_23/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>a bicycle accelerating to gain speed</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_10_42/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_10_42/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_10_42/exp3_step600.mp4"></video></div>
+</div>
+<!-- <div class='cell-wide'>
+        <h3>Prompt 12</h3>
+        <div class='label-row'><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+        <div class='row'><video src='src/vbench_12_23/wan2.1_full.mp4' autoplay loop muted playsinline></video><video src='src/vbench_12_23/dmd4_step0.mp4' autoplay loop muted playsinline></video><video src='src/vbench_12_23/exp3_step600.mp4' autoplay loop muted playsinline></video></div>
+    </div> -->
+<div class="cell-wide">
+<h3>a car turning a corner</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_12_666/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_12_666/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_12_666/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>a person giving a presentation to a room full of colleagues</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_1_2222/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_1_2222/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_1_2222/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>a person giving a presentation to a room full of colleagues</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_1_23/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_1_23/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_1_23/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>a bus stuck in traffic during rush hour</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_25_42/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_25_42/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_25_42/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>a train crossing over a tall bridge</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_28_1337/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_28_1337/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_28_1337/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>a boat sailing smoothly on a calm lake</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_35_123/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_35_123/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_35_123/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>a boat sailing smoothly on a calm lake</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_35_666/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_35_666/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_35_666/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>a person walking in the snowstorm</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_4_1111/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_4_1111/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_4_1111/exp3_step600.mp4"></video></div>
+</div>
+<!-- <div class='cell-wide'>
+        <h3>Prompt 4</h3>
+        <div class='label-row'><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+        <div class='row'><video src='src/vbench_4_2222/wan2.1_full.mp4' autoplay loop muted playsinline></video><video src='src/vbench_4_2222/dmd4_step0.mp4' autoplay loop muted playsinline></video><video src='src/vbench_4_2222/exp3_step600.mp4' autoplay loop muted playsinline></video></div>
+    </div> -->
+<div class="cell-wide">
+<h3>a person walking in the snowstorm</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_4_4444/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_4_4444/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_4_4444/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>a person walking in the snowstorm</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_4_888/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_4_888/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_4_888/exp3_step600.mp4"></video></div>
+</div>
+<!-- <div class='cell-wide'>
+        <h3>Prompt 5</h3>
+        <div class='label-row'><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+        <div class='row'><video src='src/vbench_5_3333/wan2.1_full.mp4' autoplay loop muted playsinline></video><video src='src/vbench_5_3333/dmd4_step0.mp4' autoplay loop muted playsinline></video><video src='src/vbench_5_3333/exp3_step600.mp4' autoplay loop muted playsinline></video></div>
+    </div>
+     -->
+<div class="cell-wide">
+<h3>a person drinking coffee in a cafe</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_5_666/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_5_666/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_5_666/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>a person playing guitar</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_6_1111/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_6_1111/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_6_1111/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>a bicycle gliding through a snowy field</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_8_42/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_8_42/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/vbench_8_42/exp3_step600.mp4"></video></div>
+</div>
+</div>
+<h2 class="section-title" id="videojam-section">
+    VideoJam Results (Same Seed)
+</h2>
+<div class="section">
+<div class="cell-wide">
+<h3>A woman performing an intricate dance on stage, illuminated by a single spotlight in the first frame. She is dressed in a long black dress and a wide-brimmed hat, with her arms raised above her head. The woman dance Argentine flamenco dance.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_0_23/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_0_23/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_0_23/exp3_step600.mp4"></video></div>
+</div>
+<!-- <div class='cell-wide'>
+        <h3>Prompt 1</h3>
+        <div class='label-row'><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+        <div class='row'><video src='src/videojam_1_2222/wan2.1_full.mp4' autoplay loop muted playsinline></video><video src='src/videojam_1_2222/dmd4_step0.mp4' autoplay loop muted playsinline></video><video src='src/videojam_1_2222/exp3_step600.mp4' autoplay loop muted playsinline></video></div>
+    </div>
+     -->
+<div class="cell-wide">
+<h3>A woman engaging in a challenging workout routine, performing pull-ups on green bars.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_2_1337/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_2_1337/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_2_1337/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>A woman engaging in a challenging workout routine, performing pull-ups on green bars.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_2_42/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_2_42/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_2_42/exp3_step600.mp4"></video></div>
+</div>
+<!-- <div class='cell-wide'>
+        <h3>Prompt 2</h3>
+        <div class='label-row'><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+        <div class='row'><video src='src/videojam_2_4444/wan2.1_full.mp4' autoplay loop muted playsinline></video><video src='src/videojam_2_4444/dmd4_step0.mp4' autoplay loop muted playsinline></video><video src='src/videojam_2_4444/exp3_step600.mp4' autoplay loop muted playsinline></video></div>
+    </div> -->
+<div class="cell-wide">
+<h3>A man doing push-ups on a ledge overlooking a body of water. The man appears to be doing a push-up, with his head down.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_30_123/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_30_123/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_30_123/exp3_step600.mp4"></video></div>
+</div>
+<!-- <div class='cell-wide'>
+        <h3>Prompt 30</h3>
+        <div class='label-row'><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+        <div class='row'><video src='src/videojam_30_23/wan2.1_full.mp4' autoplay loop muted playsinline></video><video src='src/videojam_30_23/dmd4_step0.mp4' autoplay loop muted playsinline></video><video src='src/videojam_30_23/exp3_step600.mp4' autoplay loop muted playsinline></video></div>
+    </div> -->
+<!-- <div class='cell-wide'>
+        <h3>Prompt 31</h3>
+        <div class='label-row'><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+        <div class='row'><video src='src/videojam_31_42/wan2.1_full.mp4' autoplay loop muted playsinline></video><video src='src/videojam_31_42/dmd4_step0.mp4' autoplay loop muted playsinline></video><video src='src/videojam_31_42/exp3_step600.mp4' autoplay loop muted playsinline></video></div>
+    </div> -->
+<div class="cell-wide">
+<h3>A young girl coloring at her desk.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_37_123/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_37_123/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_37_123/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>A young girl coloring at her desk.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_37_42/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_37_42/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_37_42/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>A close-up of a runner’s legs as they dash through a rainstorm, their shoes splashing through puddles as they push forward with determination.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_38_42/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_38_42/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_38_42/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>Tracking camera shot. A kangaroo hops swiftly across an open grassy plain.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_39_23/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_39_23/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_39_23/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>Two ibexes navigating a rocky hillside. They are walking down a steep slope covered in small rocks and dirt. In the background, there are more rocks and some greenery visible through an opening in the rocks.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_3_42/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_3_42/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_3_42/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>A cinematic shot of a person walking along a quiet country road, their feet crunching on the gravel with every step, fields of wheat swaying in the breeze on either side.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_47_4444/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_47_4444/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_47_4444/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>A cinematic shot of a person walking along a quiet country road, their feet crunching on the gravel with every step, fields of wheat swaying in the breeze on either side.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_47_999/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_47_999/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_47_999/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>A close-up of a runner’s legs as they sprint through a crowded city street, dodging pedestrians and street vendors, with the sounds of the city all around.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_4_2222/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_4_2222/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_4_2222/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>A hand holding a yellow fidget spinner. The hand is fair-skinned and holds the bright yellow fidget spinner with silver bearings. The background is blurred and appears to be trees against a blue sky. The video captures the subtle movements of the hand as it spins the fidget spinner, creating a soothing and mesmerizing visual effect. As the video progresses, the hand continues to hold the fidget spinner, showcasing its smooth and satisfying motion. The background remains blurred, adding a sense of tranquility to the scene. Overall, the video is a calming and enjoyable display of the simple pleasure of fidget spinning.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_53_123/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_53_123/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_53_123/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>A bicycle wheel spins forward, moving in a circular motion while keeping balance.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_55_23/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_55_23/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_55_23/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>A jellyfish swimming in shallow water. The jellyfish has a translucent body with a distinctive pattern of white circles and lines. It appears to be swimming just below the surface of the water, which is dark and murky due to the presence of algae or other aquatic plants.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_61_42/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_61_42/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_61_42/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>A cinematic shot of a person walking along a cobblestone street in a historic town, their feet making a rhythmic tap on the stones as they move.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_62_3333/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_62_3333/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_62_3333/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>A group of horses grazing in a grassy field behind a black wooden fence</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_63_42/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_63_42/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_63_42/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>A fish swims forward in a steady line, its tail swaying side to side as it propels itself.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_64_1111/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_64_1111/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_64_1111/exp3_step600.mp4"></video></div>
+</div>
+<!--     
+    <div class='cell-wide'>
+        <h3>Prompt 64</h3>
+        <div class='label-row'><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+        <div class='row'><video src='src/videojam_64_42/wan2.1_full.mp4' autoplay loop muted playsinline></video><video src='src/videojam_64_42/dmd4_step0.mp4' autoplay loop muted playsinline></video><video src='src/videojam_64_42/exp3_step600.mp4' autoplay loop muted playsinline></video></div>
+    </div> -->
+<div class="cell-wide">
+<h3>A penguin waddles in a straight line, shifting from one foot to the other.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_65_42/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_65_42/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_65_42/exp3_step600.mp4"></video></div>
+</div>
+<!-- <div class='cell-wide'>
+        <h3>Prompt 70</h3>
+        <div class='label-row'><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+        <div class='row'><video src='src/videojam_70_2222/wan2.1_full.mp4' autoplay loop muted playsinline></video><video src='src/videojam_70_2222/dmd4_step0.mp4' autoplay loop muted playsinline></video><video src='src/videojam_70_2222/exp3_step600.mp4' autoplay loop muted playsinline></video></div>
+    </div>
+     -->
+<div class="cell-wide">
+<h3>A woman doing push-up exercise on a beach at sunset.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_70_777/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_70_777/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_70_777/exp3_step600.mp4"></video></div>
+</div>
+<!-- <div class='cell-wide'>
+        <h3>Prompt 72</h3>
+        <div class='label-row'><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+        <div class='row'><video src='src/videojam_72_2222/wan2.1_full.mp4' autoplay loop muted playsinline></video><video src='src/videojam_72_2222/dmd4_step0.mp4' autoplay loop muted playsinline></video><video src='src/videojam_72_2222/exp3_step600.mp4' autoplay loop muted playsinline></video></div>
+    </div> -->
+<!-- <div class='cell-wide'>
+        <h3>Prompt 72</h3>
+        <div class='label-row'><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+        <div class='row'><video src='src/videojam_72_666/wan2.1_full.mp4' autoplay loop muted playsinline></video><video src='src/videojam_72_666/dmd4_step0.mp4' autoplay loop muted playsinline></video><video src='src/videojam_72_666/exp3_step600.mp4' autoplay loop muted playsinline></video></div>
+    </div>
+     -->
+<div class="cell-wide">
+<h3>A man exercising with battle ropes at a gym.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_72_777/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_72_777/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_72_777/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>A person engaging in a boxing workout at a gym.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_73_1337/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_73_1337/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_73_1337/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>A person engaging in a boxing workout at a gym.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_73_777/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_73_777/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_73_777/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>A man is swimming in the ocean. In the background, the sky is hazy and overexposed, with the sun shining brightly above the horizon. As the video progresses, the man continues to swim, his arms moving rhythmically through the water.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_76_23/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_76_23/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_76_23/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>A man is swimming in the ocean. In the background, the sky is hazy and overexposed, with the sun shining brightly above the horizon. As the video progresses, the man continues to swim, his arms moving rhythmically through the water.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_76_42/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_76_42/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_76_42/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>A person jogs along a trail in a dense forest, their legs pumping as they navigate the roots and rocks that dot the path.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_78_23/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_78_23/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_78_23/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>A young woman dances in the night bustle against the backdrop of a glowing fanfare.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_79_23/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_79_23/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_79_23/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>A young woman dances in the night bustle against the backdrop of a glowing fanfare.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_79_3333/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_79_3333/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_79_3333/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>A woman engaging in a lively trampoline workout. The woman jumps and exercises on the trampoline. The background is a room with white walls and a white ceiling, and there are two large windows on the left side of the wall, and a mirror on the right side reflecting the womans image.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_7_123/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_7_123/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_7_123/exp3_step600.mp4"></video></div>
+</div>
+<!-- <div class='cell-wide'>
+        <h3>Prompt 81</h3>
+        <div class='label-row'><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+        <div class='row'><video src='src/videojam_81_23/wan2.1_full.mp4' autoplay loop muted playsinline></video><video src='src/videojam_81_23/dmd4_step0.mp4' autoplay loop muted playsinline></video><video src='src/videojam_81_23/exp3_step600.mp4' autoplay loop muted playsinline></video></div>
+    </div> -->
+<div class="cell-wide">
+<h3>A man enjoying a mountain biking adventure through a forest. He is seen riding a black and white mountain bike down a dirt path, with his back to the camera.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_81_42/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_81_42/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_81_42/exp3_step600.mp4"></video></div>
+</div>
+<div class="cell-wide">
+<h3>A close-up of a person’s feet as they walk through a field of wildflowers, their shoes brushing against the blooms with each step.</h3>
+<div class="label-row"><div>Wan2.1 Full</div><div>DMD-3</div><div>Ours</div></div>
+<div class="row"><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_86_3333/wan2.1_full.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_86_3333/dmd4_step0.mp4"></video><video autoplay="" loop="" muted="" playsinline="" src="src/videojam_86_3333/exp3_step600.mp4"></video></div>
+</div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // For each card, take labels from .label-row and put them above each video
+    document.querySelectorAll(".cell-wide").forEach(card => {
+        const labelRow = card.querySelector(".label-row");
+        const row = card.querySelector(".row");
+        if (!labelRow || !row) return;
+
+        const labels = Array.from(labelRow.children).map(el => el.textContent.trim());
+        const videos = Array.from(row.querySelectorAll("video"));
+
+        // Rebuild the row with columns containing label + video
+        const newRow = document.createElement("div");
+        newRow.className = "row";
+
+        videos.forEach((video, idx) => {
+            const col = document.createElement("div");
+            col.className = "video-col";
+
+            const label = document.createElement("div");
+            label.className = "model-label";
+            label.textContent = labels[idx] || "";
+
+            // Set display size attributes close to 480p (854x480) without changing file
+            video.width = 854;
+            video.height = 480;
+
+            col.appendChild(label);
+            col.appendChild(video);
+            newRow.appendChild(col);
+        });
+
+        // Replace old row with the new row (videos are reused, not deleted)
+        row.replaceWith(newRow);
+
+        // Hide the old label row (we already used its content)
+        labelRow.style.display = "none";
+    });
+
+    // Keep autoplay behavior
+    document.querySelectorAll("video").forEach(v => {
+        v.playbackRate = 1.0;
+        v.addEventListener("canplay", () => {
+            v.play().catch(e => console.log("Autoplay prevented:", e));
+        });
+    });
+});
+</script>
+</body>
+</html>
