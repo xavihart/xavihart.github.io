@@ -1,607 +1,1276 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Haotian Xue — CV</title>
-  <meta name="description" content="Haotian Xue is a Machine Learning PhD student at Georgia Tech." />
-  <link rel="shortcut icon" href="static/image/georgia-tech-yellow-jackets-ncaa-logo-sticker-5145-756891.png" />
-
+  <title>Haotian Xue</title>
+  <meta name="description" content="Haotian Xue — ML PhD @ Georgia Tech" />
+  <link rel="shortcut icon" href="static/image/logos/georgia-tech-yellow-jackets-ncaa-logo-sticker-5145-756891.png" />
   <style>
-    :root{
-      --bg: #ffffff;
-      --card: #fafafa;
-      --text: #1b1f23;
-      --muted: #5e6a75;
-      --line: #e7e7e9;
-      --accent: #0d5797;
-      --radius: 16px;
-      --shadow: 0 4px 16px rgba(0,0,0,.06);
-      --maxw: 980px;
+    :root {
+      --bg:      #0d1117;
+      --surface: #161b22;
+      --border:  #30363d;
+      --text:    #e6edf3;
+      --muted:   #8b949e;
+      --green:   #39d353;
+      --cyan:    #58a6ff;
+      --accent:  #58a6ff;
+      --purple:  #bc8cff;
+      --red:     #ff7b72;
+      --yellow:  #e3b341;
+      --radius:  10px;
+      --font:    'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
     }
-    html[data-theme="dark"]{
-      --bg:#0f1216; --card:#151a20; --text:#e9eef3; --muted:#a7b1bc; --line:#242b33; --shadow: 0 6px 18px rgba(0,0,0,.35);
-    }
-
-    *{box-sizing:border-box}
-    html,body{margin:0; padding:0; background:var(--bg); color:var(--text); font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"}
-    a{color:var(--accent); text-decoration:none}
-    a:hover{opacity:.9; text-decoration:underline}
-
-    .container{max-width:var(--maxw); margin:0 auto; padding:28px 20px 60px}
-
-    header{display:grid; gap:24px; grid-template-columns: 120px 1fr; align-items:center; padding:28px; border:1px solid var(--line); background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); position:relative}
-    .theme-toggle{position:absolute; right:16px; top:16px; border:1px solid var(--line); background:transparent; color:var(--text); padding:6px 10px; border-radius:10px; font-size:14px; cursor:pointer}
-    .theme-toggle:hover{background:rgba(13,87,151,.07)}
-
-.photo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 120px;
-}
-
-.portrait {
-  position: relative;
-  width: 120px;
-  height: 120px;
-}
-
-.portrait img {
-  width: 100%;
-  height: 100%;
-  border-radius: 14px;
-  object-fit: cover;
-  transition: opacity 0.4s ease;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.portrait img.main {
-  opacity: 1;
-  z-index: 1;
-}
-
-.portrait img.hover {
-  opacity: 0;
-  z-index: 2;
-}
-
-.portrait:hover img.main {
-  opacity: 0;
-}
-
-.portrait:hover img.hover {
-  opacity: 1;
-}
-
-.credit {
-  margin-top: 6px;
-  font-size: 12px;
-  color: var(--muted);
-  text-align: center;
-}
-    header img{width:120px; height:120px; border-radius:14px; object-fit:cover}
-    .credit{margin-top:6px; font-size:12px; color:var(--muted); text-align:center}
-
-    .id h1{margin:0; font-size:clamp(22px, 3.2vw, 32px)}
-    .id .pron{font-size:14px; color:var(--muted)}
-    .id .line{margin:8px 0 10px; color:var(--muted)}
-
-    .rows{display:flex; flex-direction:column; gap:6px}
-    .row{display:flex; flex-wrap:wrap; gap:14px; align-items:center; font-size:14px}
-    .label{font-weight:600; color:var(--muted);}
-    .sep{opacity:.5}
-
-    nav{margin:18px 2px 0; display:flex; flex-wrap:wrap; gap:8px}
-    nav a{padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:transparent; font-size:14px}
-    nav a:hover{background:rgba(13,87,151,.07); text-decoration:none}
-
-    section{margin-top:28px}
-    .card{border:1px solid var(--line); background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:22px}
-    h2{margin:0 0 8px; font-size:20px}
-    .muted{color:var(--muted)}
-
-    /* News with scrollbar; visible height sized to first 5 items (set via JS) */
-    .news{list-style:none; margin:0; padding:0; overflow-y:auto; border:1px dashed var(--line); border-radius:12px}
-    .news li{display:flex; gap:8px; padding:10px 12px; border-bottom:1px dashed var(--line)}
-    .news li:last-child{border-bottom:none}
-    .tag{font-size:12px; font-weight:600; color:#fff; border-radius:6px; padding:2px 6px; align-self:flex-start}
-
-    .news::-webkit-scrollbar{width:6px}
-    .news::-webkit-scrollbar-track{background:var(--card)}
-    .news::-webkit-scrollbar-thumb{background:#c4c4c4; border-radius:3px}
-
-    .pubs{list-style:none; margin:0; padding:0}
-    .pubs li{padding:14px 0; border-bottom:1px solid var(--line)}
-    .pubs li:last-child{border-bottom:none}
-
-    /* Publication teaser layout */
-    .pub{
-      display:flex;
-      gap:14px;
-      align-items:flex-start;
-    }
-   .pub-teaser{
-      flex:0 0 150px;
-      max-width:180px;
-      border-radius:12px;
-      overflow:hidden;
-      background:linear-gradient(135deg, rgba(13,87,151,0.06), rgba(13,87,151,0.14));
-      box-shadow:0 4px 14px rgba(0,0,0,0.06);
-      position:relative;
-      isolation:isolate;
-  /* NEW: force a consistent shape so images can fill it */
-  /* aspect-ratio:4/2;  tweak to 16/9, 4/3, etc. as you like */
-}
-    .pub-teaser::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:radial-gradient(circle at 20% 0%, rgba(255,255,255,0.4), transparent 55%),
-                 radial-gradient(circle at 80% 100%, rgba(255,255,255,0.3), transparent 55%);
-      mix-blend-mode:soft-light;
-      pointer-events:none;
-    }
-    .pub-teaser img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-      transition:transform 0.35s ease, opacity 0.35s ease;
-      opacity:0.9;
-    }
-    .pub-main{
-      flex:1;
-      min-width:0;
-    }
-    .pub-main > div:first-child strong{
-      display:inline-block;
-      line-height:1.4;
-    }
-    .pub:hover .pub-teaser img{
-      transform:scale(1.03);
-      opacity:1;
+    html[data-theme="light"] {
+      --bg:      #f6f8fa;
+      --surface: #ffffff;
+      --border:  #d0d7de;
+      --text:    #1f2328;
+      --muted:   #636c76;
+      --green:   #1a7f37;
+      --cyan:    #0969da;
+      --accent:  #0969da;
+      --purple:  #8250df;
+      --red:     #cf222e;
+      --yellow:  #9a6700;
     }
 
-    .venue{font-size:12px; font-weight:700; letter-spacing:.3px; padding:2px 6px; border-radius:6px; background:rgba(13,87,151,.12); color:var(--accent); display:inline-block; margin-top:4px}
-    .links a{margin-right:10px; font-size:14px}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-    @media (max-width:680px){
-      .pub{
-        flex-direction:row;
-        align-items:flex-start;
-      }
-      .pub-teaser{
-        flex:0 0 120px;
-      }
+    .page {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 40px 32px 80px;
     }
 
-    @media (max-width:520px){
-      .pub{
-        flex-direction:column;
-      }
-      .pub-teaser{
-        width:100%;
-        max-width:240px;
-      }
+    /* ── top bar ─────────────────────────────────────── */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+    .topbar .path { font-size: 12px; letter-spacing: .03em; }
+    .topbar .path .slash { color: var(--muted); opacity: .5; }
+    .topbar .path .seg   { color: var(--green); }
+
+    .top-right { display: flex; gap: 8px; align-items: center; }
+
+    .icon-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: var(--font);
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: border-color .15s, color .15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .icon-btn:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+    /* ── section label ───────────────────────────────── */
+    .sec-label {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .08em;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sec-label::before { content: '##'; color: var(--green); font-weight: 700; }
+    .sec-label::after  { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* ── hero ────────────────────────────────────────── */
+    .hero {
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      gap: 28px;
+      align-items: flex-start;
+      margin-bottom: 40px;
     }
 
-    details{border:1px solid var(--line); border-radius:12px; padding:14px 16px; background:transparent}
-    summary{cursor:pointer; font-weight:600}
+    .portrait-wrap {
+      position: relative;
+      width: 112px;
+      height: 112px;
+      cursor: pointer;
+      user-select: none;
+      flex-shrink: 0;
+    }
+    .portrait-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: opacity .35s ease;
+      border: 1px solid var(--border);
+    }
+    .portrait-wrap .main  { opacity: 1; z-index: 1; }
+    .portrait-wrap .cat   { opacity: 0; z-index: 2; }
+    .portrait-wrap.revealed .main { opacity: 0; }
+    .portrait-wrap.revealed .cat  { opacity: 1; }
+    .portrait-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 10px;
+      background: repeating-linear-gradient(
+        to bottom, transparent 0px, transparent 3px,
+        rgba(0,0,0,.07) 3px, rgba(0,0,0,.07) 4px
+      );
+      pointer-events: none;
+      z-index: 3;
+    }
+    .cat-badge {
+      position: absolute;
+      bottom: -10px; right: -10px;
+      z-index: 10;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2px 7px;
+      font-size: 10px;
+      color: var(--muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: border-color .15s, color .15s;
+    }
+    .cat-badge:hover { border-color: var(--green); color: var(--green); }
 
-    footer{margin:34px 0 0; padding:18px 6px; color:var(--muted); font-size:14px; display:flex; gap:10px; align-items:center; justify-content:space-between}
+    .cat-hint {
+      position: absolute;
+      top: calc(100% + 8px); left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+      pointer-events: none;
+      animation: hintBob 1.6s ease-in-out infinite;
+      transition: opacity .4s ease;
+      white-space: nowrap;
+      z-index: 50;
+    }
+    .cat-hint.hidden { opacity: 0; pointer-events: none; }
+    .cat-hint-arrow { color: var(--green); font-size: 13px; line-height: 1; }
+    .cat-hint-label {
+      font-size: 10px; color: var(--green);
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 5px; padding: 2px 7px;
+    }
+    @keyframes hintBob {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(-4px); }
+    }
 
-    /* Inline logos (scaled with text) */
-    .logo{height:1em; width:auto; vertical-align:middle; margin:0 4px 2px; object-fit:contain}
-    @media (min-width:900px){ .logo{height:1.2em} }
+    .bio h1 { font-size: 22px; font-weight: 700; letter-spacing: -.01em; margin-bottom: 2px; }
+    .bio .pron { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+    .bio .tagline { font-size: 13px; color: var(--muted); margin-bottom: 14px; line-height: 1.5; }
+    .bio .tagline a { color: var(--accent); }
 
-    .labels{display:flex; gap:8px; margin:6px 0 2px; flex-wrap:wrap}
-.plabel{
-  font-size:8px; font-weight:700; letter-spacing:.2px;
-  padding:2px 6px; border-radius:999px;
-  border:1px solid var(--line); background:transparent; color:var(--muted);
-  cursor:default; user-select:none;
-}
+    .links-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .links-row a {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; color: var(--muted);
+      border: 1px solid var(--border); border-radius: 6px; padding: 3px 10px;
+      transition: border-color .15s, color .15s;
+    }
+    .links-row a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+    .email { font-size: 12px; color: var(--muted); }
+    .email span { color: var(--green); }
 
-.author{
-  text-decoration:underline;
-  /* color set to green */
-  color: #080116;
+    /* ── terminal window ─────────────────────────────── */
+    .term {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+    .term-bar {
+      background: color-mix(in oklab, var(--border) 60%, var(--surface));
+      padding: 7px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .term-dots { display: flex; gap: 6px; }
+    .term-dots span { width: 10px; height: 10px; border-radius: 50%; }
+    .term-dots .r { background: #ff5f57; }
+    .term-dots .y { background: #febc2e; }
+    .term-dots .g { background: #28c840; }
+    .term-title { flex: 1; text-align: center; font-size: 11px; color: var(--muted); letter-spacing: .05em; }
 
-}
+    .term-body { padding: 14px 18px; font-size: 13px; line-height: 1.8; }
+    .prompt   { color: var(--green); }
+    .cmd      { color: var(--yellow); }
+    .key      { color: var(--cyan); }
+    .val      { color: var(--muted); }
+    .cursor   {
+      display: inline-block; width: 8px; height: 14px;
+      background: var(--green); vertical-align: text-bottom;
+      animation: blink 1.1s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
 
-/* Tag colors */
-:root{
-  --tag-diffusion: #0fc0f7;
-  --tag-vlm:#8a2be2;
-  --tag-safety:#db4437;
-  --tag-robotics:#0b8043;
-  --tag-vision:#5e6a75;
-  --tag-3d:#f4b400;
-}
-html[data-theme="dark"]{
-  --tag-vision:#a7b1bc; /* slightly brighter in dark mode */
-}
+    /* ── news log ────────────────────────────────────── */
+    .news-log {
+      list-style: none;
+      font-size: 12px;
+      line-height: 1.7;
+      overflow-y: auto;
+      max-height: 210px;
+      padding: 12px 18px;
+    }
+    .news-log::-webkit-scrollbar { width: 4px; }
+    .news-log::-webkit-scrollbar-track { background: transparent; }
+    .news-log::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-.plabel[data-k="diffusion"]{ border-color:color-mix(in oklab, var(--tag-diffusion) 35%, var(--line)); background:color-mix(in oklab, var(--tag-diffusion) 12%, transparent); color:var(--tag-diffusion) }
-.plabel[data-k="vlm"]{       border-color:color-mix(in oklab, var(--tag-vlm) 35%, var(--line));       background:color-mix(in oklab, var(--tag-vlm) 12%, transparent);       color:var(--tag-vlm) }
-.plabel[data-k="safety"]{    border-color:color-mix(in oklab, var(--tag-safety) 35%, var(--line));    background:color-mix(in oklab, var(--tag-safety) 12%, transparent);    color:var(--tag-safety) }
-.plabel[data-k="robotics"]{  border-color:color-mix(in oklab, var(--tag-robotics) 35%, var(--line));  background:color-mix(in oklab, var(--tag-robotics) 12%, transparent);  color:var(--tag-robotics) }
-.plabel[data-k="vision"]{    border-color:color-mix(in oklab, var(--tag-vision) 35%, var(--line));    background:color-mix(in oklab, var(--tag-vision) 12%, transparent);    color:var(--tag-vision) }
-.plabel[data-k="3d"]{    border-color:color-mix(in oklab, var(--tag-3d) 35%, var(--line));    background:color-mix(in oklab, var(--tag-3d) 12%, transparent);    color:var(--tag-3d) }
-.plabel[data-k="video"]{    border-color:color-mix(in oklab, var(--tag-video) 35%, var(--line));    background:color-mix(in oklab, var(--tag-video) 12%, transparent);    color:var(--tag-video) }
+    .news-log li { display: flex; gap: 10px; padding: 3px 0; border-bottom: 1px dashed color-mix(in oklab, var(--border) 50%, transparent); }
+    .news-log li:last-child { border-bottom: none; }
+    .news-log .ts { color: var(--green); flex-shrink: 0; min-width: 60px; }
+    .news-log .msg { color: var(--muted); }
+    .news-log .msg a { color: var(--cyan); }
+    .news-log .msg strong { color: var(--text); }
 
+    /* ── publications ────────────────────────────────── */
+    .pub-list { list-style: none; }
+    .pub-list > li {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .pub-list > li:last-child { border-bottom: none; }
+
+    .pub-item { display: block; }
+    /* interactive terminal input */
+    .term-input-row {
+      display: flex; align-items: center; gap: 6px;
+      border-top: 1px solid var(--border);
+      padding: 10px 18px;
+    }
+    .term-input-row .prompt { color: var(--green); flex-shrink: 0; }
+    .term-input {
+      flex: 1; background: none; border: none; outline: none;
+      color: var(--text); font-family: var(--font); font-size: 13px;
+      caret-color: var(--green);
+    }
+    .term-output-area {
+      padding: 0 18px;
+      font-size: 13px;
+      line-height: 1.75;
+    }
+    .term-output-area .out-line {
+      display: flex; align-items: flex-start; gap: 8px;
+      padding: 2px 0;
+      animation: fadeIn .15s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: none; } }
+    .out-line .cc-logo {
+      height: 16px; width: 16px; border-radius: 3px; flex-shrink: 0; margin-top: 3px;
+      background: #d97706;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; font-weight: 900; color: #fff; letter-spacing: -.5px;
+    }
+    .out-line .out-text { color: var(--muted); }
+    .out-line .echo-cmd { color: var(--muted); opacity: .55; }
+
+    /* company logos */
+    .intern-logos {
+      display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+      padding: 12px 18px 14px;
+    }
+    .intern-logos .co {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 11px; color: var(--muted);
+      border: 1px solid var(--border); border-radius: 7px;
+      padding: 4px 10px 4px 6px;
+    }
+    .intern-logos .co img {
+      height: 18px; width: auto; object-fit: contain;
+      filter: grayscale(30%); opacity: .85;
+    }
+    html[data-theme="dark"] .intern-logos .co img { filter: grayscale(20%) brightness(1.1); }
+
+    .pub-meta { flex: 1; min-width: 0; }
+    .pub-title { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.45; margin-bottom: 3px; }
+    .pub-title a { color: var(--text); }
+    .pub-title a:hover { color: var(--accent); text-decoration: none; }
+    .pub-authors { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+    .pub-authors .me { color: var(--text); text-decoration: underline; }
+    .pub-venue {
+      font-size: 10px; font-weight: 700; letter-spacing: .04em;
+      display: inline-block; padding: 1px 7px; border-radius: 5px;
+      background: color-mix(in oklab, var(--accent) 12%, transparent);
+      color: var(--accent); margin-bottom: 5px;
+    }
+    .pub-venue.neurips { background: color-mix(in oklab, var(--purple) 12%, transparent); color: var(--purple); }
+    .pub-venue.iclr    { background: color-mix(in oklab, var(--green) 12%, transparent);  color: var(--green);  }
+    .pub-venue.emnlp   { background: color-mix(in oklab, var(--yellow) 12%, transparent); color: var(--yellow); }
+    .pub-venue.workshop{ background: color-mix(in oklab, var(--muted) 20%, transparent);  color: var(--muted);  }
+
+    .pub-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px; }
+    .ptag {
+      font-size: 10px; font-weight: 500; padding: 1px 6px; border-radius: 4px;
+      border: 1px solid var(--border); background: transparent; color: var(--muted);
+    }
+
+    .pub-links { font-size: 12px; }
+    .pub-links a { color: var(--muted); margin-right: 10px; }
+    .pub-links a:hover { color: var(--accent); text-decoration: none; }
+
+    /* ── reviewer grid ───────────────────────────────── */
+    .review-grid {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 14px 18px;
+    }
+    .review-grid .rv {
+      font-size: 11px;
+      padding: 3px 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--muted);
+    }
+
+    /* ── cat modal ───────────────────────────────────── */
+    .cat-modal {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.65);
+      backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 100;
+      opacity: 0; pointer-events: none; transition: opacity .2s;
+    }
+    .cat-modal.open { opacity: 1; pointer-events: all; }
+    .cat-window {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      width: min(400px, 90vw);
+      overflow: hidden;
+      transform: scale(.95); transition: transform .2s;
+    }
+    .cat-modal.open .cat-window { transform: scale(1); }
+    .cat-term-body { padding: 10px 16px 4px; font-size: 12px; color: var(--muted); }
+    .cat-term-body .typed { color: var(--text); }
+    .cat-img-wrap {
+      padding: 0 16px;
+      overflow: hidden;
+      max-height: 0; transition: max-height .4s ease, padding .3s ease;
+      position: relative;
+    }
+    .cat-img-wrap.show { max-height: 340px; padding: 0 16px 14px; }
+    .cat-img-wrap img {
+      width: 100%; border-radius: 8px; border: 1px solid var(--border); display: block;
+      transition: opacity .25s ease;
+    }
+    .cat-img-wrap img.fade { opacity: 0; }
+    .cat-footer {
+      padding: 8px 16px 12px;
+      font-size: 11px; color: var(--muted);
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 8px;
+    }
+    .cat-nav { display: flex; align-items: center; gap: 6px; }
+    .cat-nav-btn {
+      background: none; border: 1px solid var(--border); color: var(--muted);
+      font-family: var(--font); font-size: 12px; padding: 2px 8px;
+      border-radius: 5px; cursor: pointer; line-height: 1.4;
+    }
+    .cat-nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .cat-nav-btn:disabled { opacity: .3; cursor: default; }
+    .cat-counter { font-size: 11px; color: var(--muted); min-width: 32px; text-align: center; }
+    .cat-close {
+      background: none; border: 1px solid var(--border); color: var(--muted);
+      font-family: var(--font); font-size: 11px; padding: 3px 10px;
+      border-radius: 5px; cursor: pointer;
+    }
+    .cat-close:hover { border-color: var(--red); color: var(--red); }
+
+    /* ── aim trainer game ────────────────────────────── */
+    .game-modal {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.75);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 200;
+      opacity: 0; pointer-events: none; transition: opacity .2s;
+    }
+    .game-modal.open { opacity: 1; pointer-events: all; }
+    .game-window {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transform: scale(.95); transition: transform .2s;
+      display: flex; flex-direction: column;
+      width: min(900px, 96vw);
+    }
+    #gameCanvas { width: 100%; height: auto; }
+    .game-modal.open .game-window { transform: scale(1); }
+    #gameCanvas {
+      display: block;
+      cursor: none;
+      background: #0a0e14;
+    }
+    .game-footer {
+      padding: 8px 16px;
+      font-size: 11px; color: var(--muted);
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid var(--border);
+    }
+    .game-close {
+      background: none; border: 1px solid var(--border); color: var(--muted);
+      font-family: var(--font); font-size: 11px; padding: 3px 10px;
+      border-radius: 5px; cursor: pointer;
+    }
+    .game-close:hover { border-color: var(--red); color: var(--red); }
+
+    /* ── footer ──────────────────────────────────────── */
+    footer {
+      margin-top: 48px; padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 11px; color: var(--muted);
+      display: flex; justify-content: space-between;
+    }
+
+    @media (max-width: 520px) {
+      .hero { grid-template-columns: 1fr; }
+      .portrait-wrap { width: 88px; height: 88px; }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <button class="theme-toggle" id="themeBtn" aria-label="Toggle dark or light mode">Dark mode</button>
-    <div class="photo">
-        <div class="portrait">
-            <img class="main" src="static/image/xht_paris.jpg" 
-                alt="Portrait of Haotian Xue in Budapest, May 2024" />
-            <img class="hover" src="static/image/xht_cat.png" 
-                alt="Haotian Xue with cat" />
-        </div>
-        <div class="credit">Paris · 2024 · Credit to 
-            <a href="https://www.linkedin.com/in/sunyirong?...">Rebecca Sun</a>
-        </div>
-         <div class="credit">Hover to see my cat!
-        </div>
-        </div>
+<div class="page">
 
-      <div class="id">
-        <h1>Haotian Xue </h1>
-        <div class="pron">/haʊtiˈæn ; ʃweɪ/</div>
-        <p class="line">
-          4th-year PhD (Machine Learning),
-          <a href="https://ml.gatech.edu/">Georgia Tech</a>.
-          Advised by <a href="https://yongxin.ae.gatech.edu/" target="_blank" rel="noopener">Yongxin Chen</a>.
-        </p>
-
-        <div class="rows">
-          <div class="row">
-            <span class="label">Email:</span>
-            <span>htxue.ai [at] gatech [dot] edu</span>
-          </div>
-          <div class="row">
-            <span class="label">Address:</span>
-            <span>CODA E1011, 756 W Peachtree St NW, Atlanta, GA 30332</span>
-          </div>
-          <div class="row">
-            <span class="label">Links:</span>
-            <a href="https://scholar.google.com/citations?hl=en&user=wnweG9UAAAAJ&view_op=list_works">Google Scholar</a>
-            <span class="sep">·</span>
-            <a href="https://github.com/xavihart">GitHub</a>
-            <span class="sep">·</span>
-            <a href="https://twitter.com/Haotianxue_GT">X (Twitter)</a>
-            <span class="sep">·</span>
-            <a href="static/image/cv.pdf">Curriculum Vitae (Nov 2025)</a>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <nav aria-label="Section navigation">
-      <a href="#about">About</a>
-      <a href="#news">News</a>
-      <a href="#publications">Selected Publications</a>
-      <a href="#review">Reviewer Experience</a>
-    </nav>
-
-    <section id="about" class="card">
-      <h2>About & Research Interests</h2>
-      <p>
-        I do research in machine learning and computer vision. Currently, I am interested in physics AI regarding multi-modal language models, video diffusion model and world models. 
-        
-        I am also committed to safety problem in generative AI, focusing on adversarial protection of diffusion model.
-      </p>
-      <p class="muted">
-      I did research  at
-<img src="static/image/Adobe_Firefly_Logo.svg.png" alt="Adobe Firefly logo" class="logo"> Adobe Firefly (2025),
-<img src="static/image/235_Nvidia_logo-512.webp" alt="NVIDIA logo" class="logo"> NVIDIA DIR (2024), and
-<img src="static/image/microsoft.png" alt="Microsoft Research Asia logo" class="logo"> Microsoft Research Asia (2021).
-
-I was also a visiting student at
-<img src="static/image/mit.png" alt="MIT logo" class="logo"> MIT CSAIL (2021).
-
-I earned my B.E. in Computer Science (Honors) from
-<img src="static/image/sjtu.png" alt="SJTU logo" class="logo"> Shanghai Jiao Tong University (Zhiyuan Honor Program) in 2022.
-      </p>
-    </section>
-
-    <section id="news" class="card">
-      <h2>News</h2>
-      <ul class="news" id="newsList" aria-live="polite">
-        <li data-date="2026-01-26"><span class="tag">2026-01</span> LapFlow is accepted to ICLR 2026. We propose a laplacian multi-scale flow matching for generation.</li>
-        <li data-date="2025-09-10"><span class="tag">2025-10</span> We propose <a href="https://xavihart.github.io/mogan/"><u>MoGAN</u></a>, a novel post-training to improve motion quality for few-step video diffusion models.</li>
-        <li data-date="2025-09-10"><span class="tag">2025-09</span> We propose <a href="https://github.com/xavihart/PIO"><u>PIO-Bench</u></a>, a visual-grounding-centric benchmark for embodied reasoning of VLMs.</li>
-        <li data-date="2025-04-01"><span class="tag">2025-04</span>  Joining <img src="static/image/Adobe_Firefly_Logo.svg.png" alt="Adobe logo" class="logo"> <strong>Adobe Firefly</strong> (Summer+Fall) to work on post-training for video diffusion.</li>
-        <li data-date="2024-10-01"><span class="tag">2024-10</span>  NeurIPS 2024 Scholar Award — see you in Vancouver!</li>
-        <li data-date="2024-09-01"><span class="tag">2024-09</span>  Three papers accepted to NeurIPS 2024: <a href="https://sites.google.com/view/diffusion-policy-attacker"><u>DP-Attacker</u></a>, <a href="https://sbyebss.github.io/refdrop/"><u>RefDrop</u></a>, <a href="https://quest-model.github.io/"><u>QueST</u></a>.</li>
-        <li data-date="2024-05-01"><span class="tag">2024-05</span>  Started summer research intern at <img src="static/image/235_Nvidia_logo-512.webp" alt="NVIDIA logo" class="logo"> <a href="https://research.nvidia.com/labs/dir/">NVIDIA DIR Group</a>.</li>
-        <li data-date="2024-04-01"><span class="tag">2024-04</span>  Released <a href="https://github.com/xavihart/PDM-Pure"><u>PDM-Pure</u></a>, a universal purifier against diffusion models.</li>
-        <li data-date="2024-03-01"><span class="tag">2024-03</span>  ICLR 2024 Travel Award.</li>
-        <li data-date="2024-01-01"><span class="tag">2024-01</span>  <a href="https://github.com/xavihart/Diff-Protect"><u>SDS-Attack</u></a> accepted to ICLR 2024.</li>
-        <li data-date="2023-10-01"><span class="tag">2023-10</span>  NeurIPS 2023 Scholar Award; invited reviewer for TPAMI.</li>
-        <li data-date="2023-09-01"><span class="tag">2023-09</span>  <a href="https://github.com/xavihart/Diff-PGD"><u>Diff-PGD</u></a> and <a href="https://github.com/xavihart/3D-IntPhys"><u>3D-IntPhys</u></a> accepted to NeurIPS 2023.</li>
-        <li data-date="2023-08-01"><span class="tag">2023-08</span>  Invited reviewer for ICLR 2024.</li>
-        <li data-date="2023-05-01"><span class="tag">2023-05</span>  Proposed <a href="https://github.com/xavihart/Diff-PGD"><u>Diff-PGD</u></a>, a diffusion-based adversarial sample framework.</li>
-        <li data-date="2022-12-01"><span class="tag">2022-12</span>  Selected as a Top Reviewer of NeurIPS 2022.</li>
-        <li data-date="2022-10-01"><span class="tag">2022-10</span>  <a href="https://aclanthology.org/2022.findings-emnlp.173/">Distance-Transformer</a> accepted to EMNLP 2022 Findings.</li>
-        <li data-date="2022-08-01"><span class="tag">2022-08</span>  Started PhD at ML@GT.</li>
-      </ul>
-    </section>
-
-    <section id="publications" class="card">
-      <h2>Selected Publications</h2>
-      <ul class="pubs">
-
-   <li>
-    <div class="pub">
-      <div class="pub-teaser">
-        <img src="static/image/mogan.jpg" alt="Teaser for MoGAN" loading="lazy" />
-      </div>
-      <div class="pub-main">
-        <div><strong>MoGAN: Improving Motion Quality in Video Diffusion via Few-Step Motion Adversarial Post-Training
-</strong></div>
-        <div class="muted"> <b class='author'>Haotian Xue</b>, Qi Chen, Zhonghao Wang, Xun Huang, Eli Shechtman, Jinrong Xie, Yongxin Chen</div>
-        <div class="venue">Arxiv 2025</div>
-        <div class="labels" aria-label="labels">
-          <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
-                    <button class="plabel" data-k="video" aria-label="Video label">Video</button>
-
-        </div>
-        <div class="links"><a href="https://arxiv.org/abs/2511.21592">arXiv</a> · <a href="https://xavihart.github.io/mogan/">code</a> · <a href="https://github.com/xavihart/mogan/">project</a></div>
-      </div>
+  <!-- top bar -->
+  <div class="topbar">
+    <div class="path">
+      <span class="slash">~/</span><span class="seg">haotian-xue</span>
     </div>
-  </li>
-
-  <li>
-    <div class="pub">
-      <div class="pub-teaser">
-        <img src="static/image/lapflow.png" alt="Teaser for MoGAN" loading="lazy" />
-      </div>
-      <div class="pub-main">
-        <div><strong>Laplacian Multi-scale Flow Matching for Generative Modeling
-</strong></div>
-        <div class="muted"> Zelin Zhao, Petr Molodykm, <b class='author'>Haotian Xue</b>, Yongxin Chen </div>
-        <div class="venue"> ICLR 2026</div>
-        <div class="labels" aria-label="labels">
-          <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
-          <button class="plabel" data-k="vision" aria-label="Vision label">Vision</button>
-
-        </div>
-        <div class="links"><a href="https://arxiv.org/abs/2511.21592">arXiv</a> · <a href="https://xavihart.github.io/mogan/">code</a> · <a href="https://github.com/xavihart/mogan/">project</a></div>
-      </div>
+    <div class="top-right">
+      <button class="icon-btn" id="themeBtn">light</button>
     </div>
-  </li>
-    
-  <li>
-    <div class="pub">
-      <div class="pub-teaser">
-        <img src="static/image/pio.jpg" alt="Teaser for Point-It-Out" loading="lazy" />
-      </div>
-      <div class="pub-main">
-        <div><strong>Point-It-Out: Benchmarking Embodied Reasoning for Vision Language Models in Multi-Stage Visual Grounding</strong></div>
-        <div class="muted"> <b class='author'>Haotian Xue</b>, Yunhao Ge, Yu Zeng, Max Li, Ming-Yu Liu, Yongxin Chen, Jiaojiao Fan</div>
-        <div class="venue">Arxiv 2025</div>
-        <div class="labels" aria-label="labels">
-          <button class="plabel" data-k="vlm" aria-label="VLM label">VLM</button>
-          <button class="plabel" data-k="robotics" aria-label="Robotics label">Robotics</button>
-        </div>
-        <div class="links"><a href="https://arxiv.org/abs/2509.25794">arXiv</a> · <a href="https://github.com/xavihart/PIO/">code</a> · <a href="https://github.com/xavihart/PIO/">project</a></div>
-      </div>
-    </div>
-  </li>
-
-  <li>
-    <div class="pub">
-      <div class="pub-teaser">
-        <img src="static/image/refdrop.jpg" alt="Teaser for RefDrop" loading="lazy" />
-      </div>
-      <div class="pub-main">
-        <div><strong>RefDrop: Controllable Consistency in Image or Video Generation via Reference Feature Guidance</strong></div>
-        <div class="muted">Jiaojiao Fan, <b class='author'>Haotian Xue</b>, Qinsheng Zhang, Yongxin Chen</div>
-        <div class="venue">NeurIPS 2024</div>
-        <div class="labels" aria-label="labels">
-          <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
-          <button class="plabel" data-k="vision" aria-label="Vision label">Vision</button>
-        </div>
-        <div class="links"><a href="https://arxiv.org/abs/2405.17661">arXiv</a> · <a href="https://sbyebss.github.io/refdrop/">project</a></div>
-      </div>
-    </div>
-  </li>
-
-  <li>
-    <div class="pub">
-      <div class="pub-teaser">
-        <img src="static/image/quest.png" alt="Teaser for QueST" loading="lazy" />
-      </div>
-      <div class="pub-main">
-        <div><strong>QueST: Self-Supervised Skill Abstractions for Learning Continuous Control</strong></div>
-        <div class="muted">Arthava Mete, <b class='author'>Haotian Xue</b>, Albert Wilcox, Yongxin Chen, Animesh Garg</div>
-        <div class="venue">NeurIPS 2024</div>
-        <div class="labels" aria-label="labels">
-          <button class="plabel" data-k="robotics" aria-label="Robotics label">Robotics</button>
-          <button class="plabel" data-k="vision" aria-label="Vision label">Vision</button>
-        </div>
-        <div class="links"><a href="https://arxiv.org/abs/2407.15840">arXiv</a> · <a href="https://quest-model.github.io/">project</a> · <a href="https://github.com/pairlab/QueST">code</a></div>
-      </div>
-    </div>
-  </li>
-
-  <li>
-    <div class="pub">
-      <div class="pub-teaser">
-        <img src="static/image/dp-attacker.jpg" alt="Teaser for Diffusion Policy Attacker" loading="lazy" />
-      </div>
-      <div class="pub-main">
-        <div><strong>Diffusion Policy Attacker: Crafting Adversarial Attacks for Diffusion-based Policies</strong></div>
-        <div class="muted">Yipu Chen*, <b class="author">Haotian Xue*</b>, Yongxin Chen</div>
-        <div class="venue">NeurIPS 2024</div>
-        <div class="labels" aria-label="labels">
-          <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
-          <button class="plabel" data-k="safety" aria-label="Safety label">Safety</button>
-        </div>
-        <div class="links"><a href="https://arxiv.org/abs/2405.19424">arXiv</a> · <a href="https://sites.google.com/view/diffusion-policy-attacker/">project</a></div>
-      </div>
-    </div>
-  </li>
-
-  <li>
-    <div class="pub">
-      <div class="pub-teaser">
-        <img src="static/image/diff-protect.jpg" alt="Teaser for SDS-Attack" loading="lazy" />
-      </div>
-      <div class="pub-main">
-        <div><strong>Towards More Effective Protection Against Diffusion-Based Mimicry with Score Distillation</strong></div>
-        <div class="muted"><b class='author'>Haotian Xue</b>, Chumeng Liang*, Xiaoyu Wu*, Yongxin Chen</div>
-        <div class="venue">ICLR 2024</div>
-        <div class="labels" aria-label="labels">
-          <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
-          <button class="plabel" data-k="safety" aria-label="Safety label">Safety</button>
-        </div>
-        <div class="links"><a href="https://arxiv.org/abs/2311.12832">arXiv</a> · <a href="https://github.com/xavihart/Diff-Protect">code</a> · <a href="https://iclr.cc/media/iclr-2024/Slides/18759.pdf">poster</a></div>
-      </div>
-    </div>
-  </li>
-
-  <li>
-    <div class="pub">
-      <div class="pub-teaser">
-        <img src="static/image/pdm-pure.pic.jpg" alt="Teaser for Pixel is a Barrier" loading="lazy" />
-      </div>
-      <div class="pub-main">
-        <div><strong>Pixel is a Barrier: Diffusion Models Are More Adversarially Robust Than We Think</strong></div>
-        <div class="muted"><b class='author'>Haotian Xue</b>, Yongxin Chen</div>
-        <div class="venue">NeurIPSW: SafeGenAI 2024 · arXiv 2024</div>
-        <div class="labels" aria-label="labels">
-          <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
-          <button class="plabel" data-k="safety" aria-label="Safety label">Safety</button>
-        </div>
-        <div class="links"><a href="https://arxiv.org/abs/2404.13320">arXiv</a> · <a href="https://github.com/xavihart/PDM-Pure">code</a></div>
-      </div>
-    </div>
-  </li>
-
-  <li>
-    <div class="pub">
-      <div class="pub-teaser">
-        <img src="static/image/diff-pgd.png" alt="Teaser for Diff-PGD" loading="lazy" />
-      </div>
-      <div class="pub-main">
-        <div><strong>Diffusion-Based Adversarial Sample Generation for Improved Stealthiness and Controllability</strong></div>
-        <div class="muted"><b class='author'>Haotian Xue</b>, Alexandre Araujo, Bin Hu, Yongxin Chen</div>
-        <div class="venue">NeurIPS 2023</div>
-        <div class="labels" aria-label="labels">
-          <button class="plabel" data-k="diffusion" aria-label="Diffusion label">Diffusion</button>
-          <button class="plabel" data-k="safety" aria-label="Safety label">Safety</button>
-        </div>
-        <div class="links"><a href="https://arxiv.org/abs/2305.16494">arXiv</a> · <a href="https://github.com/xavihart/Diff-PGD">code</a> · <a href="static/image/poster_diffpgd.pdf">poster</a></div>
-      </div>
-    </div>
-  </li>
-
-  <li>
-    <div class="pub">
-      <div class="pub-teaser">
-        <img src="static/image/3d-intphys.png" alt="Teaser for 3D-IntPhys" loading="lazy" />
-      </div>
-      <div class="pub-main">
-        <div><strong>3D-IntPhys: Towards More Generalized 3D-grounded Visual Intuitive Physics</strong></div>
-        <div class="muted"><b class='author'>Haotian Xue</b>, Antonio Torralba, Joshua B. Tenenbaum, Daniel L. K. Yamins, Yunzhu Li, Hsiao-Yu Tung</div>
-        <div class="venue">NeurIPS 2023</div>
-        <div class="labels" aria-label="labels">
-          <button class="plabel" data-k="vision" aria-label="Vision label">Vision</button>
-          <button class="plabel" data-k="3d" aria-label="3D label">3D</button>
-        </div>
-        <div class="links"><a href="https://arxiv.org/abs/2304.11470">arXiv</a> · <a href="static/image/poster_3dintphys.pdf">poster</a></div>
-      </div>
-    </div>
-  </li>
-</ul>
-      <details style="margin-top:14px">
-        <summary>More & older publications</summary>
-        <p class="muted" style="margin:8px 0 0">See <a href="https://scholar.google.com/citations?hl=en&user=wnweG9UAAAAJ&view_op=list_works">Google Scholar</a> for the full, latest list.</p>
-      </details>
-    </section>
-
-    <section id="review" class="card">
-      <h2>Reviewer Experience</h2>
-      <div style="display:grid; gap:16px; grid-template-columns: repeat(auto-fit,minmax(220px,1fr));">
-        <div>
-          <div class="muted" style="margin-bottom:6px">Conferences</div>
-          <ul style="margin:0; padding-left:18px">
-            <li>NeurIPS</li>
-            <li>ICLR</li>
-            <li>ICML</li>
-            <li>AISTATS</li>
-            <li>CVPR</li>
-            <li>AAAI</li>
-          </ul>
-        </div>
-        <div>
-          <div class="muted" style="margin-bottom:6px">Journals</div>
-          <ul style="margin:0; padding-left:18px">
-            <li>TPAMI</li>
-            <li>TCSVT</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      <div>© Haotian Xue • Last updated 2025-11-27</div>
-      <div><a href="https://jiayuanm.com/">Original inspiration</a></div>
-    </footer>
   </div>
 
-  <script>
-    // Theme toggle (default: light)
-    const btn = document.getElementById('themeBtn');
-    const root = document.documentElement;
-    const stored = localStorage.getItem('theme');
-    if(stored === 'dark'){ root.setAttribute('data-theme','dark'); btn.textContent = 'Light mode'; }
-    btn.addEventListener('click', ()=>{
-      const isDark = root.getAttribute('data-theme') === 'dark';
-      if(isDark){
-        root.removeAttribute('data-theme');
-        localStorage.setItem('theme','light');
-        btn.textContent = 'Dark mode';
-      }else{
-        root.setAttribute('data-theme','dark');
-        localStorage.setItem('theme','dark');
-        btn.textContent = 'Light mode';
+  <!-- ── HERO ─────────────────────────────────────────── -->
+  <div class="hero">
+    <div style="position:relative; width:112px; height:112px; flex-shrink:0; z-index:1; overflow:visible">
+      <div class="portrait-wrap" id="portrait" title="click to meet my cat">
+        <img class="main" src="static/image/photos/xht_paris.jpg" alt="Haotian Xue" />
+        <img class="cat"  src="static/image/photos/pudding/pudding1.png" alt="Haotian's cat" />
+        <div class="cat-badge" id="catBadge">$ cat cat.jpg</div>
+      </div>
+      <div class="cat-hint" id="catHint">
+        <span class="cat-hint-arrow">↑</span>
+        <span class="cat-hint-label">meet my cat 🐱</span>
+      </div>
+    </div>
+    <div class="bio">
+      <h1>Haotian Xue</h1>
+      <div class="pron">/haʊtiˈæn ʃweɪ/ &nbsp;·&nbsp; 薛昊天</div>
+      <p class="tagline">
+        4th-year PhD · Machine Learning<br>
+        <a href="https://ml.gatech.edu/">Georgia Tech</a> &nbsp;·&nbsp;
+        advised by <a href="https://yongxin.ae.gatech.edu/">Yongxin Chen</a>
+      </p>
+      <div class="links-row">
+        <a href="https://scholar.google.com/citations?hl=en&user=wnweG9UAAAAJ">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5h4.5C5 14.7 8.1 19 12 19c.9 0 1.8-.2 2.5-.5V24l3.5-3.5V19c2.7-2 4.5-5.1 4.5-8.5H24z"/></svg>
+          Scholar
+        </a>
+        <a href="https://github.com/xavihart">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.165c-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.73.083-.73 1.205.085 1.84 1.237 1.84 1.237 1.07 1.835 2.807 1.305 3.492.998.108-.776.42-1.305.763-1.605-2.665-.3-5.467-1.332-5.467-5.93 0-1.31.468-2.38 1.235-3.22-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.3 1.23A11.5 11.5 0 0 1 12 6.8a11.5 11.5 0 0 1 3.007.404c2.29-1.552 3.297-1.23 3.297-1.23.653 1.652.242 2.873.12 3.176.77.84 1.232 1.91 1.232 3.22 0 4.61-2.807 5.625-5.48 5.92.43.37.823 1.102.823 2.222v3.293c0 .322.216.694.825.577C20.565 21.796 24 17.298 24 12 24 5.37 18.627 0 12 0z"/></svg>
+          GitHub
+        </a>
+        <a href="https://twitter.com/Haotianxue_GT">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X
+        </a>
+        <a href="static/docs/cv.pdf">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+          CV
+        </a>
+      </div>
+      <div class="email">htxue.ai <span>[at]</span> gatech <span>[dot]</span> edu</div>
+    </div>
+  </div>
+
+  <!-- ── ABOUT ─────────────────────────────────────────── -->
+  <div class="sec-label">about</div>
+  <div class="term" style="margin-bottom:32px">
+    <div class="term-bar">
+      <div class="term-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+      <div class="term-title">haotian@gt — zsh</div>
+    </div>
+    <div class="term-body" style="padding-bottom:8px">
+      <div><span class="prompt">➜</span> <span class="cmd">cat research.json</span></div>
+      <div style="margin-top:4px">{</div>
+      <div style="padding-left:20px"><span class="key">"focus"</span><span class="val">:&nbsp;[</span>
+        <span class="ptag diffusion" style="margin:0 3px">video diffusion</span>
+        <span class="ptag diffusion" style="margin:0 3px">world models</span>
+        <span class="ptag robotics" style="margin:0 3px">embodied AI</span>
+        <span class="ptag safety" style="margin:0 3px">safe generative AI</span>
+      <span class="val"> ],</span></div>
+      <div style="padding-left:20px"><span class="key">"edu"</span><span class="val">:&nbsp;</span><span class="val">"B.E. CS (Zhiyuan Honors) · SJTU 2022"</span></div>
+      <div>}</div>
+      <div style="margin-top:10px"><span class="prompt">➜</span> <span class="cmd">cat interests.md</span></div>
+      <div style="margin-top:4px; padding-left:4px; line-height:2; font-family: system-ui, -apple-system, sans-serif; font-size: 13px;">
+        <div><span class="val" style="font-family:var(--font)">▸</span> Video diffusion and world models &nbsp;<a href="https://xavihart.github.io/mogan/">[MoGAN]</a></div>
+        <div><span class="val" style="font-family:var(--font)">▸</span> Foundation models for embodied AI &nbsp;<a href="https://github.com/xavihart/PIO">[PIO-Bench]</a> <a href="https://quest-model.github.io/">[QueST]</a></div>
+        <div><span class="val" style="font-family:var(--font)">▸</span> Safe generative AI &nbsp;<a href="https://github.com/xavihart/Diff-PGD">[Diff-PGD]</a> <a href="https://github.com/xavihart/Diff-Protect">[SDS-Attack]</a> <a href="https://github.com/xavihart/PDM-Pure">[PDM-Pure]</a> <a href="https://sites.google.com/view/diffusion-policy-attacker">[DP-Attacker]</a> <a href="https://arxiv.org/abs/2604.10837">[Immune2V]</a></div>
+      </div>
+      <div style="margin-top:10px"><span class="prompt">➜</span> <span class="cmd">ls internships/</span></div>
+    </div>
+    <!-- company logos -->
+    <div class="intern-logos">
+      <div class="co">
+        <img src="static/image/logos/meta.jpg" alt="Meta" />
+        Meta MSL · 2026
+      </div>
+      <div class="co">
+        <img src="static/image/logos/Adobe_Firefly_Logo.svg.png" alt="Adobe" />
+        Adobe Firefly · 2025
+      </div>
+      <div class="co">
+        <img src="static/image/logos/235_Nvidia_logo-512.webp" alt="NVIDIA" />
+        NVIDIA DIR · 2024
+      </div>
+      <div class="co">
+        <img src="static/image/logos/microsoft.png" alt="MSRA" />
+        MSRA · 2021
+      </div>
+      <div class="co">
+        <img src="static/image/logos/mit.png" alt="MIT" />
+        MIT CSAIL · 2021
+      </div>
+    </div>
+    <!-- interactive input -->
+    <div class="term-output-area" id="termOutput"></div>
+    <div class="term-input-row">
+      <span class="prompt">➜</span>
+      <input class="term-input" id="termInput" placeholder="type a command…" autocomplete="off" spellcheck="false" />
+    </div>
+  </div>
+
+  <!-- ── NEWS ──────────────────────────────────────────── -->
+  <div class="sec-label">news</div>
+  <div class="term" style="margin-bottom:32px">
+    <div class="term-bar">
+      <div class="term-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+      <div class="term-title">tail -f news.log</div>
+    </div>
+    <ul class="news-log" id="newsList">
+      <li><span class="ts">2026-04</span><span class="msg">We propose <a href="https://arxiv.org/abs/2604.10837">Immune2V</a>, a protective watermark for Image-to-Video.</span></li>
+      <li><span class="ts">2026-04</span><span class="msg">I will be at <strong>Meta MSL</strong> working on World Model.</span></li>
+      <li><span class="ts">2026-01</span><span class="msg">LapFlow accepted to <strong>ICLR 2026</strong>. Laplacian multi-scale flow matching for generation.</span></li>
+      <li><span class="ts">2025-10</span><span class="msg">We propose <a href="https://xavihart.github.io/mogan/">MoGAN</a>, post-training for motion quality in few-step video diffusion.</span></li>
+      <li><span class="ts">2025-09</span><span class="msg">We propose <a href="https://github.com/xavihart/PIO">PIO-Bench</a>, a visual-grounding-centric benchmark for embodied VLM reasoning.</span></li>
+      <li><span class="ts">2025-04</span><span class="msg">Joining <strong>Adobe Firefly</strong> (Summer+Fall) for post-training on video diffusion.</span></li>
+      <li><span class="ts">2024-10</span><span class="msg"><strong>NeurIPS 2024 Scholar Award</strong> — see you in Vancouver!</span></li>
+      <li><span class="ts">2024-09</span><span class="msg">Three papers @ NeurIPS 2024: <a href="https://sites.google.com/view/diffusion-policy-attacker">DP-Attacker</a>, <a href="https://sbyebss.github.io/refdrop/">RefDrop</a>, <a href="https://quest-model.github.io/">QueST</a>.</span></li>
+      <li><span class="ts">2024-05</span><span class="msg">Summer intern at <a href="https://research.nvidia.com/labs/dir/">NVIDIA DIR Group</a>.</span></li>
+      <li><span class="ts">2024-03</span><span class="msg">ICLR 2024 Travel Award.</span></li>
+      <li><span class="ts">2024-01</span><span class="msg"><a href="https://github.com/xavihart/Diff-Protect">SDS-Attack</a> accepted to <strong>ICLR 2024</strong>.</span></li>
+      <li><span class="ts">2023-10</span><span class="msg">NeurIPS 2023 Scholar Award; invited reviewer for TPAMI.</span></li>
+      <li><span class="ts">2023-09</span><span class="msg"><a href="https://github.com/xavihart/Diff-PGD">Diff-PGD</a> and <a href="https://github.com/xavihart/3D-IntPhys">3D-IntPhys</a> accepted to <strong>NeurIPS 2023</strong>.</span></li>
+      <li><span class="ts">2022-12</span><span class="msg">Top Reviewer · NeurIPS 2022.</span></li>
+      <li><span class="ts">2022-10</span><span class="msg"><a href="https://aclanthology.org/2022.findings-emnlp.173/">Distance-Transformer</a> accepted to <strong>EMNLP 2022</strong> Findings.</span></li>
+      <li><span class="ts">2022-08</span><span class="msg">Started PhD at ML@GT.</span></li>
+    </ul>
+  </div>
+
+  <!-- ── PUBLICATIONS ──────────────────────────────────── -->
+  <div class="sec-label">selected publications</div>
+  <div class="term" style="margin-bottom:32px">
+    <div class="term-bar">
+      <div class="term-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+      <div class="term-title">publications.bib</div>
+    </div>
+    <div style="padding: 4px 18px 0">
+      <ul class="pub-list">
+
+        <li>
+          <div class="pub-item">
+            <div class="pub-meta">
+              <div class="pub-title">Immune2V: Image Immunization Against Dual-Stream Image-to-Video Generation</div>
+              <div class="pub-authors">Zeqian Long*, Ozgur Kara*, <span class="me">Haotian Xue*</span>, Yongxin Chen, James M. Rehg</div>
+              <div><span class="pub-venue">arXiv 2026</span></div>
+              <div class="pub-tags">
+                <span class="ptag safety">Safety</span>
+                <span class="ptag diffusion">Diffusion</span>
+                <span class="ptag video">Video</span>
+              </div>
+              <div class="pub-links"><a href="https://arxiv.org/abs/2604.10837">arXiv</a></div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="pub-item">
+            <div class="pub-meta">
+              <div class="pub-title"><a href="https://xavihart.github.io/mogan/">MoGAN: Improving Motion Quality in Video Diffusion via Few-Step Motion Adversarial Post-Training</a></div>
+              <div class="pub-authors"><span class="me">Haotian Xue</span>, Qi Chen, Zhonghao Wang, Xun Huang, Eli Shechtman, Jinrong Xie, Yongxin Chen</div>
+              <div><span class="pub-venue">arXiv 2025</span></div>
+              <div class="pub-tags">
+                <span class="ptag diffusion">Diffusion</span>
+                <span class="ptag video">Video</span>
+              </div>
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2511.21592">arXiv</a>
+                <a href="https://xavihart.github.io/mogan/">project</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="pub-item">
+            <div class="pub-meta">
+              <div class="pub-title">Laplacian Multi-scale Flow Matching for Generative Modeling</div>
+              <div class="pub-authors">Zelin Zhao, Petr Molodyk, <span class="me">Haotian Xue</span>, Yongxin Chen</div>
+              <div><span class="pub-venue iclr">ICLR 2026</span></div>
+              <div class="pub-tags">
+                <span class="ptag diffusion">Diffusion</span>
+                <span class="ptag vision">Vision</span>
+              </div>
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2511.21592">arXiv</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="pub-item">
+            <div class="pub-meta">
+              <div class="pub-title"><a href="https://github.com/xavihart/PIO">Point-It-Out: Benchmarking Embodied Reasoning for VLMs in Multi-Stage Visual Grounding</a></div>
+              <div class="pub-authors"><span class="me">Haotian Xue</span>, Yunhao Ge, Yu Zeng, Max Li, Ming-Yu Liu, Yongxin Chen, Jiaojiao Fan</div>
+              <div><span class="pub-venue">arXiv 2025</span></div>
+              <div class="pub-tags">
+                <span class="ptag vlm">VLM</span>
+                <span class="ptag robotics">Robotics</span>
+              </div>
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2509.25794">arXiv</a>
+                <a href="https://github.com/xavihart/PIO/">code</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="pub-item">
+            <div class="pub-meta">
+              <div class="pub-title"><a href="https://sbyebss.github.io/refdrop/">RefDrop: Controllable Consistency in Image or Video Generation via Reference Feature Guidance</a></div>
+              <div class="pub-authors">Jiaojiao Fan, <span class="me">Haotian Xue</span>, Qinsheng Zhang, Yongxin Chen</div>
+              <div><span class="pub-venue neurips">NeurIPS 2024</span></div>
+              <div class="pub-tags">
+                <span class="ptag diffusion">Diffusion</span>
+                <span class="ptag vision">Vision</span>
+              </div>
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2405.17661">arXiv</a>
+                <a href="https://sbyebss.github.io/refdrop/">project</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="pub-item">
+            <div class="pub-meta">
+              <div class="pub-title"><a href="https://quest-model.github.io/">QueST: Self-Supervised Skill Abstractions for Learning Continuous Control</a></div>
+              <div class="pub-authors">Arthava Mete, <span class="me">Haotian Xue</span>, Albert Wilcox, Yongxin Chen, Animesh Garg</div>
+              <div><span class="pub-venue neurips">NeurIPS 2024</span></div>
+              <div class="pub-tags">
+                <span class="ptag robotics">Robotics</span>
+                <span class="ptag vision">Vision</span>
+              </div>
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2407.15840">arXiv</a>
+                <a href="https://quest-model.github.io/">project</a>
+                <a href="https://github.com/pairlab/QueST">code</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="pub-item">
+            <div class="pub-meta">
+              <div class="pub-title"><a href="https://sites.google.com/view/diffusion-policy-attacker">Diffusion Policy Attacker: Crafting Adversarial Attacks for Diffusion-based Policies</a></div>
+              <div class="pub-authors">Yipu Chen*, <span class="me">Haotian Xue*</span>, Yongxin Chen</div>
+              <div><span class="pub-venue neurips">NeurIPS 2024</span></div>
+              <div class="pub-tags">
+                <span class="ptag diffusion">Diffusion</span>
+                <span class="ptag safety">Safety</span>
+              </div>
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2405.19424">arXiv</a>
+                <a href="https://sites.google.com/view/diffusion-policy-attacker/">project</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="pub-item">
+            <div class="pub-meta">
+              <div class="pub-title"><a href="https://github.com/xavihart/Diff-Protect">Towards More Effective Protection Against Diffusion-Based Mimicry with Score Distillation</a></div>
+              <div class="pub-authors"><span class="me">Haotian Xue</span>, Chumeng Liang*, Xiaoyu Wu*, Yongxin Chen</div>
+              <div><span class="pub-venue iclr">ICLR 2024</span></div>
+              <div class="pub-tags">
+                <span class="ptag diffusion">Diffusion</span>
+                <span class="ptag safety">Safety</span>
+              </div>
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2311.12832">arXiv</a>
+                <a href="https://github.com/xavihart/Diff-Protect">code</a>
+                <a href="https://iclr.cc/media/iclr-2024/Slides/18759.pdf">poster</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="pub-item">
+            <div class="pub-meta">
+              <div class="pub-title"><a href="https://github.com/xavihart/PDM-Pure">Pixel is a Barrier: Diffusion Models Are More Adversarially Robust Than We Think</a></div>
+              <div class="pub-authors"><span class="me">Haotian Xue</span>, Yongxin Chen</div>
+              <div><span class="pub-venue workshop">NeurIPSW: SafeGenAI 2024</span></div>
+              <div class="pub-tags">
+                <span class="ptag diffusion">Diffusion</span>
+                <span class="ptag safety">Safety</span>
+              </div>
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2404.13320">arXiv</a>
+                <a href="https://github.com/xavihart/PDM-Pure">code</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="pub-item">
+            <div class="pub-meta">
+              <div class="pub-title"><a href="https://github.com/xavihart/Diff-PGD">Diffusion-Based Adversarial Sample Generation for Improved Stealthiness and Controllability</a></div>
+              <div class="pub-authors"><span class="me">Haotian Xue</span>, Alexandre Araujo, Bin Hu, Yongxin Chen</div>
+              <div><span class="pub-venue neurips">NeurIPS 2023</span></div>
+              <div class="pub-tags">
+                <span class="ptag diffusion">Diffusion</span>
+                <span class="ptag safety">Safety</span>
+              </div>
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2305.16494">arXiv</a>
+                <a href="https://github.com/xavihart/Diff-PGD">code</a>
+                <a href="static/docs/poster_diffpgd.pdf">poster</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="pub-item">
+            <div class="pub-meta">
+              <div class="pub-title"><a href="https://arxiv.org/abs/2304.11470">3D-IntPhys: Towards More Generalized 3D-grounded Visual Intuitive Physics</a></div>
+              <div class="pub-authors"><span class="me">Haotian Xue</span>, Antonio Torralba, Joshua B. Tenenbaum, Daniel L. K. Yamins, Yunzhu Li, Hsiao-Yu Tung</div>
+              <div><span class="pub-venue neurips">NeurIPS 2023</span></div>
+              <div class="pub-tags">
+                <span class="ptag vision">Vision</span>
+                <span class="ptag td">3D</span>
+              </div>
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2304.11470">arXiv</a>
+                <a href="static/docs/poster_3dintphys.pdf">poster</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+      <div style="padding: 10px 0 14px; font-size: 11px; color: var(--muted);">
+        → <a href="https://scholar.google.com/citations?hl=en&user=wnweG9UAAAAJ">full list on Google Scholar</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── REVIEWER ──────────────────────────────────────── -->
+  <div class="sec-label">service</div>
+  <div class="term" style="margin-bottom:0">
+    <div class="term-bar">
+      <div class="term-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+      <div class="term-title">reviewer</div>
+    </div>
+    <div class="review-grid">
+      <span class="rv">NeurIPS</span>
+      <span class="rv">ICLR</span>
+      <span class="rv">ICML</span>
+      <span class="rv">CVPR</span>
+      <span class="rv">AISTATS</span>
+      <span class="rv">AAAI</span>
+      <span class="rv">TPAMI</span>
+      <span class="rv">TCSVT</span>
+    </div>
+  </div>
+
+  <!-- ── MISC ─────────────────────────────────────────── -->
+  <div class="sec-label" style="margin-top:32px">misc</div>
+  <div class="term" style="margin-bottom:0">
+    <div class="term-bar">
+      <div class="term-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+      <div class="term-title">misc.txt</div>
+    </div>
+    <div class="term-body" style="line-height:2.1">
+      <div><span class="val">✈️  travel</span> &nbsp; 🇨🇳 🇺🇸 🇸🇪 🇦🇹 🇭🇺 🇫🇷 🇧🇪 🇨🇦</div>
+      <div><span class="val">🎹  piano &amp; music</span></div>
+      <div><span class="val">⚽  football (soccer)</span> &nbsp;· recently into 🏀 basketball &amp; 🎾 tennis</div>
+      <div><span class="val">🐱  cat</span> &nbsp; Pudding &nbsp;<span style="color:var(--muted);font-size:11px">— click portrait to meet him</span></div>
+    </div>
+  </div>
+
+  <footer>
+    <span>© Haotian Xue · 2025</span>
+  </footer>
+</div>
+
+<!-- ── CAT MODAL ─────────────────────────────────────────── -->
+<div class="cat-modal" id="catModal">
+  <div class="cat-window">
+    <div class="term-bar">
+      <div class="term-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+      <div class="term-title">cat.sh</div>
+    </div>
+    <div class="cat-term-body">
+      <span class="prompt">➜</span>&nbsp;<span class="typed" id="typeTarget"></span><span id="typeCursor" style="color:var(--green)">▋</span>
+    </div>
+    <div class="cat-img-wrap" id="catImgWrap">
+      <img id="catImg" src="static/image/photos/pudding/pudding1.png" alt="Pudding" />
+    </div>
+    <div class="cat-footer">
+      <span id="catCaption" style="opacity:0;transition:opacity .4s .1s">🐱 Pudding</span>
+      <div class="cat-nav">
+        <button class="cat-nav-btn" id="catPrev">←</button>
+        <span class="cat-counter" id="catCounter">1 / 1</span>
+        <button class="cat-nav-btn" id="catNext">→</button>
+      </div>
+      <button class="cat-close" id="catClose">✕ close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── GAME MODAL ─────────────────────────────────────────── -->
+<div class="game-modal" id="gameModal">
+  <div class="game-window">
+    <div class="term-bar">
+      <div class="term-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+      <div class="term-title">aim_trainer.exe</div>
+    </div>
+    <canvas id="gameCanvas" width="900" height="560"></canvas>
+    <div class="game-footer">
+      <span id="gameStatus">type <b>game</b> in the terminal to launch</span>
+      <button class="game-close" id="gameClose">✕ close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // theme
+  const root = document.documentElement;
+  const btn  = document.getElementById('themeBtn');
+  const saved = localStorage.getItem('theme') || 'dark';
+  root.setAttribute('data-theme', saved);
+  btn.textContent = saved === 'dark' ? 'light' : 'dark';
+  btn.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    btn.textContent = next === 'dark' ? 'light' : 'dark';
+  });
+
+  // portrait
+  const portrait = document.getElementById('portrait');
+  portrait.addEventListener('mouseenter', () => portrait.classList.add('revealed'));
+  portrait.addEventListener('mouseleave', () => portrait.classList.remove('revealed'));
+  const catHint = document.getElementById('catHint');
+  function dismissHint() { catHint.classList.add('hidden'); }
+
+  portrait.addEventListener('click', () => { dismissHint(); openCat(); });
+  document.getElementById('catBadge').addEventListener('click', e => { e.stopPropagation(); dismissHint(); openCat(); });
+
+  // cat modal
+  // ── Add more photos by dropping files into static/image/photos/pudding/
+  // ── then add their filenames to this array:
+  const PUDDING_PHOTOS = [
+    'static/image/photos/pudding/pudding1.png',
+    'static/image/photos/pudding/Weixin Image_20260414013420_35_17.png',
+    'static/image/photos/pudding/Weixin Image_20260414013423_36_17.png',
+    'static/image/photos/pudding/Weixin Image_20260414013435_37_17.jpg',
+    'static/image/photos/pudding/Weixin Image_20260414013440_38_17.jpg',
+    'static/image/photos/pudding/Weixin Image_20260414013445_39_17.jpg',
+    'static/image/photos/pudding/Weixin Image_20260414013453_40_17.jpg',
+  ];
+
+  const modal      = document.getElementById('catModal');
+  const imgWrap    = document.getElementById('catImgWrap');
+  const catImg     = document.getElementById('catImg');
+  const typeTarget = document.getElementById('typeTarget');
+  const typeCursor = document.getElementById('typeCursor');
+  const caption    = document.getElementById('catCaption');
+  const closeBtn   = document.getElementById('catClose');
+  const prevBtn    = document.getElementById('catPrev');
+  const nextBtn    = document.getElementById('catNext');
+  const counter    = document.getElementById('catCounter');
+  let catIdx = 0;
+  let typing;
+
+  function updateNav() {
+    counter.textContent = `${catIdx + 1} / ${PUDDING_PHOTOS.length}`;
+    prevBtn.disabled = catIdx === 0;
+    nextBtn.disabled = catIdx === PUDDING_PHOTOS.length - 1;
+  }
+
+  function showPhoto(idx) {
+    catImg.classList.add('fade');
+    setTimeout(() => {
+      catImg.src = PUDDING_PHOTOS[idx];
+      catImg.classList.remove('fade');
+      updateNav();
+    }, 200);
+  }
+
+  prevBtn.addEventListener('click', () => { if (catIdx > 0) showPhoto(--catIdx); });
+  nextBtn.addEventListener('click', () => { if (catIdx < PUDDING_PHOTOS.length - 1) showPhoto(++catIdx); });
+
+  function openCat() {
+    catIdx = 0;
+    catImg.src = PUDDING_PHOTOS[0];
+    updateNav();
+    modal.classList.add('open');
+    typeTarget.textContent = '';
+    imgWrap.classList.remove('show');
+    caption.style.opacity = '0';
+    typeCursor.style.display = 'inline';
+    let i = 0;
+    clearInterval(typing);
+    const cmd = `open pudding/${PUDDING_PHOTOS[0].split('/').pop()}`;
+    typing = setInterval(() => {
+      if (i < cmd.length) { typeTarget.textContent += cmd[i++]; }
+      else {
+        clearInterval(typing);
+        typeCursor.style.display = 'none';
+        setTimeout(() => {
+          imgWrap.classList.add('show');
+          caption.style.opacity = '1';
+        }, 180);
+      }
+    }, 55);
+  }
+
+  function closeCat() { modal.classList.remove('open'); clearInterval(typing); }
+  closeBtn.addEventListener('click', closeCat);
+  modal.addEventListener('click', e => { if (e.target === modal) closeCat(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCat(); });
+
+  // ── aim trainer game ─────────────────────────────────────
+  (function () {
+    const gameModal  = document.getElementById('gameModal');
+    const canvas     = document.getElementById('gameCanvas');
+    const ctx        = canvas.getContext('2d');
+    const statusEl   = document.getElementById('gameStatus');
+    const closeBtn   = document.getElementById('gameClose');
+
+    const TOTAL      = 20;
+    const R_MIN      = 18, R_MAX = 36;
+    const PAD        = 50;
+
+    let state = 'idle'; // idle | running | done
+    let hardMode = false;
+    let targets = [], cur = 0;
+    let startTime, elapsed;
+    let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+    let flash = null;
+    let misses = 0;
+    let raf;
+
+    function randTarget() {
+      const r = hardMode
+        ? R_MIN * 0.7 + Math.random() * (R_MAX * 0.7 - R_MIN * 0.7)
+        : R_MIN + Math.random() * (R_MAX - R_MIN);
+      const speed = hardMode ? 1.8 + Math.random() * 2.2 : 0;
+      const angle = Math.random() * Math.PI * 2;
+      return {
+        x: PAD + r + Math.random() * (canvas.width  - 2 * PAD - 2 * r),
+        y: PAD + r + Math.random() * (canvas.height - 2 * PAD - 2 * r),
+        r,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        born: performance.now(),
+      };
+    }
+
+    function startGame() {
+      targets = Array.from({ length: TOTAL }, randTarget);
+      cur = 0; misses = 0; flash = null;
+      startTime = performance.now();
+      state = 'running';
+      const mode = hardMode ? '  [HARD — moving targets]' : '  ·  click!';
+      statusEl.textContent = `target 1 / ${TOTAL}${mode}`;
+      loop();
+    }
+
+    function drawCrosshair(x, y) {
+      const len = 14, gap = 5;
+      ctx.save();
+      ctx.strokeStyle = '#39d353';
+      ctx.lineWidth = 1.5;
+      ctx.shadowColor = '#39d353';
+      ctx.shadowBlur = 6;
+      // horizontal
+      ctx.beginPath(); ctx.moveTo(x - len - gap, y); ctx.lineTo(x - gap, y); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x + gap, y);        ctx.lineTo(x + len + gap, y); ctx.stroke();
+      // vertical
+      ctx.beginPath(); ctx.moveTo(x, y - len - gap); ctx.lineTo(x, y - gap); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x, y + gap);        ctx.lineTo(x, y + len + gap); ctx.stroke();
+      // center dot
+      ctx.beginPath(); ctx.arc(x, y, 2, 0, Math.PI * 2);
+      ctx.fillStyle = '#39d353'; ctx.shadowBlur = 4; ctx.fill();
+      ctx.restore();
+    }
+
+    function drawTarget(t) {
+      const age = (performance.now() - t.born) / 1000;
+      // pulse scale
+      const scale = 1 + 0.06 * Math.sin(age * 6);
+      const r = t.r * scale;
+
+      ctx.save();
+      // outer ring
+      ctx.beginPath(); ctx.arc(t.x, t.y, r, 0, Math.PI * 2);
+      ctx.strokeStyle = '#ff5f57'; ctx.lineWidth = 2;
+      ctx.shadowColor = '#ff5f57'; ctx.shadowBlur = 12; ctx.stroke();
+      // inner fill
+      ctx.beginPath(); ctx.arc(t.x, t.y, r * 0.55, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,95,87,0.18)'; ctx.shadowBlur = 0; ctx.fill();
+      // center dot
+      ctx.beginPath(); ctx.arc(t.x, t.y, 4, 0, Math.PI * 2);
+      ctx.fillStyle = '#ff5f57'; ctx.fill();
+      ctx.restore();
+    }
+
+    function drawHUD() {
+      if (state === 'idle') return;
+      const now = performance.now();
+      const secs = ((state === 'done' ? elapsed : now - startTime) / 1000).toFixed(2);
+      ctx.save();
+      ctx.font = '12px monospace';
+      ctx.fillStyle = '#8b949e';
+      ctx.textAlign = 'left';
+      ctx.fillText(`time: ${secs}s`, 12, 20);
+      ctx.textAlign = 'right';
+      ctx.fillText(`targets: ${Math.min(cur, TOTAL)} / ${TOTAL}`, canvas.width - 12, 20);
+      if (misses > 0) {
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#ff7b72';
+        ctx.fillText(`miss: ${misses}`, 12, 36);
+      }
+      ctx.restore();
+    }
+
+    function drawFlash() {
+      if (!flash) return;
+      const age = performance.now() - flash.t;
+      if (age > 220) { flash = null; return; }
+      const alpha = 1 - age / 220;
+      const radius = 8 + age * 0.12;
+      ctx.save();
+      ctx.beginPath(); ctx.arc(flash.x, flash.y, radius, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(57,211,83,${alpha})`;
+      ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawIdle() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.save();
+      ctx.fillStyle = '#30363d';
+      ctx.font = '13px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('type  game  in the terminal below', canvas.width / 2, canvas.height / 2 - 10);
+      ctx.fillStyle = '#39d353';
+      ctx.fillText('then click here to start', canvas.width / 2, canvas.height / 2 + 14);
+      ctx.restore();
+      drawCrosshair(mouse.x, mouse.y);
+    }
+
+    function drawDone() {
+      const secs = (elapsed / 1000).toFixed(2);
+      const avg  = (elapsed / TOTAL / 1000).toFixed(2);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#39d353';
+      ctx.font = 'bold 18px monospace';
+      ctx.fillText(`✓  completed${hardMode ? '  [HARD]' : ''}`, canvas.width / 2, canvas.height / 2 - 36);
+      ctx.font = '13px monospace';
+      ctx.fillStyle = '#e6edf3';
+      ctx.fillText(`time: ${secs}s   ·   avg per target: ${avg}s   ·   misses: ${misses}`, canvas.width / 2, canvas.height / 2);
+      ctx.fillStyle = '#8b949e';
+      ctx.fillText('click to play again', canvas.width / 2, canvas.height / 2 + 28);
+      ctx.restore();
+      drawCrosshair(mouse.x, mouse.y);
+    }
+
+    function moveTarget(t) {
+      t.x += t.vx; t.y += t.vy;
+      if (t.x - t.r < 0)            { t.x = t.r;               t.vx *= -1; }
+      if (t.x + t.r > canvas.width) { t.x = canvas.width - t.r; t.vx *= -1; }
+      if (t.y - t.r < 0)            { t.y = t.r;                t.vy *= -1; }
+      if (t.y + t.r > canvas.height){ t.y = canvas.height - t.r; t.vy *= -1; }
+    }
+
+    function loop() {
+      if (state !== 'running') return;
+      raf = requestAnimationFrame(loop);
+      if (hardMode) moveTarget(targets[cur]);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (hardMode) {
+        // faint trail hint
+        ctx.save();
+        ctx.strokeStyle = 'rgba(255,95,87,0.12)';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([3, 6]);
+        ctx.beginPath();
+        ctx.arc(targets[cur].x, targets[cur].y, targets[cur].r + 8, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
+      }
+      drawTarget(targets[cur]);
+      drawFlash();
+      drawHUD();
+      drawCrosshair(mouse.x, mouse.y);
+    }
+
+    canvas.addEventListener('mousemove', e => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+      if (state === 'idle') drawIdle();
+    });
+
+    canvas.addEventListener('click', e => {
+      const rect = canvas.getBoundingClientRect();
+      const mx = e.clientX - rect.left;
+      const my = e.clientY - rect.top;
+
+      if (state === 'idle' || state === 'done') { startGame(); return; }
+      if (state !== 'running') return;
+
+      const t = targets[cur];
+      const dist = Math.hypot(mx - t.x, my - t.y);
+      if (dist <= t.r) {
+        flash = { x: t.x, y: t.y, t: performance.now() };
+        cur++;
+        if (cur >= TOTAL) {
+          elapsed = performance.now() - startTime;
+          state = 'done';
+          cancelAnimationFrame(raf);
+          statusEl.textContent = `done! ${(elapsed/1000).toFixed(2)}s for ${TOTAL} targets · click canvas to retry`;
+          drawDone();
+        } else {
+          statusEl.textContent = `target ${cur + 1} / ${TOTAL}`;
+        }
+      } else {
+        misses++;
       }
     });
 
-    // NEWS: set max height to fit first 5 items and color years differently
-    (function(){
-      const list = document.getElementById('newsList');
-      if(!list) return;
-      const items = Array.from(list.children);
+    closeBtn.addEventListener('click', () => {
+      gameModal.classList.remove('open');
+      state = 'idle';
+      cancelAnimationFrame(raf);
+    });
+    gameModal.addEventListener('click', e => {
+      if (e.target === gameModal) { gameModal.classList.remove('open'); state = 'idle'; cancelAnimationFrame(raf); }
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && gameModal.classList.contains('open')) {
+        gameModal.classList.remove('open'); state = 'idle'; cancelAnimationFrame(raf);
+      }
+    });
 
-      // Compute height of first 5 items so ~5 are visible; the rest are scrollable
-      const firstFive = items.slice(0,5);
-      const h = firstFive.reduce((acc, li)=> acc + li.offsetHeight, 0);
-      list.style.maxHeight = Math.ceil(h) + 'px';
+    // draw initial idle frame when modal opens
+    window._openGame = function (hard) {
+      hardMode = !!hard;
+      gameModal.classList.add('open');
+      document.getElementById('gameModal').querySelector('.term-title').textContent =
+        hard ? 'aim_trainer.exe  --hard' : 'aim_trainer.exe';
+      state = 'idle';
+      cancelAnimationFrame(raf);
+      drawIdle();
+    };
+  })();
 
-      // Color tags by year with a stable palette
-      const palette = ['#0d5797','#8a2be2','#db4437','#0b8043','#f4b400','#ff6d01'];
-      const yearColor = new Map(); let idx = 0;
-      items.forEach(li=>{
-        const d = li.getAttribute('data-date') || '';
-        const y = d.slice(0,4) || (li.textContent.match(/\b(20\d{2})\b/)||[])[1];
-        const badge = li.querySelector('.tag'); if(!badge) return;
-        if(!yearColor.has(y)){ yearColor.set(y, palette[idx % palette.length]); idx++; }
-        badge.style.background = yearColor.get(y);
-        badge.style.color = '#fff';
-      });
-    })();
-  </script>
+  // interactive terminal
+  (function () {
+    const input  = document.getElementById('termInput');
+    const output = document.getElementById('termOutput');
+    if (!input || !output) return;
+
+    const CC_LOGO = `<span class="cc-logo" title="Claude Code">C</span>`;
+    const CC_MSG  = 'Claude Code has not implemented it for Me :(';
+
+    function pushLine(html) {
+      const div = document.createElement('div');
+      div.className = 'out-line';
+      div.innerHTML = html;
+      output.appendChild(div);
+      output.scrollTop = output.scrollHeight;
+    }
+
+    input.addEventListener('keydown', e => {
+      if (e.key !== 'Enter') return;
+      const cmd = input.value.trim().toLowerCase();
+      input.value = '';
+      if (!cmd) return;
+      pushLine(`<span class="echo-cmd">$ ${cmd}</span>`);
+      if (cmd === 'game' || cmd === 'game --hard') {
+        const hard = cmd.includes('--hard');
+        setTimeout(() => {
+          pushLine(`<span class="out-text" style="color:var(--green)">launching aim_trainer.exe${hard ? ' --hard' : ''}…</span>`);
+          setTimeout(() => window._openGame(hard), 400);
+        }, 80);
+      } else {
+        setTimeout(() => {
+          pushLine(`${CC_LOGO}<span class="out-text">${CC_MSG}</span>`);
+        }, 120);
+      }
+    });
+  })();
+
+  // news scroll — show first 5 rows then scroll
+  (function () {
+    const list = document.getElementById('newsList');
+    if (!list) return;
+    const items = Array.from(list.children);
+    const h = items.slice(0, 5).reduce((acc, li) => acc + li.offsetHeight, 0);
+    list.style.maxHeight = Math.ceil(h) + 'px';
+  })();
+</script>
 </body>
 </html>
