@@ -330,6 +330,20 @@
 
     .pub-links { font-size: 12px; }
     .pub-links a { color: var(--muted); margin-right: 10px; }
+
+    /* highlight */
+    .pub-item.highlight {
+      background: color-mix(in oklab, var(--yellow) 5%, var(--surface));
+      border-left: 3px solid var(--yellow);
+      border-radius: 6px;
+      padding: 10px 10px 10px 12px;
+      margin-left: -15px;
+    }
+    .highlight-badge {
+      font-size: 10px; font-weight: 600; letter-spacing: .04em;
+      color: var(--yellow); margin-left: 8px;
+      opacity: .85;
+    }
     .pub-links a:hover { color: var(--accent); text-decoration: none; }
 
     /* ── reviewer grid ───────────────────────────────── */
@@ -624,7 +638,23 @@
         <li>
           <div class="pub-item">
             <div class="pub-meta">
-              <div class="pub-title"><a href="https://xavihart.github.io/mogan/">MoGAN: Improving Motion Quality in Video Diffusion via Few-Step Motion Adversarial Post-Training</a></div>
+              <div class="pub-title"><a href="https://lamawmouk.github.io/SGMRI-VQA">Beyond a Single Frame: Multi-Frame Spatially Grounded Reasoning Across Volumetric MRI</a></div>
+              <div class="pub-authors">Lama Moukheiber, Caleb M. Yeung, <span class="me">Haotian Xue</span>, Alec Helbling, Zelin Zhao, Yongxin Chen</div>
+              <div><span class="pub-venue">arXiv 2026</span></div>
+              <div class="pub-tags">
+                <span class="ptag vlm">VLM</span>
+                <span class="ptag vision">Vision</span>
+                <span class="ptag td">3D</span>
+              </div>
+              <div class="pub-links"><a href="https://arxiv.org/abs/2604.15808">arXiv</a> <a href="https://lamawmouk.github.io/SGMRI-VQA">project</a> <a href="https://github.com/lamawmouk/SGMRI-VQA">code</a></div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="pub-item highlight">
+            <div class="pub-meta">
+              <div class="pub-title"><a href="https://xavihart.github.io/mogan/">MoGAN: Improving Motion Quality in Video Diffusion via Few-Step Motion Adversarial Post-Training</a><span class="highlight-badge">★ highlight</span></div>
               <div class="pub-authors"><span class="me">Haotian Xue</span>, Qi Chen, Zhonghao Wang, Xun Huang, Eli Shechtman, Jinrong Xie, Yongxin Chen</div>
               <div><span class="pub-venue">arXiv 2025</span></div>
               <div class="pub-tags">
