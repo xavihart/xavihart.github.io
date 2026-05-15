@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="only light">
+  <title>ACWM-Phys: Generalized Physical Interaction in Action-Conditioned Video World Models</title>
+
+  <meta property="og:title" content="ACWM-Phys: Investigating Generalized Physical Interaction in Action-Conditioned Video World Models" />
+  <meta property="og:type" content="website" />
+  <meta property="og:description" content="A benchmark spanning four physically diverse interaction regimes with a latent diffusion transformer baseline." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght,SOFT@9..144,400..700,0..100&family=Fraunces:ital,opsz,wght,SOFT@1,9..144,400..700,0..100&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script src="./static/js/distill_template.v2.js"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+
+  <link rel="stylesheet" href="./static/css/style.css">
+
+  <script defer src="./static/js/nav-bar.js"></script>
+  <script defer src="./static/js/interactions.js"></script>
+</head>
+<body>
+
+<!-- ── Floating nav ──────────────────────────────────────────────────────── -->
+<nav id="floating-nav" class="floating-nav">
+  <a href="#abstract"   class="floating-nav-link">Abstract</a>
+  <a href="#benchmark"  class="floating-nav-link">Benchmark</a>
+  <a href="#model"      class="floating-nav-link">Model</a>
+  <a href="#results"    class="floating-nav-link">Results</a>
+  <a href="#ablations"  class="floating-nav-link">Ablations</a>
+  <a href="#findings"   class="floating-nav-link">Takeaways</a>
+  <a href="#bibtex"     class="floating-nav-link">BibTeX</a>
+</nav>
+
+<!-- ── Hero ──────────────────────────────────────────────────────────────── -->
+<div class="header-wrapper">
+  <div class="header-bg-mosaic">
+    <!-- 16x6 = 96 tiles. Each row cycles the 8 unique env GTs (1..8,1..8) and is offset by one position relative to the previous row, so neither rows nor columns repeat. -->
+    <video autoplay loop muted playsinline><source src="./static/videos/push_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/stack_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_rope_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/cloth_move_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_sand_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/pour_water_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/robot_arm_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/reacher_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/stack_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_rope_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/cloth_move_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_sand_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/pour_water_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/robot_arm_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/reacher_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/stack_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_rope_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/cloth_move_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_sand_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/pour_water_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/robot_arm_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/reacher_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/stack_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_rope_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/cloth_move_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_sand_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/pour_water_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/robot_arm_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/reacher_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_rope_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/cloth_move_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_sand_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/pour_water_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/robot_arm_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/reacher_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/stack_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_rope_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/cloth_move_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_sand_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/pour_water_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/robot_arm_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/reacher_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/stack_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/cloth_move_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_sand_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/pour_water_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/robot_arm_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/reacher_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/stack_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_rope_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/cloth_move_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_sand_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/pour_water_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/robot_arm_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/reacher_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/stack_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_rope_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_sand_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/pour_water_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/robot_arm_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/reacher_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/stack_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_rope_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/cloth_move_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_sand_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/pour_water_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/robot_arm_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/reacher_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/stack_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_rope_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/cloth_move_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/pour_water_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/robot_arm_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/reacher_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/stack_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_rope_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/cloth_move_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_sand_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/pour_water_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/robot_arm_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/reacher_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/stack_cube_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_rope_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/cloth_move_ind.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline><source src="./static/videos/push_sand_ind.mp4" type="video/mp4"></video>
+  </div>
+
+  <div class="header-container">
+    <div class="header-content">
+      <div class="header-eyebrow">
+        <span class="pill">Benchmark</span>
+        <span class="pill">Diffusion world model</span>
+        <span class="pill">Physics &middot; video</span>
+      </div>
+      <h1>
+        <span class="title-acronym">
+          <img class="title-logo" src="./static/images/logo.png" alt="ACWM-Phys logo">
+          <span class="title-acronym-text">ACWM-Phys</span>
+        </span>
+        <span class="title-subtitle">Investigating Generalized Physical Interaction in Action-Conditioned Video World Models</span>
+      </h1>
+
+      <div class="header-byline">
+        <div class="hb-authors">
+          <a href="https://xavihart.github.io" class="author-link" target="_blank" rel="noopener">Haotian Xue</a><sup>&dagger;</sup>,
+          <a href="https://peterchenyipu.github.io/" class="author-link" target="_blank" rel="noopener">Yipu Chen</a><sup>*</sup>,
+          <a href="https://ttimelord.github.io/" class="author-link" target="_blank" rel="noopener">Liqian Ma</a><sup>*</sup>,
+          <a href="https://www.linkedin.com/in/zelin-zhao" class="author-link" target="_blank" rel="noopener">Zelin Zhao</a>,
+          <a href="https://www.linkedin.com/in/lama-moukheiber/" class="author-link" target="_blank" rel="noopener">Lama Moukheiber</a>,
+          <a href="https://yuchen-zhu-zyc.github.io/" class="author-link" target="_blank" rel="noopener">Yuchen Zhu</a>,
+          <a href="https://yongxin.ae.gatech.edu/" class="author-link" target="_blank" rel="noopener">Yongxin Chen</a>
+        </div>
+        <div class="hb-meta">
+          <span class="hb-affiliation">Georgia Institute of Technology</span>
+          <span class="hb-sep">&middot;</span>
+          <span class="hb-foot"><sup>&dagger;</sup> Project lead</span>
+          <span class="hb-sep">&middot;</span>
+          <span class="hb-foot"><sup>*</sup> Equal contribution</span>
+        </div>
+      </div>
+
+      <p class="header-description">
+        A benchmark of <strong>8 physics-rich environments</strong> spanning four interaction regimes &mdash; rigid-body, deformable, particle, and kinematics &mdash; paired with <strong>ACWM-DiT</strong>, a latent diffusion transformer trained with flow matching. We probe whether modern action-conditioned video models actually learn <em>physics</em>, or merely <em>appearance</em>.
+      </p>
+
+      <div class="header-links">
+        <a href="#" class="button primary" target="_blank">
+          <span class="icon"><i class="ai ai-arxiv"></i></span> arXiv
+        </a>
+        <a href="https://github.com/xavihart/ACWM-Phys-dev" class="button" target="_blank">
+          <span class="icon"><img class="btn-logo" src="./static/images/github.png" alt=""></span> Code
+        </a>
+        <a href="https://huggingface.co/datasets/t1an/ACWM-Phys" class="button" target="_blank">
+          <span class="icon"><img class="btn-logo" src="./static/images/hf.png" alt=""></span> Dataset
+        </a>
+        <a href="https://huggingface.co/t1an/ACWM-Phys-checkpoints" class="button" target="_blank">
+          <span class="icon"><img class="btn-logo" src="./static/images/hf.png" alt=""></span> Checkpoints
+        </a>
+        <a href="#results" class="button">
+          <span class="icon">📷</span> Video supplementary
+        </a>
+      </div>
+
+      <div class="tldr-ribbon">
+        <div class="tldr-item"><div class="tldr-num">8</div><div class="tldr-label">Physics<br>environments</div></div>
+        <div class="tldr-item"><div class="tldr-num">4</div><div class="tldr-label">Interaction<br>regimes</div></div>
+        <div class="tldr-item"><div class="tldr-num">15K+</div><div class="tldr-label">Simulated<br>trajectories</div></div>
+        <div class="tldr-item"><div class="tldr-num">InD &middot; OoD</div><div class="tldr-label">Controlled<br>splits</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Main article body ─────────────────────────────────────────────────── -->
+<d-article>
+
+  <!-- Teaser + two questions ─────────────────────────────────────────────── -->
+  <div id="abstract" class="content-section">
+    <figure class="teaser-figure">
+      <img src="./static/images/teaser.png" alt="ACWM-Phys teaser: diverse physical scenes and their InD / OoD variants.">
+      <figcaption>
+        ACWM-Phys covers four physical interaction regimes &mdash; rigid-body, deformable, particle, and kinematics &mdash; each with a controlled out-of-distribution shift (more / fewer water particles, additional cubes, larger cloth, expanded workspace).
+      </figcaption>
+    </figure>
+
+    <p class="teaser-intro">
+      ACWM-Phys is designed to answer two questions about action-conditioned video world models:
+    </p>
+
+    <div class="two-questions">
+      <article class="qcard">
+        <span class="q-num">Q1</span>
+        <div>
+          <h3>How well can ACWMs learn <em>different types</em> of physics?</h3>
+          <p>Existing benchmarks are confined to egocentric navigation or narrow rigid-body manipulation. ACWM-Phys spans <strong>rigid-body, deformable, particle</strong>, and <strong>kinematic</strong> regimes so we can finally compare prediction quality <em>across</em> physical phenomena rather than within a single domain.</p>
+        </div>
+      </article>
+      <article class="qcard">
+        <span class="q-num">Q2</span>
+        <div>
+          <h3>Can they generalize <em>beyond</em> the training distribution?</h3>
+          <p>Every environment ships a physically meaningful, exactly reproducible distribution shift &mdash; doubled particle counts, unseen cube counts, larger cloth, expanded goal regions &mdash; so we can measure the InD&nbsp;&rarr;&nbsp;OoD gap and pinpoint <em>where</em> diffusion world models still rely on appearance shortcuts.</p>
+        </div>
+      </article>
+    </div>
+
+    <h3 class="text section-jump-label">Jump to</h3>
+    <div class="icon-row">
+      <a href="#benchmark" class="icon-link"><span>Benchmark</span><b>ACWM-Phys</b></a>
+      <a href="#model"     class="icon-link"><span>Model</span><b>ACWM-DiT</b></a>
+      <a href="#results"   class="icon-link"><span>Results</span><b>InD vs OoD</b></a>
+      <a href="#ablations" class="icon-link"><span>Ablations</span><b>What works</b></a>
+      <a href="#findings"  class="icon-link"><span>Takeaways</span><b>5 findings</b></a>
+    </div>
+  </div>
+
+  <!-- Benchmark ──────────────────────────────────────────────────────────── -->
+  <div id="benchmark" class="content-section">
+    <div class="section-header">
+      <span class="section-kicker">§ 1 &mdash; Benchmark</span>
+      <h2 class="text">ACWM-Phys: 8 environments, 4 physics regimes</h2>
+    </div>
+    <p class="text section-lead">
+      Each environment ships <strong>1,000 InD training trajectories</strong>, <strong>50 InD test trajectories</strong>, and <strong>100 OoD test trajectories</strong> with a physically meaningful distribution shift &mdash; unseen cube counts, expanded workspaces, doubled particle counts, larger cloth, or shifted goal regions. Every shift is exactly reproducible inside the simulator. Videos below are the <em>ground-truth simulator rollouts</em>, side-by-side InD vs OoD, so the reader can see <em>what the distribution shift is</em>.
+    </p>
+
+    <div class="filter-bar" data-target="env-grid-main">
+      <button class="filter-pill active" data-filter="all">All<span class="filter-count">8</span></button>
+      <button class="filter-pill" data-filter="rigid"><span class="dot dot-rigid"></span>Rigid-body<span class="filter-count">2</span></button>
+      <button class="filter-pill" data-filter="deform"><span class="dot dot-deform"></span>Deformable<span class="filter-count">2</span></button>
+      <button class="filter-pill" data-filter="particle"><span class="dot dot-particle"></span>Particle<span class="filter-count">2</span></button>
+      <button class="filter-pill" data-filter="kine"><span class="dot dot-kine"></span>Kinematics<span class="filter-count">2</span></button>
+    </div>
+
+    <div class="env-grid" id="env-grid-main">
+
+      <!-- Push Cube -->
+      <article class="env-card" data-cat="rigid">
+        <header>
+          <span class="cat-badge cat-rigid">Rigid-body</span>
+          <h3>Push Cube <span class="env-dim">a&nbsp;&isin;&nbsp;&#8477;<sup>2</sup></span></h3>
+          <p>A disk pusher translates 1&ndash;5 colored cubes to a target.</p>
+        </header>
+        <div class="env-pair">
+          <figure class="gt-only">
+            <div class="crop-gt"><video autoplay loop muted playsinline><source src="./static/videos/push_cube_ind.mp4" type="video/mp4"></video></div>
+            <figcaption class="vid-label vid-label-ind"><span class="lbl-tag">InD</span> 1 cube</figcaption>
+          </figure>
+          <figure class="gt-only">
+            <div class="crop-gt"><video autoplay loop muted playsinline><source src="./static/videos/push_cube_ood_4cube.mp4" type="video/mp4"></video></div>
+            <figcaption class="vid-label vid-label-ood"><span class="lbl-tag">OoD</span> 4+ cubes</figcaption>
+          </figure>
+        </div>
+        <footer class="env-shift"><span class="shift-label">Shift</span><span class="shift-text">unseen workspace regions <em>and</em> cube counts above 3</span></footer>
+      </article>
+
+      <!-- Stack Cube -->
+      <article class="env-card" data-cat="rigid">
+        <header>
+          <span class="cat-badge cat-rigid">Rigid-body</span>
+          <h3>Stack Cube <span class="env-dim">a&nbsp;&isin;&nbsp;&#8477;<sup>7</sup></span></h3>
+          <p>A Franka Panda picks the red cube and stacks it on the green one.</p>
+        </header>
+        <div class="env-pair">
+          <figure class="gt-only">
+            <div class="crop-gt"><video autoplay loop muted playsinline><source src="./static/videos/stack_cube_ind.mp4" type="video/mp4"></video></div>
+            <figcaption class="vid-label vid-label-ind"><span class="lbl-tag">InD</span> seen target</figcaption>
+          </figure>
+          <figure class="gt-only">
+            <div class="crop-gt"><video autoplay loop muted playsinline><source src="./static/videos/stack_cube_ood.mp4" type="video/mp4"></video></div>
+            <figcaption class="vid-label vid-label-ood"><span class="lbl-tag">OoD</span> unseen placement</figcaption>
+          </figure>
+        </div>
+        <footer class="env-shift"><span class="shift-label">Shift</span><span class="shift-text">target placement region withheld during training</span></footer>
+      </article>
+
+      <!-- Push Rope -->
+      <article class="env-card" data-cat="deform">
+        <header>
+          <span class="cat-badge cat-deform">Deformable</span>
+          <h3>Push Rope <span class="env-dim">a&nbsp;&isin;&nbsp;&#8477;<sup>2</sup></span></h3>
+          <p>A pole pusher deforms a flexible rope (PyFlex).</p>
+        </header>
+        <div class="env-pair">
+          <figure class="gt-only">
+            <div class="crop-gt"><video autoplay loop muted playsinline><source src="./static/videos/push_rope_ind.mp4" type="video/mp4"></video></div>
+            <figcaption class="vid-label vid-label-ind"><span class="lbl-tag">InD</span> trained length</figcaption>
+          </figure>
+          <figure class="gt-only">
+            <div class="crop-gt"><video autoplay loop muted playsinline><source src="./static/videos/push_rope_ood.mp4" type="video/mp4"></video></div>
+            <figcaption class="vid-label vid-label-ood"><span class="lbl-tag">OoD</span> unseen length</figcaption>
+          </figure>
+        </div>
+        <footer class="env-shift"><span class="shift-label">Shift</span><span class="shift-text">rope length values held out of training</span></footer>
+      </article>
+
+      <!-- Cloth Move -->
+      <article class="env-card" data-cat="deform">
+        <header>
+          <span class="cat-badge cat-deform">Deformable</span>
+          <h3>Cloth Move <span class="env-dim">a&nbsp;&isin;&nbsp;&#8477;<sup>3</sup></span></h3>
+          <p>Two arms drag a cloth over a fixed sphere with a shared 3D displacement.</p>
+        </header>
+        <div class="env-pair">
+          <figure class="gt-only">
+            <div class="crop-gt"><video autoplay loop muted playsinline><source src="./static/videos/cloth_move_ind.mp4" type="video/mp4"></video></div>
+            <figcaption class="vid-label vid-label-ind"><span class="lbl-tag">InD</span> trained cloth size</figcaption>
+          </figure>
+          <figure class="gt-only">
+            <div class="crop-gt"><video autoplay loop muted playsinline><source src="./static/videos/cloth_move_ood.mp4" type="video/mp4"></video></div>
+            <figcaption class="vid-label vid-label-ood"><span class="lbl-tag">OoD</span> larger cloth</figcaption>
+          </figure>
+        </div>
+        <footer class="env-shift"><span class="shift-label">Shift</span><span class="shift-text">cloth dimensions outside the training distribution</span></footer>
+      </article>
+
+      <!-- Push Sand -->
+      <article class="env-card" data-cat="particle">
+        <header>
+          <span class="cat-badge cat-particle">Particle</span>
+          <h3>Push Sand <span class="env-dim">a&nbsp;&isin;&nbsp;&#8477;<sup>7</sup></span></h3>
+          <p>A board pusher rearranges granular sand particles (PyFleX).</p>
+        </header>
+        <div class="env-pair">
+          <figure class="gt-only">
+            <div class="crop-gt crop-gt-pad"><video autoplay loop muted playsinline><source src="./static/videos/push_sand_ind.mp4" type="video/mp4"></video></div>
+            <figcaption class="vid-label vid-label-ind"><span class="lbl-tag">InD</span> &le;&nbsp;73K particles</figcaption>
+          </figure>
+          <figure class="gt-only">
+            <div class="crop-gt crop-gt-pad"><video autoplay loop muted playsinline><source src="./static/videos/push_sand_ood.mp4" type="video/mp4"></video></div>
+            <figcaption class="vid-label vid-label-ood"><span class="lbl-tag">OoD</span> ~145K particles</figcaption>
+          </figure>
+        </div>
+        <footer class="env-shift"><span class="shift-label">Shift</span><span class="shift-text">particle count roughly doubled</span></footer>
+      </article>
+
+      <!-- Pour Water -->
+      <article class="env-card" data-cat="particle">
+        <header>
+          <span class="cat-badge cat-particle">Particle</span>
+          <h3>Pour Water <span class="env-dim">a&nbsp;&isin;&nbsp;&#8477;<sup>4</sup></span></h3>
+          <p>An arm pours water into a cup via tilt and translation.</p>
+        </header>
+        <div class="env-pair">
+          <figure class="gt-only">
+            <div class="crop-gt"><video autoplay loop muted playsinline><source src="./static/videos/pour_water_ind4.mp4" type="video/mp4"></video></div>
+            <figcaption class="vid-label vid-label-ind"><span class="lbl-tag">InD</span> 20&ndash;32 fill layers</figcaption>
+          </figure>
+          <figure class="gt-only">
+            <div class="crop-gt"><video autoplay loop muted playsinline><source src="./static/videos/pour_water_ood2.mp4" type="video/mp4"></video></div>
+            <figcaption class="vid-label vid-label-ood"><span class="lbl-tag">OoD</span> 14 / 48 layers</figcaption>
+          </figure>
+        </div>
+        <footer class="env-shift"><span class="shift-label">Shift</span><span class="shift-text">fluid quantity outside the trained range</span></footer>
+      </article>
+
+      <!-- Robot Arm -->
+      <article class="env-card" data-cat="kine">
+        <header>
+          <span class="cat-badge cat-kine">Kinematics</span>
+          <h3>Robot Arm <span class="env-dim">a&nbsp;&isin;&nbsp;&#8477;<sup>7</sup></span></h3>
+          <p>A 7-DoF Franka Panda reaches targets via cuRobo planning (Isaac Sim).</p>
+        </header>
+        <div class="env-pair">
+          <figure class="gt-only">
+            <div class="crop-gt"><video autoplay loop muted playsinline><source src="./static/videos/robot_arm_ind.mp4" type="video/mp4"></video></div>
+            <figcaption class="vid-label vid-label-ind"><span class="lbl-tag">InD</span> trained workspace</figcaption>
+          </figure>
+          <figure class="gt-only">
+            <div class="crop-gt"><video autoplay loop muted playsinline><source src="./static/videos/robot_arm_ood.mp4" type="video/mp4"></video></div>
+            <figcaption class="vid-label vid-label-ood"><span class="lbl-tag">OoD</span> expanded workspace</figcaption>
+          </figure>
+        </div>
+        <footer class="env-shift"><span class="shift-label">Shift</span><span class="shift-text">goal workspace expanded beyond training extent</span></footer>
+      </article>
+
+      <!-- Reacher -->
+      <article class="env-card" data-cat="kine">
+        <header>
+          <span class="cat-badge cat-kine">Kinematics</span>
+          <h3>Reacher <span class="env-dim">a&nbsp;&isin;&nbsp;&#8477;<sup>2</sup></span></h3>
+          <p>A 2-link MuJoCo arm reaches goals via joint torques.</p>
+        </header>
+        <div class="env-pair">
+          <figure class="gt-only">
+            <div class="crop-gt"><video autoplay loop muted playsinline><source src="./static/videos/reacher_ind.mp4" type="video/mp4"></video></div>
+            <figcaption class="vid-label vid-label-ind"><span class="lbl-tag">InD</span> central goals</figcaption>
+          </figure>
+          <figure class="gt-only">
+            <div class="crop-gt"><video autoplay loop muted playsinline><source src="./static/videos/reacher_ood.mp4" type="video/mp4"></video></div>
+            <figcaption class="vid-label vid-label-ood"><span class="lbl-tag">OoD</span> corner-sector goals</figcaption>
+          </figure>
+        </div>
+        <footer class="env-shift"><span class="shift-label">Shift</span><span class="shift-text">goals confined to corner sectors withheld during training</span></footer>
+      </article>
+
+    </div><!-- /env-grid -->
+
+    <p class="caption-text">Each pane shows the ground-truth simulator rollout (left side of the original recording). Use the pills above to filter by physics regime.</p>
+  </div>
+
+  <!-- Model ──────────────────────────────────────────────────────────────── -->
+  <div id="model" class="content-section">
+    <div class="section-header">
+      <span class="section-kicker">§ 2 &mdash; Model</span>
+      <h2 class="text">ACWM-DiT</h2>
+    </div>
+    <p class="text section-lead model-one-liner">
+      A bidirectional Diffusion Transformer that denoises future latent video tokens conditioned on the past frame and an action sequence, trained end-to-end with flow matching in the latent space of a frozen causal video VAE.
+    </p>
+    <figure class="model-figure">
+      <img src="./static/images/model_arch.png" alt="ACWM-DiT architecture">
+      <figcaption>ACWM-DiT: noisy latent tokens are processed by stacked DiT blocks with alternating spatial and temporal self-attention, modulated by a joint timestep&ndash;action embedding.</figcaption>
+    </figure>
+  </div>
+
+  <!-- Results ────────────────────────────────────────────────────────────── -->
+  <div id="results" class="content-section">
+    <div class="section-header">
+      <span class="section-kicker">§ 3 &mdash; Main results</span>
+      <h2 class="text">In-distribution &amp; out-of-distribution rollouts</h2>
+    </div>
+    <p class="text section-lead">
+      For each environment we evaluate ACWM-DiT-S (100k steps, 50 denoising steps) on a matched <strong>InD</strong> and <strong>OoD</strong> split. The pattern is striking: <strong>simple geometry generalizes; deformation, particle physics, and high-DoF kinematics do not</strong>. Every clip shows <em>ground truth (left)</em> | <em>prediction (right)</em>; InD on top, OoD below.
+    </p>
+
+    <!-- Per-environment results rows -->
+    <div class="result-list">
+
+      <section class="result-row" data-cat="rigid">
+        <header class="result-head">
+          <span class="cat-badge cat-rigid">Rigid-body</span>
+          <h3>Push Cube</h3>
+        </header>
+        <figure class="result-vid result-carousel" data-slides="./static/videos/push_cube_ind.mp4,./static/videos/push_cube_ind2.mp4,./static/videos/push_cube_ind3.mp4,./static/videos/push_cube_ind4.mp4">
+          <figcaption><span class="lbl-tag lbl-ind">InD</span> Ground truth &nbsp;|&nbsp; Prediction</figcaption>
+          <div class="carousel-stage"><video autoplay loop muted playsinline></video></div>
+          <div class="carousel-controls">
+            <button class="carousel-arrow prev" type="button" aria-label="Previous clip">&lsaquo;</button>
+            <div class="carousel-dots"></div>
+            <button class="carousel-arrow next" type="button" aria-label="Next clip">&rsaquo;</button>
+            <span class="carousel-counter"><b class="counter-now">1</b><span class="counter-sep">/</span><span class="counter-total">4</span></span>
+          </div>
+        </figure>
+        <figure class="result-vid result-carousel" data-slides="./static/videos/push_cube_ood_4cube.mp4,./static/videos/push_cube_ood.mp4,./static/videos/push_cube_ood2.mp4,./static/videos/push_cube_ood3.mp4,./static/videos/push_cube_ood4.mp4">
+          <figcaption><span class="lbl-tag lbl-ood">OoD</span> Ground truth &nbsp;|&nbsp; Prediction</figcaption>
+          <div class="carousel-stage"><video autoplay loop muted playsinline></video></div>
+          <div class="carousel-controls">
+            <button class="carousel-arrow prev" type="button" aria-label="Previous clip">&lsaquo;</button>
+            <div class="carousel-dots"></div>
+            <button class="carousel-arrow next" type="button" aria-label="Next clip">&rsaquo;</button>
+            <span class="carousel-counter"><b class="counter-now">1</b><span class="counter-sep">/</span><span class="counter-total">5</span></span>
+          </div>
+        </figure>
+        <p class="result-analysis">Rigid-body trajectories transfer cleanly across the distribution shift. Cubes occasionally vanish in the final frames of 4-cube OoD scenes &mdash; an appearance-shortcut tell.</p>
+      </section>
+
+      <section class="result-row" data-cat="rigid">
+        <header class="result-head">
+          <span class="cat-badge cat-rigid">Rigid-body</span>
+          <h3>Stack Cube</h3>
+        </header>
+        <figure class="result-vid result-carousel" data-slides="./static/videos/stack_cube_ind.mp4,./static/videos/stack_cube_ind2.mp4,./static/videos/stack_cube_ind3.mp4,./static/videos/stack_cube_ind4.mp4">
+          <figcaption><span class="lbl-tag lbl-ind">InD</span> Ground truth &nbsp;|&nbsp; Prediction</figcaption>
+          <div class="carousel-stage"><video autoplay loop muted playsinline></video></div>
+          <div class="carousel-controls">
+            <button class="carousel-arrow prev" type="button" aria-label="Previous clip">&lsaquo;</button>
+            <div class="carousel-dots"></div>
+            <button class="carousel-arrow next" type="button" aria-label="Next clip">&rsaquo;</button>
+            <span class="carousel-counter"><b class="counter-now">1</b><span class="counter-sep">/</span><span class="counter-total">4</span></span>
+          </div>
+        </figure>
+        <figure class="result-vid result-carousel" data-slides="./static/videos/stack_cube_ood.mp4,./static/videos/stack_cube_ood2.mp4,./static/videos/stack_cube_ood3.mp4,./static/videos/stack_cube_ood4.mp4">
+          <figcaption><span class="lbl-tag lbl-ood">OoD</span> Ground truth &nbsp;|&nbsp; Prediction</figcaption>
+          <div class="carousel-stage"><video autoplay loop muted playsinline></video></div>
+          <div class="carousel-controls">
+            <button class="carousel-arrow prev" type="button" aria-label="Previous clip">&lsaquo;</button>
+            <div class="carousel-dots"></div>
+            <button class="carousel-arrow next" type="button" aria-label="Next clip">&rsaquo;</button>
+            <span class="carousel-counter"><b class="counter-now">1</b><span class="counter-sep">/</span><span class="counter-total">4</span></span>
+          </div>
+        </figure>
+        <p class="result-analysis">Coarse pick-and-place survives; the Franka end-effector blurs as target positions move outside the trained set.</p>
+      </section>
+
+      <section class="result-row" data-cat="deform">
+        <header class="result-head">
+          <span class="cat-badge cat-deform">Deformable</span>
+          <h3>Push Rope</h3>
+        </header>
+        <figure class="result-vid result-carousel" data-slides="./static/videos/push_rope_ind.mp4,./static/videos/push_rope_ind2.mp4,./static/videos/push_rope_ind3.mp4,./static/videos/push_rope_ind4.mp4">
+          <figcaption><span class="lbl-tag lbl-ind">InD</span> Ground truth &nbsp;|&nbsp; Prediction</figcaption>
+          <div class="carousel-stage"><video autoplay loop muted playsinline></video></div>
+          <div class="carousel-controls">
+            <button class="carousel-arrow prev" type="button" aria-label="Previous clip">&lsaquo;</button>
+            <div class="carousel-dots"></div>
+            <button class="carousel-arrow next" type="button" aria-label="Next clip">&rsaquo;</button>
+            <span class="carousel-counter"><b class="counter-now">1</b><span class="counter-sep">/</span><span class="counter-total">4</span></span>
+          </div>
+        </figure>
+        <figure class="result-vid result-carousel" data-slides="./static/videos/push_rope_ood.mp4,./static/videos/push_rope_ood2.mp4,./static/videos/push_rope_ood3.mp4,./static/videos/push_rope_ood4.mp4">
+          <figcaption><span class="lbl-tag lbl-ood">OoD</span> Ground truth &nbsp;|&nbsp; Prediction</figcaption>
+          <div class="carousel-stage"><video autoplay loop muted playsinline></video></div>
+          <div class="carousel-controls">
+            <button class="carousel-arrow prev" type="button" aria-label="Previous clip">&lsaquo;</button>
+            <div class="carousel-dots"></div>
+            <button class="carousel-arrow next" type="button" aria-label="Next clip">&rsaquo;</button>
+            <span class="carousel-counter"><b class="counter-now">1</b><span class="counter-sep">/</span><span class="counter-total">4</span></span>
+          </div>
+        </figure>
+        <p class="result-analysis">Coarse rope shape is preserved across unseen lengths, but the motion-region (masked) error roughly doubles &mdash; the model bends the rope plausibly while missing fine contact response.</p>
+      </section>
+
+      <section class="result-row" data-cat="deform">
+        <header class="result-head">
+          <span class="cat-badge cat-deform">Deformable</span>
+          <h3>Cloth Move</h3>
+        </header>
+        <figure class="result-vid result-carousel" data-slides="./static/videos/cloth_move_ind.mp4,./static/videos/cloth_move_ind2.mp4,./static/videos/cloth_move_ind3.mp4,./static/videos/cloth_move_ind4.mp4">
+          <figcaption><span class="lbl-tag lbl-ind">InD</span> Ground truth &nbsp;|&nbsp; Prediction</figcaption>
+          <div class="carousel-stage"><video autoplay loop muted playsinline></video></div>
+          <div class="carousel-controls">
+            <button class="carousel-arrow prev" type="button" aria-label="Previous clip">&lsaquo;</button>
+            <div class="carousel-dots"></div>
+            <button class="carousel-arrow next" type="button" aria-label="Next clip">&rsaquo;</button>
+            <span class="carousel-counter"><b class="counter-now">1</b><span class="counter-sep">/</span><span class="counter-total">4</span></span>
+          </div>
+        </figure>
+        <figure class="result-vid result-carousel" data-slides="./static/videos/cloth_move_ood.mp4,./static/videos/cloth_move_ood2.mp4,./static/videos/cloth_move_ood3.mp4,./static/videos/cloth_move_ood4.mp4">
+          <figcaption><span class="lbl-tag lbl-ood">OoD</span> Ground truth &nbsp;|&nbsp; Prediction</figcaption>
+          <div class="carousel-stage"><video autoplay loop muted playsinline></video></div>
+          <div class="carousel-controls">
+            <button class="carousel-arrow prev" type="button" aria-label="Previous clip">&lsaquo;</button>
+            <div class="carousel-dots"></div>
+            <button class="carousel-arrow next" type="button" aria-label="Next clip">&rsaquo;</button>
+            <span class="carousel-counter"><b class="counter-now">1</b><span class="counter-sep">/</span><span class="counter-total">4</span></span>
+          </div>
+        </figure>
+        <p class="result-analysis">The largest OoD drop in the benchmark. Contact-rich, large-scale deformation outruns what an AdaLN-conditioned diffusion model captures from appearance alone.</p>
+      </section>
+
+      <section class="result-row" data-cat="particle">
+        <header class="result-head">
+          <span class="cat-badge cat-particle">Particle</span>
+          <h3>Push Sand</h3>
+        </header>
+        <figure class="result-vid result-carousel" data-slides="./static/videos/push_sand_ind.mp4,./static/videos/push_sand_ind2.mp4,./static/videos/push_sand_ind3.mp4,./static/videos/push_sand_ind4.mp4">
+          <figcaption><span class="lbl-tag lbl-ind">InD</span> Ground truth &nbsp;|&nbsp; Prediction</figcaption>
+          <div class="carousel-stage"><video autoplay loop muted playsinline></video></div>
+          <div class="carousel-controls">
+            <button class="carousel-arrow prev" type="button" aria-label="Previous clip">&lsaquo;</button>
+            <div class="carousel-dots"></div>
+            <button class="carousel-arrow next" type="button" aria-label="Next clip">&rsaquo;</button>
+            <span class="carousel-counter"><b class="counter-now">1</b><span class="counter-sep">/</span><span class="counter-total">4</span></span>
+          </div>
+        </figure>
+        <figure class="result-vid result-carousel" data-slides="./static/videos/push_sand_ood.mp4,./static/videos/push_sand_ood2.mp4,./static/videos/push_sand_ood3.mp4,./static/videos/push_sand_ood4.mp4">
+          <figcaption><span class="lbl-tag lbl-ood">OoD</span> Ground truth &nbsp;|&nbsp; Prediction</figcaption>
+          <div class="carousel-stage"><video autoplay loop muted playsinline></video></div>
+          <div class="carousel-controls">
+            <button class="carousel-arrow prev" type="button" aria-label="Previous clip">&lsaquo;</button>
+            <div class="carousel-dots"></div>
+            <button class="carousel-arrow next" type="button" aria-label="Next clip">&rsaquo;</button>
+            <span class="carousel-counter"><b class="counter-now">1</b><span class="counter-sep">/</span><span class="counter-total">4</span></span>
+          </div>
+        </figure>
+        <p class="result-analysis">Doubling particle count exposes a fine-grained redistribution gap &mdash; overall pile structure persists, micro-dynamics blur.</p>
+      </section>
+
+      <section class="result-row" data-cat="particle">
+        <header class="result-head">
+          <span class="cat-badge cat-particle">Particle</span>
+          <h3>Pour Water</h3>
+        </header>
+        <figure class="result-vid result-carousel" data-slides="./static/videos/pour_water_ind4.mp4,./static/videos/pour_water_ind.mp4,./static/videos/pour_water_ind2.mp4,./static/videos/pour_water_ind3.mp4">
+          <figcaption><span class="lbl-tag lbl-ind">InD</span> Ground truth &nbsp;|&nbsp; Prediction</figcaption>
+          <div class="carousel-stage"><video autoplay loop muted playsinline></video></div>
+          <div class="carousel-controls">
+            <button class="carousel-arrow prev" type="button" aria-label="Previous clip">&lsaquo;</button>
+            <div class="carousel-dots"></div>
+            <button class="carousel-arrow next" type="button" aria-label="Next clip">&rsaquo;</button>
+            <span class="carousel-counter"><b class="counter-now">1</b><span class="counter-sep">/</span><span class="counter-total">4</span></span>
+          </div>
+        </figure>
+        <figure class="result-vid result-carousel" data-slides="./static/videos/pour_water_ood2.mp4,./static/videos/pour_water_ood.mp4,./static/videos/pour_water_ood3.mp4,./static/videos/pour_water_ood4.mp4">
+          <figcaption><span class="lbl-tag lbl-ood">OoD</span> Ground truth &nbsp;|&nbsp; Prediction</figcaption>
+          <div class="carousel-stage"><video autoplay loop muted playsinline></video></div>
+          <div class="carousel-controls">
+            <button class="carousel-arrow prev" type="button" aria-label="Previous clip">&lsaquo;</button>
+            <div class="carousel-dots"></div>
+            <button class="carousel-arrow next" type="button" aria-label="Next clip">&rsaquo;</button>
+            <span class="carousel-counter"><b class="counter-now">1</b><span class="counter-sep">/</span><span class="counter-total">4</span></span>
+          </div>
+        </figure>
+        <p class="result-analysis">Pouring trajectories repeat, so error stays bounded &mdash; but under unseen volumes the model hallucinates plausible-but-wrong fill levels.</p>
+      </section>
+
+      <section class="result-row" data-cat="kine">
+        <header class="result-head">
+          <span class="cat-badge cat-kine">Kinematics</span>
+          <h3>Robot Arm</h3>
+        </header>
+        <figure class="result-vid result-carousel" data-slides="./static/videos/robot_arm_ind.mp4,./static/videos/robot_arm_ind2.mp4,./static/videos/robot_arm_ind3.mp4,./static/videos/robot_arm_ind4.mp4">
+          <figcaption><span class="lbl-tag lbl-ind">InD</span> Ground truth &nbsp;|&nbsp; Prediction</figcaption>
+          <div class="carousel-stage"><video autoplay loop muted playsinline></video></div>
+          <div class="carousel-controls">
+            <button class="carousel-arrow prev" type="button" aria-label="Previous clip">&lsaquo;</button>
+            <div class="carousel-dots"></div>
+            <button class="carousel-arrow next" type="button" aria-label="Next clip">&rsaquo;</button>
+            <span class="carousel-counter"><b class="counter-now">1</b><span class="counter-sep">/</span><span class="counter-total">4</span></span>
+          </div>
+        </figure>
+        <figure class="result-vid result-carousel" data-slides="./static/videos/robot_arm_ood.mp4,./static/videos/robot_arm_ood2.mp4,./static/videos/robot_arm_ood3.mp4,./static/videos/robot_arm_ood4.mp4">
+          <figcaption><span class="lbl-tag lbl-ood">OoD</span> Ground truth &nbsp;|&nbsp; Prediction</figcaption>
+          <div class="carousel-stage"><video autoplay loop muted playsinline></video></div>
+          <div class="carousel-controls">
+            <button class="carousel-arrow prev" type="button" aria-label="Previous clip">&lsaquo;</button>
+            <div class="carousel-dots"></div>
+            <button class="carousel-arrow next" type="button" aria-label="Next clip">&rsaquo;</button>
+            <span class="carousel-counter"><b class="counter-now">1</b><span class="counter-sep">/</span><span class="counter-total">4</span></span>
+          </div>
+        </figure>
+        <p class="result-analysis">7-DoF Franka articulation breaks first. AdaLN's single conditioning vector becomes a bottleneck &mdash; see the cross-attention ablation below.</p>
+      </section>
+
+      <section class="result-row" data-cat="kine">
+        <header class="result-head">
+          <span class="cat-badge cat-kine">Kinematics</span>
+          <h3>Reacher</h3>
+        </header>
+        <figure class="result-vid result-carousel" data-slides="./static/videos/reacher_ind.mp4,./static/videos/reacher_ind2.mp4,./static/videos/reacher_ind3.mp4,./static/videos/reacher_ind4.mp4">
+          <figcaption><span class="lbl-tag lbl-ind">InD</span> Ground truth &nbsp;|&nbsp; Prediction</figcaption>
+          <div class="carousel-stage"><video autoplay loop muted playsinline></video></div>
+          <div class="carousel-controls">
+            <button class="carousel-arrow prev" type="button" aria-label="Previous clip">&lsaquo;</button>
+            <div class="carousel-dots"></div>
+            <button class="carousel-arrow next" type="button" aria-label="Next clip">&rsaquo;</button>
+            <span class="carousel-counter"><b class="counter-now">1</b><span class="counter-sep">/</span><span class="counter-total">4</span></span>
+          </div>
+        </figure>
+        <figure class="result-vid result-carousel" data-slides="./static/videos/reacher_ood.mp4,./static/videos/reacher_ood2.mp4,./static/videos/reacher_ood3.mp4,./static/videos/reacher_ood4.mp4">
+          <figcaption><span class="lbl-tag lbl-ood">OoD</span> Ground truth &nbsp;|&nbsp; Prediction</figcaption>
+          <div class="carousel-stage"><video autoplay loop muted playsinline></video></div>
+          <div class="carousel-controls">
+            <button class="carousel-arrow prev" type="button" aria-label="Previous clip">&lsaquo;</button>
+            <div class="carousel-dots"></div>
+            <button class="carousel-arrow next" type="button" aria-label="Next clip">&rsaquo;</button>
+            <span class="carousel-counter"><b class="counter-now">1</b><span class="counter-sep">/</span><span class="counter-total">4</span></span>
+          </div>
+        </figure>
+        <p class="result-analysis">The cleanest generalizer in the suite: 2-link joint trajectories live on a low-dimensional manifold the model has truly learned.</p>
+      </section>
+
+    </div><!-- /result-list -->
+
+    <h3 class="text subsection-title">Full quantitative results</h3>
+    <p class="text caption-text" style="margin-top:0;">ACWM-DiT-S, 100k training steps, 50 denoising steps. MSE values are scaled by 10<sup>&minus;3</sup>.</p>
+    <div class="metric-table-wrap">
+      <table class="metric-table">
+        <thead>
+          <tr>
+            <th rowspan="2">Category</th>
+            <th rowspan="2">Environment</th>
+            <th colspan="3" class="th-ind">In-distribution</th>
+            <th colspan="3" class="th-ood">Out-of-distribution</th>
+            <th rowspan="2">&Delta;SSIM</th>
+          </tr>
+          <tr>
+            <th>MSE&darr;</th><th>SSIM&uarr;</th><th>PSNR&uarr;</th>
+            <th>MSE&darr;</th><th>SSIM&uarr;</th><th>PSNR&uarr;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td rowspan="2" class="cat-cell cat-rigid">Rigid</td><td class="env-name">Push Cube</td>     <td>2.92</td><td>0.955</td><td>25.35</td><td>2.95</td><td>0.954</td><td>25.30</td><td><span class="delta delta-flat">&minus;0.001</span></td></tr>
+          <tr>                                                                              <td class="env-name">Stack Cube</td>    <td>5.52</td><td>0.889</td><td>22.58</td><td>7.00</td><td>0.872</td><td>21.55</td><td><span class="delta delta-mid">&minus;0.017</span></td></tr>
+          <tr><td rowspan="2" class="cat-cell cat-deform">Deformable</td><td class="env-name">Push Rope</td><td>0.21</td><td>0.988</td><td>36.70</td><td>0.33</td><td>0.985</td><td>34.83</td><td><span class="delta delta-flat">&minus;0.003</span></td></tr>
+          <tr>                                                                              <td class="env-name">Cloth Move</td>    <td>10.67</td><td>0.920</td><td>19.72</td><td>23.82</td><td>0.864</td><td>16.23</td><td><span class="delta delta-bad">&minus;0.056</span></td></tr>
+          <tr><td rowspan="2" class="cat-cell cat-particle">Particle</td><td class="env-name">Push Sand</td><td>0.52</td><td>0.975</td><td>32.85</td><td>1.53</td><td>0.941</td><td>28.16</td><td><span class="delta delta-mid">&minus;0.034</span></td></tr>
+          <tr>                                                                              <td class="env-name">Pour Water</td>    <td>2.63</td><td>0.911</td><td>25.80</td><td>3.49</td><td>0.874</td><td>24.57</td><td><span class="delta delta-mid">&minus;0.037</span></td></tr>
+          <tr><td rowspan="2" class="cat-cell cat-kine">Kinematics</td><td class="env-name">Robot Arm</td>  <td>1.43</td><td>0.969</td><td>28.43</td><td>6.56</td><td>0.902</td><td>21.83</td><td><span class="delta delta-bad">&minus;0.067</span></td></tr>
+          <tr>                                                                              <td class="env-name">Reacher</td>       <td>0.26</td><td>0.992</td><td>35.85</td><td>0.27</td><td>0.992</td><td>35.65</td><td><span class="delta delta-flat">0.000</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Ablations / Case studies ───────────────────────────────────────────── -->
+  <div id="ablations" class="content-section">
+    <div class="section-header">
+      <span class="section-kicker">§ 4 &mdash; Ablations</span>
+      <h2 class="text">What actually moves the needle?</h2>
+    </div>
+    <p class="text section-lead">
+      We probe four design axes: <strong>action conditioning</strong>, <strong>latent space</strong>, <strong>action dimensionality</strong>, and <strong>model scale</strong>. Each finding is anchored on the same evaluation protocol as the main results.
+    </p>
+
+    <article class="abl-card">
+      <header>
+        <span class="abl-tag">Action conditioning</span>
+        <h3>Cross-attention scales with action dimensionality &mdash; AdaLN doesn't</h3>
+      </header>
+      <p>At <span class="kbd">d<sub>a</sub>&nbsp;=&nbsp;2</span> (Push Cube, Push Rope), AdaLN and cross-attention tie. At <span class="kbd">d<sub>a</sub>&nbsp;=&nbsp;7</span> (Robot Arm) cross-attention recovers <strong>+3.18&nbsp;dB InD</strong> and <strong>+1.55&nbsp;dB OoD</strong>. At <span class="kbd">d<sub>a</sub>&nbsp;=&nbsp;8</span> (Cloth Move), it slightly hurts InD but yields a striking <strong>+6.59&nbsp;dB OoD</strong>: AdaLN's single global vector can't carry per-arm signals.</p>
+      <table class="mini-table">
+        <thead><tr><th>Environment</th><th>d<sub>a</sub></th><th>AdaLN &middot; OoD PSNR</th><th>Cross-Attn &middot; OoD PSNR</th><th>&Delta;</th></tr></thead>
+        <tbody>
+          <tr><td>Push Cube</td><td>2</td><td>25.30</td><td>25.18</td><td><span class="delta delta-flat">&asymp;</span></td></tr>
+          <tr><td>Push Rope</td><td>2</td><td>34.83</td><td>34.77</td><td><span class="delta delta-flat">&asymp;</span></td></tr>
+          <tr><td>Robot Arm</td><td>7</td><td>21.83</td><td>23.38</td><td><span class="delta delta-good">+1.55</span></td></tr>
+          <tr class="row-best"><td>Cloth Move</td><td>8</td><td>16.23</td><td>22.82</td><td><span class="delta delta-good">+6.59</span></td></tr>
+        </tbody>
+      </table>
+    </article>
+
+    <article class="abl-card">
+      <header>
+        <span class="abl-tag">Latent space</span>
+        <h3>Temporally-aware causal VAE &gt; frame-independent VAE</h3>
+      </header>
+      <p>A causal video VAE with <strong>4&times; temporal compression</strong> outperforms a frame-independent image VAE on both InD and OoD &mdash; even on a highly stochastic particle task like Pour Water. Temporal coupling in latent space matters more than higher spatial fidelity per frame.</p>
+      <table class="mini-table">
+        <thead><tr><th>VAE</th><th>Temp. compression</th><th>InD PSNR</th><th>OoD PSNR</th></tr></thead>
+        <tbody>
+          <tr><td>FluxVAE</td><td>1&times;</td><td>24.89</td><td>24.09</td></tr>
+          <tr class="row-best"><td>WanVAE (ours)</td><td>4&times;</td><td><b>25.80</b></td><td><b>24.57</b></td></tr>
+        </tbody>
+      </table>
+    </article>
+
+    <article class="abl-card">
+      <header>
+        <span class="abl-tag">Action dimensionality</span>
+        <h3>Richer actions hurt InD but unlock OoD generalization</h3>
+      </header>
+      <p>On Cloth Move, expanding the action space from a shared 3-DoF displacement to <strong>full 8-DoF per-arm control</strong> lifts OoD PSNR from <strong>16.23&nbsp;&rarr;&nbsp;21.60&nbsp;dB</strong> (a <span class="delta delta-good">+5.37&nbsp;dB</span> jump), at a modest InD cost. Richer control signals also act as richer observations.</p>
+      <table class="mini-table">
+        <thead><tr><th>Action space</th><th>d<sub>a</sub></th><th>InD PSNR</th><th>OoD PSNR</th></tr></thead>
+        <tbody>
+          <tr><td>Shared &Delta;xyz</td><td>3</td><td>19.72</td><td>16.23</td></tr>
+          <tr class="row-best"><td>Per-arm &Delta;pose + grasp</td><td>8</td><td>18.91</td><td><b>21.60</b></td></tr>
+        </tbody>
+      </table>
+    </article>
+
+    <article class="abl-card">
+      <header>
+        <span class="abl-tag">Model scale</span>
+        <h3>Bigger helps OoD more than InD &mdash; with diminishing returns</h3>
+      </header>
+      <p>Scaling DiT-S &rarr; DiT-M &rarr; DiT-L (200M &rarr; 600M &rarr; 800M) yields the largest gains on the OoD split: Robot Arm OoD PSNR climbs <strong>21.84&nbsp;&rarr;&nbsp;23.51&nbsp;dB</strong>. The S&rarr;M jump dominates; M&rarr;L is incremental at the current data scale.</p>
+      <table class="mini-table">
+        <thead><tr><th>Model</th><th>Params</th><th>Cloth Move &middot; InD</th><th>Cloth Move &middot; OoD</th><th>Robot Arm &middot; InD</th><th>Robot Arm &middot; OoD</th></tr></thead>
+        <tbody>
+          <tr><td>DiT-S</td><td>~200M</td><td>19.68</td><td>16.49</td><td>28.38</td><td>21.84</td></tr>
+          <tr><td>DiT-M</td><td>~600M</td><td>19.89</td><td>16.98</td><td>29.04</td><td>23.11</td></tr>
+          <tr class="row-best"><td>DiT-L</td><td>~800M</td><td><b>20.01</b></td><td><b>17.24</b></td><td><b>29.27</b></td><td><b>23.51</b></td></tr>
+        </tbody>
+      </table>
+    </article>
+  </div>
+
+  <!-- Findings ───────────────────────────────────────────────────────────── -->
+  <div id="findings" class="content-section">
+    <div class="section-header">
+      <span class="section-kicker">§ 5 &mdash; Takeaways</span>
+      <h2 class="text">What we learned about diffusion ACWMs &amp; physics</h2>
+    </div>
+
+    <ol class="finding-list">
+      <li>
+        <span class="finding-num">01</span>
+        <div>
+          <h4>Generalization tracks state dimensionality, not physics category.</h4>
+          <p>Low-dimensional geometric dynamics (rigid-body translation, 2-link joints) transfer robustly. High-dimensional or stochastic dynamics (cloth, sand, 7-DoF arm) expose the model's reliance on appearance statistics.</p>
+        </div>
+      </li>
+      <li>
+        <span class="finding-num">02</span>
+        <div>
+          <h4>Cross-attention beats AdaLN once actions are high-dimensional.</h4>
+          <p>At <span class="kbd">d<sub>a</sub>&nbsp;=&nbsp;2</span> the two are indistinguishable. At <span class="kbd">d<sub>a</sub>&nbsp;=&nbsp;7&ndash;8</span>, cross-attention recovers +3.18&nbsp;dB InD on Robot Arm and +6.59&nbsp;dB OoD on Cloth Move &mdash; AdaLN's single global vector becomes a per-joint bottleneck.</p>
+        </div>
+      </li>
+      <li>
+        <span class="finding-num">03</span>
+        <div>
+          <h4>Temporal VAE + richer actions consistently improve OoD.</h4>
+          <p>A causal VAE with 4&times; temporal compression beats a frame-independent encoder. Expanding Cloth Move to full per-arm control yields +5.37&nbsp;dB OoD at a small InD cost &mdash; richer signals double as richer observations.</p>
+        </div>
+      </li>
+      <li>
+        <span class="finding-num">04</span>
+        <div>
+          <h4>Models still capture <em>visual statistics</em>, not <em>physical laws</em>.</h4>
+          <p>OoD failures &mdash; cubes vanishing, water levels hallucinated, articulated arms blurring &mdash; consistently surface where appearance shortcuts can no longer fake the answer. ACWM-Phys gives the community a clean lever to push diffusion world models toward physical structure.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="cta-banner">
+      <div>
+        <h3>Stress-test your world model on ACWM-Phys</h3>
+        <p>Dataset, checkpoints, and evaluation code are released. Drop your model in &mdash; we report masked-MSE / SSIM / PSNR on the same InD &amp; OoD splits.</p>
+      </div>
+      <div class="cta-buttons">
+        <a class="button primary" href="https://huggingface.co/datasets/t1an/ACWM-Phys" target="_blank"><img class="btn-logo" src="./static/images/hf.png" alt=""> &nbsp;Dataset</a>
+        <a class="button" href="https://github.com/xavihart/ACWM-Phys-dev" target="_blank"><img class="btn-logo" src="./static/images/github.png" alt=""> &nbsp;Code</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- BibTeX ─────────────────────────────────────────────────────────────── -->
+  <div id="bibtex" class="content-section">
+    <h2 class="text">BibTeX</h2>
+    <div class="bibtex-container">
+      <button class="copy-btn" onclick="
+        navigator.clipboard.writeText(document.getElementById('bibtex-code').innerText);
+        this.textContent='Copied';
+        setTimeout(()=>this.textContent='Copy',1500);">Copy</button>
+      <pre id="bibtex-code">@article{xue2026acwm,
+  title={ACWM-Phys: Investigating Generalized Physical Interaction in Action-Conditioned Video World Models},
+  author={Xue, Haotian and Chen, Yipu and Ma, Liqian and Zhao, Zelin and Moukheiber, Lama and Zhu, Yuchen and Che, Yongxin},
+  journal={arXiv preprint arXiv:2605.08567},
+  year={2026}
+}</pre>
+    </div>
+  </div>
+
+  <!-- <footer>
+    ACWM-Phys &nbsp;&middot;&nbsp; Georgia Institute of Technology
+  </footer> -->
+
+</d-article>
+
+</body>
+</html>
