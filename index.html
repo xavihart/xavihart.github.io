@@ -98,7 +98,7 @@
     /* ── hero ────────────────────────────────────────── */
     .hero {
       display: grid;
-      grid-template-columns: 112px 1fr;
+      grid-template-columns: 148px 1fr;
       gap: 28px;
       align-items: flex-start;
       margin-bottom: 40px;
@@ -106,8 +106,8 @@
 
     .portrait-wrap {
       position: relative;
-      width: 112px;
-      height: 112px;
+      width: 148px;
+      height: 148px;
       cursor: pointer;
       user-select: none;
       flex-shrink: 0;
@@ -126,18 +126,6 @@
     .portrait-wrap .cat   { opacity: 0; z-index: 2; }
     .portrait-wrap.revealed .main { opacity: 0; }
     .portrait-wrap.revealed .cat  { opacity: 1; }
-    .portrait-wrap::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 10px;
-      background: repeating-linear-gradient(
-        to bottom, transparent 0px, transparent 3px,
-        rgba(0,0,0,.07) 3px, rgba(0,0,0,.07) 4px
-      );
-      pointer-events: none;
-      z-index: 3;
-    }
     .cat-badge {
       position: absolute;
       bottom: -10px; right: -10px;
@@ -484,7 +472,7 @@
 
   <!-- ── HERO ─────────────────────────────────────────── -->
   <div class="hero">
-    <div style="position:relative; width:112px; height:112px; flex-shrink:0; z-index:1; overflow:visible">
+    <div style="position:relative; width:148px; height:148px; flex-shrink:0; z-index:1; overflow:visible">
       <div class="portrait-wrap" id="portrait" title="click to meet my cat">
         <img class="main" src="static/image/photos/haotian_2026.png" alt="Haotian Xue" />
         <img class="cat"  src="static/image/photos/pudding/pudding1.png" alt="Haotian's cat" />
@@ -525,6 +513,23 @@
     </div>
   </div>
 
+  <!-- ── JOB MARKET BANNER ────────────────────────────────── -->
+  <div style="
+    border-left: 3px solid var(--red);
+    background: color-mix(in oklab, var(--red) 7%, var(--surface));
+    border-radius: 6px;
+    padding: 10px 16px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    line-height: 1.6;
+  ">
+    I will be on the <strong>2027 job market</strong>. Open to
+    <span style="color:var(--text)">Research Scientist / Research Engineer / MTS</span>
+    positions related to <span style="color:var(--text)">Generative AI</span> and
+    <span style="color:var(--text)">Multimodal LLMs</span>.
+    Feel free to reach out — <a href="mailto:htxue.ai@gatech.edu">htxue.ai@gatech.edu</a>
+  </div>
+
   <!-- ── ABOUT ─────────────────────────────────────────── -->
   <div class="sec-label">about</div>
   <div class="term" style="margin-bottom:32px">
@@ -546,7 +551,7 @@
       <div style="margin-top:10px"><span class="prompt">➜</span> <span class="cmd">cat interests.md</span></div>
       <div style="margin-top:4px; padding-left:4px; line-height:2; font-family: system-ui, -apple-system, sans-serif; font-size: 13px;">
         <div><span class="val" style="font-family:var(--font)">▸</span> Video diffusion and world models &nbsp;<a href="https://xavihart.github.io/mogan/">[MoGAN]</a> <a href="https://xavihart.github.io/ACWM-Phys">[ACWM-Phys]</a></div>
-        <div><span class="val" style="font-family:var(--font)">▸</span> Visual grounding in VLM &nbsp;<a href="https://github.com/xavihart/PIO">[PIO-Bench]</a> <a href="https://lamawmouk.github.io/SGMRI-VQA">[SGMRI-VQA]</a></div>
+        <div><span class="val" style="font-family:var(--font)">▸</span> Multi-modal Large Language Models &nbsp;<a href="https://github.com/xavihart/PIO">[PIO-Bench]</a> <a href="https://lamawmouk.github.io/SGMRI-VQA">[SGMRI-VQA]</a></div>
         <div><span class="val" style="font-family:var(--font)">▸</span> Embodied AI &nbsp;<a href="https://quest-model.github.io/">[QueST]</a></div>
         <div><span class="val" style="font-family:var(--font)">▸</span> Safe generative AI &nbsp;<a href="https://github.com/xavihart/Diff-PGD">[Diff-PGD]</a> <a href="https://github.com/xavihart/Diff-Protect">[SDS-Attack]</a> <a href="https://github.com/xavihart/PDM-Pure">[PDM-Pure]</a> <a href="https://sites.google.com/view/diffusion-policy-attacker">[DP-Attacker]</a> <a href="https://immune2v.github.io/">[Immune2V]</a></div>
       </div>
@@ -596,6 +601,7 @@
       <li><span class="ts">2026-04</span><span class="msg">I will be at <strong>Meta MSL</strong> working on World Model.</span></li>
       <li><span class="ts">2026-01</span><span class="msg">LapFlow accepted to <strong>ICLR 2026</strong>. Laplacian multi-scale flow matching for generation.</span></li>
       <li><span class="ts">2025-10</span><span class="msg">We propose <a href="https://xavihart.github.io/mogan/">MoGAN</a>, post-training for motion quality in few-step video diffusion.</span></li>
+      <li><span class="ts">2026-04</span><span class="msg"><a href="https://github.com/xavihart/PIO">PIO-Bench</a> accepted to <strong>TMLR 2026</strong>!</span></li>
       <li><span class="ts">2025-09</span><span class="msg">We propose <a href="https://github.com/xavihart/PIO">PIO-Bench</a>, a visual-grounding-centric benchmark for embodied VLM reasoning.</span></li>
       <li><span class="ts">2025-04</span><span class="msg">Joining <strong>Adobe Firefly</strong> (Summer+Fall) for post-training on video diffusion.</span></li>
       <li><span class="ts">2024-10</span><span class="msg"><strong>NeurIPS 2024 Scholar Award</strong> — see you in Vancouver!</span></li>
@@ -677,7 +683,7 @@
         <li>
           <div class="pub-item highlight">
             <div class="pub-meta">
-              <div class="pub-title"><a href="https://xavihart.github.io/mogan/">MoGAN: Improving Motion Quality in Video Diffusion via Few-Step Motion Adversarial Post-Training</a><span class="highlight-badge">★ highlight</span></div>
+              <div class="pub-title"><a href="https://xavihart.github.io/mogan/">MoGAN: Improving Motion Quality in Video Diffusion via Few-Step Motion Adversarial Post-Training</a></div>
               <div class="pub-authors"><span class="me">Haotian Xue</span>, Qi Chen, Zhonghao Wang, Xun Huang, Eli Shechtman, Jinrong Xie, Yongxin Chen</div>
               <div><span class="pub-venue">arXiv 2025</span></div>
               <div class="pub-tags">
@@ -714,7 +720,7 @@
             <div class="pub-meta">
               <div class="pub-title"><a href="https://github.com/xavihart/PIO">Point-It-Out: Benchmarking Embodied Reasoning for VLMs in Multi-Stage Visual Grounding</a></div>
               <div class="pub-authors"><span class="me">Haotian Xue</span>, Yunhao Ge, Yu Zeng, Max Li, Ming-Yu Liu, Yongxin Chen, Jiaojiao Fan</div>
-              <div><span class="pub-venue">arXiv 2025</span></div>
+              <div><span class="pub-venue iclr">TMLR 2026</span></div>
               <div class="pub-tags">
                 <span class="ptag vlm">VLM</span>
                 <span class="ptag robotics">Robotics</span>
